@@ -1,13 +1,11 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-import Edit from './src/Screens/EditDetails/Edit'
-import NavigateScreen from './src/Routes/NavigateScreen'
-
+import NavigateScreen from './src/routes/navigateScreen'
 
 
 const App = (props:any) => {
   return (
-  <NavigateScreen/>
+    <NavigateScreen />
   )
 }
 

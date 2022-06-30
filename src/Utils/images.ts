@@ -6,5 +6,7 @@ export const images={
     calendar:require('../assets/images/calendar.png'),
     left:require('../assets/images/left.png'),
     google:require('../assets/images/googlelogin.png'),
-    apple:require('../assets/images/applelogin.png')
+    apple:require('../assets/images/applelogin.png'),
+    girl:require('../assets/images/otpgirl.png'),
+    footer:require('../assets/images/FooterPattern.png'),
 }

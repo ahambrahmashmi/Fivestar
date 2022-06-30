@@ -16,9 +16,9 @@ import ImagePicker from 'react-native-image-crop-picker';
 import CustomTextInput from '../../component/customTextInput';
 import DatePicker from 'react-native-date-picker';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import ModalScreens from '../ModalScreen/ModalOpen';
+import ModalScreens from '../ModalScreen/modalOpen'
 import Modal from 'react-native-modal';
-import {styles} from './style';
+import { styles } from './style';
 import {images} from '../../Utils/images';
 import {useNavigation} from '@react-navigation/native';
 
@@ -27,8 +27,6 @@ interface userType {
   setOpen?: boolean;
   open?: boolean;
   Edit?: any;
-  // navigation?:any
-  // useNavigation?:any
 }
 const Edit = (props: userType) => {
   const navigation = useNavigation<any>();

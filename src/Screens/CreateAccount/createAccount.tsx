@@ -10,11 +10,11 @@ import {
 } from 'react-native';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {styles} from './style';
 import CustomTextInput from '../../component/customTextInput';
 import CheckBox from '@react-native-community/checkbox';
 import {images} from '../../Utils/images';
 import {emailRegex, passwordRegex, mobilenoRegex} from '../../Utils/constant';
+import { styles } from './style';
 
 interface userdefined {
   val?: any;
@@ -30,6 +30,7 @@ export default function CreateAccount(props: userdefined) {
   const [passwordError, setPasswordError] = React.useState('');
   const [mobno, setMobno] = React.useState('');
   const [mobnoerror, setMobnoerror] = React.useState('');
+  
 
   const handleValidEmail = (val: any) => {
     if (val.length === 0) {
@@ -148,6 +149,7 @@ export default function CreateAccount(props: userdefined) {
 
         <View>
           <TouchableOpacity
+           onPress={()=>navigation.navigate('Verification')}
             disabled={!isSelected}
             style={
               !isSelected
