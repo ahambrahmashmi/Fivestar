@@ -9,4 +9,6 @@ export const images={
     apple:require('../assets/images/applelogin.png'),
     girl:require('../assets/images/otpgirl.png'),
     footer:require('../assets/images/FooterPattern.png'),
+    dialog:require('../assets/images/Dialog_Box.png'),
+    thumb:require('../assets/images/thumb.png'),
 }

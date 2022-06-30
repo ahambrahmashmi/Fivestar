@@ -140,7 +140,7 @@ export default function CreateAccount(props: userdefined) {
           <View style={styles.agree}>
             <Text style={styles.agreetext}>I agree to the </Text>
           </View>
-          <TouchableOpacity onPress={() => navigation.navigate('Edit')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Terms')}>
             <View style={styles.terms}>
               <Text style={styles.termstext}>Terms of use</Text>
             </View>

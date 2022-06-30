@@ -11,7 +11,10 @@ import React, {useRef, useState} from 'react';
 import {images} from '../../Utils/images';
 import {vh, vw} from '../../Utils/dimension';
 import {useNavigation} from '@react-navigation/native';
+import Modal from 'react-native-modal';
 import {COLOR} from '../../Utils/color';
+import ModalScreens from '../ModalScreen/congratulationModal';
+
 export default function Verify() {
   const navigation = useNavigation<any>();
 
@@ -21,6 +24,12 @@ export default function Verify() {
   const digit4 = useRef<TextInput>(null);
 
   const [otp, setOtp] = useState('');
+  const [modal, setModalOpen] = React.useState<boolean>(false);
+
+  const openmmodal = () => {
+    setModalOpen(!modal);
+  };
+
   return (
     <View style={styles.parent}>
       <View style={styles.lefticon}>
@@ -56,7 +65,11 @@ export default function Verify() {
           onChangeText={(text: any) => {
             setOtp(otp => otp + text);
             digit2?.current?.focus();
-          }}
+            if(text==''){
+              digit1?.current?.focus();
+            }
+          }
+        }
           maxLength={1}
           style={styles.texinput}
         />
@@ -66,7 +79,11 @@ export default function Verify() {
           onChangeText={(text: any) => {
             setOtp(otp => otp + text);
             digit3?.current?.focus();
-          }}
+            if(text==''){
+              digit1?.current?.focus();
+            }
+          }
+        }
           maxLength={1}
           style={styles.texinput}
         />
@@ -75,7 +92,11 @@ export default function Verify() {
           onChangeText={(text: any) => {
             setOtp(otp => otp + text);
             digit4?.current?.focus();
-          }}
+            if(text==''){
+              digit2?.current?.focus();
+            }
+          }
+        }
           maxLength={1}
           style={styles.texinput}
         />
@@ -84,14 +105,18 @@ export default function Verify() {
           onChangeText={(text: any) => {
             setOtp(otp => otp + text);
             digit4?.current?.focus();
-          }}
+            if(text==''){
+              digit3?.current?.focus();
+            }
+          }
+        }
           maxLength={1}
           style={styles.texinput}
         />
       </View>
 
       {otp.length === 4 ? (
-        <TouchableOpacity style={styles.buttonparent}>
+        <TouchableOpacity style={styles.buttonparent} onPress={openmmodal}>
           <Text style={styles.buttontxt}>{'SUBMIT'}</Text>
         </TouchableOpacity>
       ) : (
@@ -109,6 +134,10 @@ export default function Verify() {
           </View>
         </TouchableOpacity>
       </View>
+
+      <Modal isVisible={modal}>
+        <ModalScreens modal={modal} setModalOpen={setModalOpen}></ModalScreens>
+      </Modal>
 
       <View style={styles.girlview}>
         <Image source={images.girl} style={styles.girlimg} />
@@ -190,7 +219,8 @@ const styles = StyleSheet.create({
   buttontxt: {
     color: COLOR.BLACK,
     fontSize: 16,
-    fontFamily: 'HelveticaNeue-BoldItalic',
+     fontFamily: 'HelveticaNeue-BoldItalic',
+    // fontFamily:"DancingScript-VariableFont_wght"
   },
   receiverparent: {
     justifyContent: 'center',
@@ -207,7 +237,8 @@ const styles = StyleSheet.create({
   resendtxt: {
     color: COLOR.LIGHTBLUE,
     fontSize: 18,
-    fontFamily: 'HelveticaNeue-BoldItalic',
+     fontFamily: 'HelveticaNeue-BoldItalic',
+    // fontFamily:'Splash-Regular'
   },
   girlview: {
     height: vh(385),
