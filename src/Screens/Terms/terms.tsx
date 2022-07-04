@@ -3,6 +3,7 @@ import React from 'react';
 import {images} from '../../Utils/images';
 import {vh, vw} from '../../Utils/dimension';
 import {useNavigation} from '@react-navigation/native';
+import { STRINGS } from '../../Utils/string';
 
 export default function Terms() {
   const navigation = useNavigation<any>();
@@ -14,28 +15,24 @@ export default function Terms() {
             onPress={() => navigation.navigate('CreateAccount')}>
             <Image
               source={images.left}
-              style={{height: vh(32), width: vw(32)}}
+              style={styles.arrowimage}
             />
           </TouchableOpacity>
         </View>
         <View style={styles.imagetxt}>
-          <Text style={styles.termstxt}>{'Terms of use'}</Text>
+          <Text style={styles.termstxt}>{STRINGS.LABEL.TERMSUSE}</Text>
         </View>
       </View>
 
       <View style={styles.firstview}>
         <Text style={styles.innertxt}>
-          {
-            'The Fivestar Mobile Application (“App”) and all services provided through the App (collectively, “Services”) are made available by Fivestar App, Inc. (“Fivestar,” “us,” “our,” and/or “we”).  Certain features of the App and Services may be subject to additional guidelines, terms, or rules, which will be posted through the App or Services in connection with such features.  All such additional terms, guidelines, and rules are incorporated by reference into this Agreement.  References to “you” and “your” refer to you, a user of our App and/or Services.'
-          }
+          {STRINGS.LABEL.TERMSFIRST}
         </Text>
       </View>
 
       <View style={styles.secondview}>
         <Text style={styles.innertxt}>
-          {
-            'THESE TERMS OF USE (“AGREEMENT”) SET FORTH THE LEGALLY BINDING TERMS FOR YOUR USE OF THE APP AND SERVICES.  BY ACCESSING OR USING THE APP OR SERVICES, YOU ARE ACCEPTING THIS AGREEMENT AND YOU REPRESENT AND WARRANT THAT YOU HAVE THE RIGHT, AUTHORITY, AND CAPACITY TO ENTER INTO THIS AGREEMENT.  YOU MAY NOT ACCESS OR USE THE APP OR SERVICES OR ACCEPT THE AGREEMENT IF YOU DO NOT HAVE THE CAPACITY TO ENTER INTO THIS AGREEMENT.  IF YOU DO NOT AGREE WITH ALL OF THE PROVISIONS OF THIS AGREEMENT, DO NOT ACCESS AND/OR USE THE APP OR SERVICES.  IF YOU ARE USING THE APP OR SERVICES ON BEHALF OF A COMPANY, ENTITY, OR ORGANIZATION, YOU REPRESENT AND WARRANT THAT YOU ARE AN AUTHORIZED REPRESENTATIVE OF SUCH COMPANY, ENTITY, OR ORGANIZATION WITH THE AUTHORITY TO BIND IT TO THIS AGREEMENT.'
-          }
+          {STRINGS.LABEL.TERMSSECOND}
         </Text>
       </View>
     </View>
@@ -77,4 +74,7 @@ const styles = StyleSheet.create({
     width: vw(340),
     alignSelf: 'center',
   },
+  arrowimage:{
+    height: vh(32), width: vw(32)
+  }
 });

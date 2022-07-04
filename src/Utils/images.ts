@@ -14,5 +14,6 @@ export const images={
     cancel:require('../assets/images/ic_cancel.png'),
     athlete:require('../assets/images/athl.png'),
    fan:require('../assets/images/fan.png'),
-   
+   eyes:require('../assets/images/eyes.png'),
+   eyeop:require('../assets/images/eyeop.png'),
 }

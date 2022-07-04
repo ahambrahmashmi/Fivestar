@@ -17,13 +17,12 @@ import CustomTextInput from '../../component/customTextInput';
 import DatePicker from 'react-native-date-picker';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import ModalScreens from '../ModalScreen/modalOpen';
-
 import Modal from 'react-native-modal';
 import {styles} from './style';
 import {images} from '../../Utils/images';
 import {useNavigation} from '@react-navigation/native';
 import {STRINGS} from '../../Utils/string';
-import ModalScreen from '../ModalScreen/modalOpen';
+import {COLOR} from '../../Utils/color';
 
 interface userType {
   title?: string;
@@ -72,6 +71,10 @@ const Edit = (props: userType) => {
     }
   };
 
+  const Navigatedit = () => {
+    navigation.navigate('CreateAccount');
+  };
+
   return (
     <View style={styles.mainparent}>
       <StatusBar barStyle={'light-content'} translucent={true} />
@@ -81,12 +84,16 @@ const Edit = (props: userType) => {
           <ModalScreens
             setIdentity={setIdentity}
             setModalOpen={setModalOpen}
+            identity={identity}
             modal={modal}></ModalScreens>
         </Modal>
         <Text style={styles.textcolor}>{STRINGS.LABEL.JOHN}</Text>
         <Text style={styles.textcolor}>{STRINGS.LABEL.TELL}</Text>
       </View>
-      <KeyboardAwareScrollView extraHeight={120} style={styles.submitbuttonmargin}>
+      <KeyboardAwareScrollView
+        bounces={false}
+        extraHeight={120}
+        style={styles.submitbuttonmargin}>
         <View style={styles.cover}>
           <TouchableOpacity activeOpacity={0.8} onPress={imageOpencover}>
             <View style={styles.rectangle}>
@@ -131,7 +138,7 @@ const Edit = (props: userType) => {
             date.getFullYear(),
           ].join('')}
           placeholder={STRINGS.LABEL.DOB}
-          placeholderTextColor="#30AADD"
+          placeholderTextColor={COLOR.TEXTCOLOR}
           right={() => (
             <TouchableOpacity
               style={styles.toucablecalendar}
@@ -158,25 +165,23 @@ const Edit = (props: userType) => {
           label="Bio"
           multiline={true}
           placeholder="Bio"
-          placeholderTextColor="#30AADD"
+          placeholderTextColor={COLOR.TEXTCOLOR}
         />
         <CustomTextInput
           label="Referral"
-          placeholder="Referral"
-          placeholderTextColor="#30AADD"
+          placeholder={STRINGS.LABEL.referral}
+          placeholderTextColor={COLOR.TEXTCOLOR}
         />
 
         <CustomTextInput
           label="Sport Watch"
-          placeholder="Sport Watch"
+          placeholder={STRINGS.LABEL.sports}
           multiline={true}
-          placeholderTextColor="#30AADD"
+          placeholderTextColor={COLOR.TEXTCOLOR}
         />
       </KeyboardAwareScrollView>
       <View>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('CreateAccount')}
-          style={styles.submitbutton}>
+        <TouchableOpacity onPress={Navigatedit} style={styles.submitbutton}>
           <Text style={styles.button}>{STRINGS.LABEL.SUBMITBUTTON}</Text>
         </TouchableOpacity>
       </View>

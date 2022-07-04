@@ -6,10 +6,11 @@ const styles = StyleSheet.create({
     flex: 1,
 
     backgroundColor: COLOR.BLACK,
+    
   },
   leftview: {
-    marginTop: 60,
-    marginLeft: 16,
+    marginTop: vh(15),
+    marginLeft: vw(16),
   },
   leftarrowimg: {
     height: vh(30),
@@ -28,12 +29,14 @@ const styles = StyleSheet.create({
   },
   createparent: {
     marginLeft: vw(24),
-    marginTop: 14,
+    marginTop: vh(14),
   },
   innercreatesign: {
-    marginTop: 8,
+    marginTop: vh(8),
   },
-
+  innermainview: {
+    marginTop: vh(5),
+  },
   createbutton: {
     left: vw(10),
 
@@ -43,20 +46,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: vh(50),
     marginTop: vh(30),
-
     width: vw(350),
   },
   buttontext: {
     fontSize: 18,
-
-    fontFamily: 'Helvetica-BlackItalic',
+    fontFamily: 'helvetica-blackitalic',
   },
   checkBox: {
     // marginRight: 11,
-    marginLeft: 22,
+    marginLeft: vw(22),
     width: vw(18),
     height: vh(18),
-    marginTop: vh(30),
+    marginTop: vh(10),
   },
   checkboxparent: {
     justifyContent: 'space-between',
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
     right: vw(5),
   },
   agree: {
-    marginTop: vh(30),
+    marginTop: vh(10),
     marginLeft: vw(3),
   },
   agreetext: {
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   terms: {
-    marginTop: vh(30),
+    marginTop: vh(10),
     marginRight: vw(170),
   },
   termstext: {
@@ -131,9 +132,21 @@ const styles = StyleSheet.create({
   },
 
   handlingAll: {
-    marginTop: 3,
+    marginTop: vh(3),
     color: 'red',
-    paddingLeft: 15,
+    paddingLeft: vw(15),
+  },
+  eyeview: {
+    height: vh(50),
+    top: 20,
+    width: vw(30),
+    justifyContent: 'center',
+    position: 'absolute',
+    right: 28,
+  },
+  eyeimg: {
+    height: 20,
+    width: 20,
   },
 });
 

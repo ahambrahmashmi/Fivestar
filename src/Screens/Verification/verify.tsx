@@ -14,7 +14,8 @@ import {useNavigation} from '@react-navigation/native';
 import Modal from 'react-native-modal';
 import {COLOR} from '../../Utils/color';
 import ModalScreens from '../ModalScreen/congratulationModal';
-import { STRINGS } from '../../Utils/string';
+import {STRINGS} from '../../Utils/string';
+import {styles} from './style';
 
 export default function Verify() {
   const navigation = useNavigation<any>();
@@ -27,14 +28,58 @@ export default function Verify() {
   const [otp, setOtp] = useState('');
   const [modal, setModalOpen] = React.useState<boolean>(false);
 
+  React.useEffect(() => {
+    console.log('otp is ', otp);
+  }, [otp]);
+
   const openmmodal = () => {
     setModalOpen(!modal);
+  };
+
+  const firstdigit = (text: any) => {
+    setOtp(otp => otp + text);
+    digit2?.current?.focus();
+    if (text == '') {
+      digit1?.current?.focus();
+      setOtp(otp => otp.slice(0, 0));
+    }
+  };
+
+  const seconnddigit = (text: any) => {
+    setOtp(otp => otp + text);
+    digit3?.current?.focus();
+    if (text == '') {
+      digit1?.current?.focus();
+      setOtp(otp => otp.slice(0, 1));
+    }
+  };
+
+  const thirddigit = (text: any) => {
+    setOtp(otp => otp + text);
+    digit4?.current?.focus();
+    if (text == '') {
+      digit2?.current?.focus();
+      setOtp(otp => otp.slice(0, 2));
+    }
+  };
+
+  const fourthdidgit = (text: any) => {
+    setOtp(otp => otp + text);
+    digit4?.current?.focus();
+    if (text == '') {
+      digit3?.current?.focus();
+      setOtp(otp => otp.slice(0, 3));
+    }
+  };
+
+  const Naviagte = () => {
+    navigation.navigate('CreateAccount');
   };
 
   return (
     <View style={styles.parent}>
       <View style={styles.lefticon}>
-        <TouchableOpacity onPress={() => navigation.navigate('CreateAccount')}>
+        <TouchableOpacity onPress={Naviagte}>
           <Image source={images.left} style={styles.mainhead} />
         </TouchableOpacity>
       </View>
@@ -44,9 +89,7 @@ export default function Verify() {
       </View>
 
       <View style={styles.digitveri}>
-        <Text style={styles.digitverifytxt}>
-          {STRINGS.LABEL.KINDLY}
-        </Text>
+        <Text style={styles.digitverifytxt}>{STRINGS.LABEL.KINDLY}</Text>
       </View>
 
       <View style={styles.numberview}>
@@ -63,58 +106,30 @@ export default function Verify() {
       <View style={styles.otpview}>
         <TextInput
           ref={digit1}
-          keyboardType='number-pad'
-          onChangeText={(text: any) => {
-            setOtp(otp => otp + text);
-            digit2?.current?.focus();
-            if(text==''){
-              digit1?.current?.focus();
-            }
-          }
-        }
+          keyboardType="number-pad"
+          onChangeText={firstdigit}
           maxLength={1}
           style={styles.texinput}
         />
 
         <TextInput
           ref={digit2}
-          keyboardType='number-pad'
-          onChangeText={(text: any) => {
-            setOtp(otp => otp + text);
-            digit3?.current?.focus();
-            if(text==''){
-              digit1?.current?.focus();
-            }
-          }
-        }
+          keyboardType="number-pad"
+          onChangeText={seconnddigit}
           maxLength={1}
           style={styles.texinput}
         />
         <TextInput
           ref={digit3}
-          keyboardType='number-pad'
-          onChangeText={(text: any) => {
-            setOtp(otp => otp + text);
-            digit4?.current?.focus();
-            if(text==''){
-              digit2?.current?.focus();
-            }
-          }
-        }
+          keyboardType="number-pad"
+          onChangeText={thirddigit}
           maxLength={1}
           style={styles.texinput}
         />
         <TextInput
           ref={digit4}
-          keyboardType='number-pad'
-          onChangeText={(text: any) => {
-            setOtp(otp => otp + text);
-            digit4?.current?.focus();
-            if(text==''){
-              digit3?.current?.focus();
-            }
-          }
-        }
+          keyboardType="number-pad"
+          onChangeText={fourthdidgit}
           maxLength={1}
           style={styles.texinput}
         />
@@ -135,7 +150,7 @@ export default function Verify() {
 
         <TouchableOpacity>
           <View style={styles.resendview}>
-            <Text style={styles.resendtxt}>{'Resend Verification Code'}</Text>
+            <Text style={styles.resendtxt}>{STRINGS.LABEL.RESEND}</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -151,142 +166,3 @@ export default function Verify() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  parent: {
-    flex: 1,
-    backgroundColor: COLOR.BLACK,
-  },
-  mainhead: {
-    height: vh(32),
-    width: vw(32),
-    marginTop: vh(50),
-    left: vw(16),
-  },
-  lefticon: {
-    width: vw(375),
-    height: vh(82),
-  },
-  verifyview: {
-    marginTop: vh(14),
-    width: vw(375),
-    height: vh(32),
-  },
-  verifytxt: {
-    color: '#fff',
-    marginLeft: vw(24),
-    marginRight: vw(59),
-    fontSize: 24,
-    fontFamily: 'helvetica-blackitalic',
-  },
-  digitveri: {
-    marginLeft: vw(30),
-    marginRight: vw(19),
-    marginTop: vh(6),
-  },
-  digitverifytxt: {
-    color: '#fff',
-    fontSize: 15,
-    fontFamily: 'Helvetica',
-  },
-  numberview: {
-    marginLeft: vw(30),
-    marginRight: vw(19),
-    marginTop: vh(5),
-    flexDirection: 'row',
-  },
-  colortxt: {
-    color: COLOR.WHITE,
-  },
-  edittxt: {
-    color: COLOR.LIGHTBLUE,
-    marginLeft: 5,
-  },
-  otpview: {
-    marginTop: vh(38),
-    width: vw(328),
-    height: vh(48),
-    marginLeft: vw(24),
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginHorizontal: 5,
-  },
-  buttonparent: {
-    marginTop: vh(40),
-    marginLeft: vw(23),
-    width: vw(328),
-    height: vh(48),
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: COLOR.LIGHTBLUE,
-    borderRadius: 5,
-  },
-  buttontxt: {
-    color: COLOR.BLACK,
-    fontSize: 18,
-     fontFamily: 'helvetica-blackitalic',
-    // fontFamily:"DancingScript-VariableFont_wght"
-  },
-  receiverparent: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: vh(40),
-  },
-  receivetxt: {
-    color: 'white',
-    fontSize: 14,
-    fontFamily:'Helvetica'
-  },
-  resendview: {
-    marginVertical: 5,
-  },
-  resendtxt: {
-    color: COLOR.LIGHTBLUE,
-    fontSize: 18,
-     fontFamily: 'HelveticaNeue-BoldItalic',
-    // fontFamily:'Splash-Regular'
-  },
-  girlview: {
-    height: vh(385),
-    width: vw(375),
-  },
-  girlimg: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'contain',
-  },
-  bottomimg: {
-    height: vh(71),
-    width: vw(375),
-    zIndex: 1,
-    position: 'absolute',
-    bottom: 0,
-  },
-  texinput: {
-    borderWidth: 1,
-    borderColor: 'white',
-    height: vh(48),
-    width: vw(70),
-    color: COLOR.LIGHTBLUE,
-    fontSize: 30,
-    borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-  },
-  buttonactive: {
-    color: '#595959',
-    fontSize: 16,
-    fontFamily: 'helvetica-blackitalic',
-  },
-  buttonactiveparent: {
-    backgroundColor: '#282828',
-    marginTop: vh(40),
-    marginLeft: vw(23),
-    width: vw(328),
-    height: vh(48),
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 5,
-  },
-});

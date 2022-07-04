@@ -21,6 +21,9 @@ import {
 } from '../../Utils/constant';
 import {styles} from './style';
 import {STRINGS} from '../../Utils/string';
+import {COLOR} from '../../Utils/color';
+import {vh, vw} from '../../Utils/dimension';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 interface userdefined {
   val?: any;
@@ -38,6 +41,7 @@ export default function CreateAccount(props: userdefined) {
   const [mobnoerror, setMobnoerror] = React.useState('');
   const [name, setName] = React.useState('');
   const [nameerror, setnameError] = useState('');
+  const [hidePass, setHidePass] = React.useState(true);
 
   const handleName = (val: any) => {
     if (val.length === 0) {
@@ -79,10 +83,45 @@ export default function CreateAccount(props: userdefined) {
     }
   };
 
+  const NaviagteEdit = () => {
+    navigation.navigate('Edit');
+  };
+
+  const fullName = (value: any) => {
+    setName(value);
+    handleName(value);
+  };
+
+  const mobNo = (value: any) => {
+    setMobno(value);
+    handleValidMobno(value);
+  };
+
+  const emailInput = (value: any) => {
+    setEmail(value);
+    handleValidEmail(value);
+  };
+
+  const passINput = (value: any) => {
+    setPassword(value);
+    handlePassword(value);
+  };
+  const termsNavigate = () => {
+    navigation.navigate('Terms');
+  };
+
+  const verifyNavigate = () => {
+    navigation.navigate('Verification');
+  };
+
+  const passwordToggle = () => {
+    setHidePass(!hidePass);
+  };
+
   return (
-    <View style={styles.mainparent}>
+    <SafeAreaView style={styles.mainparent}>
       <View style={styles.leftview}>
-        <TouchableOpacity onPress={() => navigation.navigate('Edit')}>
+        <TouchableOpacity onPress={NaviagteEdit}>
           <Image style={styles.leftarrowimg} source={images.left} />
         </TouchableOpacity>
       </View>
@@ -94,60 +133,59 @@ export default function CreateAccount(props: userdefined) {
           <Text style={styles.signuptext}>{STRINGS.LABEL.SIGN}</Text>
         </View>
       </View>
-      <ScrollView>
-        <View>
+      <KeyboardAwareScrollView bounces={false}>
+        <View style={styles.innermainview}>
           <CustomTextInput
             label="Full Name"
-            placeholder="Full Name"
-            onChangeText={(value: any) => {
-              setName(value);
-              handleName(value);
-            }}
+            placeholder={STRINGS.LABEL.FUllNAME}
+            onChangeText={fullName}
           />
 
-          {nameerror ? (
-            <Text style={styles.handlingAll}>{nameerror}</Text>
-          ) : null}
+          <Text style={styles.handlingAll}>{nameerror ? nameerror : null}</Text>
+
           <CustomTextInput
             label="Mobile Number"
-            placeholder="Mobile Number"
+            placeholder={STRINGS.LABEL.MobNO}
             value={mobno}
-            onChangeText={(value: any) => {
-              setMobno(value);
-              handleValidMobno(value);
-            }}
+            onChangeText={mobNo}
             keyboardtype="number-pad"
           />
-          {mobnoerror ? (
-            <Text style={styles.handlingAll}>{mobnoerror}</Text>
-          ) : null}
+
+          <Text style={styles.handlingAll}>
+            {mobnoerror ? mobnoerror : null}
+          </Text>
 
           <CustomTextInput
             label="Email"
-            placeholder="Email"
+            placeholder={STRINGS.LABEL.email}
             value={email}
-            onChangeText={(value: any) => {
-              setEmail(value);
-              handleValidEmail(value);
-            }}
+            onChangeText={emailInput}
           />
-          {emailValidError ? (
-            <Text style={styles.handlingAll}>{emailValidError}</Text>
-          ) : null}
+
+          <Text style={styles.handlingAll}>
+            {emailValidError ? emailValidError : null}
+          </Text>
 
           <CustomTextInput
             label="Password"
-            placeholder="Password"
+            placeholder={STRINGS.LABEL.pass}
             value={password}
-            securetextentry={true}
-            onChangeText={(value: any) => {
-              setPassword(value);
-              handlePassword(value);
-            }}
+            securetextentry={hidePass}
+            right={() => (
+              <TouchableOpacity onPress={passwordToggle} style={styles.eyeview}>
+                <Image
+                  style={styles.eyeimg}
+                  source={hidePass ? images.eyes : images.eyeop}
+                  resizeMode="contain"
+                />
+              </TouchableOpacity>
+            )}
+            onChangeText={passINput}
           />
-          {passwordError ? (
-            <Text style={styles.handlingAll}>{passwordError}</Text>
-          ) : null}
+
+          <Text style={styles.handlingAll}>
+            {passwordError ? passwordError : null}
+          </Text>
         </View>
 
         <View style={styles.checkboxparent}>
@@ -156,18 +194,18 @@ export default function CreateAccount(props: userdefined) {
               value={isSelected}
               onValueChange={setSelection}
               boxType={'square'}
-              onFillColor="#44C2E3"
+              onFillColor={COLOR.LIGHTBLUE}
               lineWidth={2}
-              onCheckColor="black"
+              onCheckColor={COLOR.BLACK}
               animationDuration={0.2}
               style={styles.checkBox}
-              onTintColor="#44C2E3"
+              onTintColor={COLOR.LIGHTBLUE}
             />
           </View>
           <View style={styles.agree}>
             <Text style={styles.agreetext}>{STRINGS.LABEL.AGREE}</Text>
           </View>
-          <TouchableOpacity onPress={() => navigation.navigate('Terms')}>
+          <TouchableOpacity onPress={termsNavigate}>
             <View style={styles.terms}>
               <Text style={styles.termstext}>{STRINGS.LABEL.TERMSUSE}</Text>
             </View>
@@ -176,11 +214,11 @@ export default function CreateAccount(props: userdefined) {
 
         <View>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Verification')}
+            onPress={verifyNavigate}
             disabled={!isSelected}
             style={
               !isSelected
-                ? {...styles.createbutton, backgroundColor: '#1F1B1B'}
+                ? {...styles.createbutton, backgroundColor: COLOR.BROWNBACK}
                 : styles.createbutton
             }>
             <Text style={styles.buttontext}>{STRINGS.LABEL.CREATE}</Text>
@@ -190,7 +228,7 @@ export default function CreateAccount(props: userdefined) {
         <View style={styles.orparent}>
           <View style={styles.orinner} />
           <View>
-            <Text style={styles.ortext}>{'OR'}</Text>
+            <Text style={styles.ortext}>{STRINGS.LABEL.or}</Text>
           </View>
           <View style={styles.orouter} />
         </View>
@@ -209,13 +247,13 @@ export default function CreateAccount(props: userdefined) {
           <View>
             <Text style={styles.alreadyuser}>{STRINGS.LABEL.ALREADY}</Text>
           </View>
-          <TouchableOpacity onPress={() => navigation.navigate('Edit')}>
+          <TouchableOpacity onPress={NaviagteEdit}>
             <View>
               <Text style={styles.sign}>{STRINGS.LABEL.SIGNIN}</Text>
             </View>
           </TouchableOpacity>
         </View>
-      </ScrollView>
-    </View>
+      </KeyboardAwareScrollView>
+    </SafeAreaView>
   );
 }

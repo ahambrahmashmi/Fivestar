@@ -1,12 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  Dimensions,
-  TouchableOpacity,
-  ImageBackground,
-} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import {COLOR} from '../../Utils/color';
 import {images} from '../../Utils/images';
@@ -14,16 +6,20 @@ import {STRINGS} from '../../Utils/string';
 import {vh, vw} from '../../Utils/dimension';
 
 const ModalScreens = (props: any) => {
-  const {modal, setModalOpen, setIdentity} = props;
+  const {modal, setModalOpen, identity, setIdentity} = props;
 
   const handlemodalstateAthelte = () => {
     setIdentity('Athelete');
-    setModalOpen(!modal);
+    setTimeout(() => {
+      setModalOpen(!modal);
+    }, 500);
   };
 
   const handleFanmodalstate = () => {
     setIdentity('Fan');
-    setModalOpen(!modal);
+    setTimeout(() => {
+      setModalOpen(!modal);
+    }, 500);
   };
 
   const modalClosed = () => {
@@ -42,19 +38,19 @@ const ModalScreens = (props: any) => {
         <Text style={styles.select}>{STRINGS.LABEL.identity}</Text>
       </View>
 
-      <TouchableOpacity activeOpacity={0.4} onPress={handleFanmodalstate}>
-        <View style={styles.fanview}>
-          
-          <ImageBackground style={styles.fanimg} source={images.fan} >
-            <Text style={styles.fantext}>{STRINGS.LABEL.fan}</Text>
-          </ImageBackground>
-        </View>
+      <TouchableOpacity onPress={handleFanmodalstate}>
+        <Image
+          source={images.fan}
+          style={identity == 'Fan' ? styles.fanimgActive1 : styles.fanimg}
+        />
+        <Text style={styles.fantext}>{STRINGS.LABEL.fan}</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity activeOpacity={0.4} onPress={handlemodalstateAthelte}>
-        <View style={styles.athview}>
-          <Image source={images.athlete} style={styles.fanimg} />
-        </View>
+      <TouchableOpacity onPress={handlemodalstateAthelte}>
+        <Image
+          source={images.athlete}
+          style={identity == 'Athelete' ? styles.fanimgActive1 : styles.fanimg}
+        />
       </TouchableOpacity>
     </View>
   );
@@ -65,8 +61,7 @@ const styles = StyleSheet.create({
     marginTop: 'auto',
     borderTopWidth: 3,
     borderColor: COLOR.LIGHTBLUE,
-    backgroundColor: '#121212',
-
+    backgroundColor: COLOR.BLACK,
     width: vw(377),
     height: vh(330),
     alignSelf: 'center',
@@ -87,29 +82,43 @@ const styles = StyleSheet.create({
   select: {
     color: 'white',
     fontSize: 26,
-
     fontFamily: 'helvetica-blackitalic',
+    marginBottom: 10,
   },
   fanview: {
     justifyContent: 'center',
-    alignItems: 'center',
+    alignSelf: 'center',
     marginTop: vh(18),
+    width: vw(335),
+    height: vh(104),
+    marginVertical: 10,
   },
   fanimg: {
     width: vw(335),
     height: vh(104),
     justifyContent: 'center',
-    alignItems: 'center',
-  
-
+    alignSelf: 'center',
+    resizeMode: 'contain',
+    marginVertical: 10,
   },
-  fantext:{
-    fontWeight:'900',color:'white',fontSize:28,fontStyle:'italic',left:60
-  },
-  athview: {
-    marginTop: 15,
+  fanimgActive1: {
+    width: vw(335),
+    height: vh(104),
     justifyContent: 'center',
-    alignItems: 'center',
+    alignSelf: 'center',
+    resizeMode: 'contain',
+    borderWidth: 1,
+    borderColor: COLOR.LIGHTBLUE,
+  },
+  fantext: {
+    fontWeight: '900',
+    color: 'white',
+    fontSize: 28,
+    fontStyle: 'italic',
+    zIndex: 1,
+    position: 'absolute',
+    top: 45,
+    left: 220,
   },
 });
 
