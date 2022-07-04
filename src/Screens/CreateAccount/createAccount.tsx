@@ -8,13 +8,19 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import CustomTextInput from '../../component/customTextInput';
 import CheckBox from '@react-native-community/checkbox';
 import {images} from '../../Utils/images';
-import {emailRegex, passwordRegex, mobilenoRegex} from '../../Utils/constant';
-import { styles } from './style';
+import {
+  emailRegex,
+  passwordRegex,
+  mobilenoRegex,
+  nameRegex,
+} from '../../Utils/constant';
+import {styles} from './style';
+import {STRINGS} from '../../Utils/string';
 
 interface userdefined {
   val?: any;
@@ -30,7 +36,18 @@ export default function CreateAccount(props: userdefined) {
   const [passwordError, setPasswordError] = React.useState('');
   const [mobno, setMobno] = React.useState('');
   const [mobnoerror, setMobnoerror] = React.useState('');
-  
+  const [name, setName] = React.useState('');
+  const [nameerror, setnameError] = useState('');
+
+  const handleName = (val: any) => {
+    if (val.length === 0) {
+      setnameError('name must be enter 3 words');
+    } else if (nameRegex.test(val) === false) {
+      setnameError('Please enter a valid name');
+    } else if (nameRegex.test(val) === true) {
+      setnameError('');
+    }
+  };
 
   const handleValidEmail = (val: any) => {
     if (val.length === 0) {
@@ -63,24 +80,34 @@ export default function CreateAccount(props: userdefined) {
   };
 
   return (
-    <SafeAreaView style={styles.mainparent}>
-      <StatusBar barStyle="light-content" translucent={true} />
-      <View>
+    <View style={styles.mainparent}>
+      <View style={styles.leftview}>
         <TouchableOpacity onPress={() => navigation.navigate('Edit')}>
           <Image style={styles.leftarrowimg} source={images.left} />
         </TouchableOpacity>
       </View>
       <View style={styles.createparent}>
         <View>
-          <Text style={styles.createtext}>{'Create Account'}</Text>
+          <Text style={styles.createtext}>{STRINGS.LABEL.CREATEACC}</Text>
         </View>
         <View style={styles.innercreatesign}>
-          <Text style={styles.signuptext}>{'Signup to get started'}</Text>
+          <Text style={styles.signuptext}>{STRINGS.LABEL.SIGN}</Text>
         </View>
       </View>
       <ScrollView>
         <View>
-          <CustomTextInput label="Full Name" placeholder="Full Name" />
+          <CustomTextInput
+            label="Full Name"
+            placeholder="Full Name"
+            onChangeText={(value: any) => {
+              setName(value);
+              handleName(value);
+            }}
+          />
+
+          {nameerror ? (
+            <Text style={styles.handlingAll}>{nameerror}</Text>
+          ) : null}
           <CustomTextInput
             label="Mobile Number"
             placeholder="Mobile Number"
@@ -138,25 +165,25 @@ export default function CreateAccount(props: userdefined) {
             />
           </View>
           <View style={styles.agree}>
-            <Text style={styles.agreetext}>I agree to the </Text>
+            <Text style={styles.agreetext}>{STRINGS.LABEL.AGREE}</Text>
           </View>
           <TouchableOpacity onPress={() => navigation.navigate('Terms')}>
             <View style={styles.terms}>
-              <Text style={styles.termstext}>Terms of use</Text>
+              <Text style={styles.termstext}>{STRINGS.LABEL.TERMSUSE}</Text>
             </View>
           </TouchableOpacity>
         </View>
 
         <View>
           <TouchableOpacity
-           onPress={()=>navigation.navigate('Verification')}
+            onPress={() => navigation.navigate('Verification')}
             disabled={!isSelected}
             style={
               !isSelected
                 ? {...styles.createbutton, backgroundColor: '#1F1B1B'}
                 : styles.createbutton
             }>
-            <Text style={styles.buttontext}>{'CREATE ACCOUNT'}</Text>
+            <Text style={styles.buttontext}>{STRINGS.LABEL.CREATE}</Text>
           </TouchableOpacity>
         </View>
 
@@ -180,15 +207,15 @@ export default function CreateAccount(props: userdefined) {
         </TouchableOpacity>
         <View style={styles.bottomsign}>
           <View>
-            <Text style={styles.alreadyuser}>{'Already a user'}</Text>
+            <Text style={styles.alreadyuser}>{STRINGS.LABEL.ALREADY}</Text>
           </View>
           <TouchableOpacity onPress={() => navigation.navigate('Edit')}>
             <View>
-              <Text style={styles.sign}>{'Sign In'}</Text>
+              <Text style={styles.sign}>{STRINGS.LABEL.SIGNIN}</Text>
             </View>
           </TouchableOpacity>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }

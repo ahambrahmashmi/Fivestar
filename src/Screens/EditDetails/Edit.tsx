@@ -16,11 +16,14 @@ import ImagePicker from 'react-native-image-crop-picker';
 import CustomTextInput from '../../component/customTextInput';
 import DatePicker from 'react-native-date-picker';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import ModalScreens from '../ModalScreen/modalOpen'
+import ModalScreens from '../ModalScreen/modalOpen';
+
 import Modal from 'react-native-modal';
-import { styles } from './style';
+import {styles} from './style';
 import {images} from '../../Utils/images';
 import {useNavigation} from '@react-navigation/native';
+import {STRINGS} from '../../Utils/string';
+import ModalScreen from '../ModalScreen/modalOpen';
 
 interface userType {
   title?: string;
@@ -70,8 +73,9 @@ const Edit = (props: userType) => {
   };
 
   return (
-    <SafeAreaView style={styles.mainparent}>
-      <StatusBar barStyle="light-content" translucent={true} />
+    <View style={styles.mainparent}>
+      <StatusBar barStyle={'light-content'} translucent={true} />
+
       <View style={styles.parent}>
         <Modal isVisible={modal}>
           <ModalScreens
@@ -79,8 +83,8 @@ const Edit = (props: userType) => {
             setModalOpen={setModalOpen}
             modal={modal}></ModalScreens>
         </Modal>
-        <Text style={styles.textcolor}>{'Hi John'}</Text>
-        <Text style={styles.textcolor}>{'Tell us about yourself'}</Text>
+        <Text style={styles.textcolor}>{STRINGS.LABEL.JOHN}</Text>
+        <Text style={styles.textcolor}>{STRINGS.LABEL.TELL}</Text>
       </View>
       <KeyboardAwareScrollView style={styles.submitbuttonmargin}>
         <View style={styles.cover}>
@@ -99,8 +103,8 @@ const Edit = (props: userType) => {
           </TouchableOpacity>
         </View>
         <CustomTextInput
-          label="Change your username"
-          placeholder="Change your username"
+          label={STRINGS.LABEL.USERNAME}
+          placeholder={STRINGS.LABEL.USERNAME}
           right={() => (
             <TouchableOpacity style={styles.pencil}>
               <Image
@@ -126,7 +130,7 @@ const Edit = (props: userType) => {
             '-',
             date.getFullYear(),
           ].join('')}
-          placeholder="DOB(MM/DD/YY)"
+          placeholder={STRINGS.LABEL.DOB}
           placeholderTextColor="#30AADD"
           right={() => (
             <TouchableOpacity
@@ -140,7 +144,6 @@ const Edit = (props: userType) => {
                 mode="date"
                 onConfirm={date => {
                   setDate(date);
-                  console.log('dattee', date.toDateString());
                   setOpen(false);
                 }}
                 onCancel={() => {
@@ -170,14 +173,14 @@ const Edit = (props: userType) => {
           placeholderTextColor="#30AADD"
         />
       </KeyboardAwareScrollView>
-      <View style={{height: 60}}>
+      <View>
         <TouchableOpacity
           onPress={() => navigation.navigate('CreateAccount')}
           style={styles.submitbutton}>
-          <Text style={styles.button}>{'SUBMIT'}</Text>
+          <Text style={styles.button}>{STRINGS.LABEL.SUBMITBUTTON}</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

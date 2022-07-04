@@ -11,4 +11,8 @@ export const images={
     footer:require('../assets/images/FooterPattern.png'),
     dialog:require('../assets/images/Dialog_Box.png'),
     thumb:require('../assets/images/thumb.png'),
+    cancel:require('../assets/images/ic_cancel.png'),
+    athlete:require('../assets/images/athl.png'),
+   fan:require('../assets/images/fan.png'),
+   
 }

@@ -14,6 +14,7 @@ import {useNavigation} from '@react-navigation/native';
 import Modal from 'react-native-modal';
 import {COLOR} from '../../Utils/color';
 import ModalScreens from '../ModalScreen/congratulationModal';
+import { STRINGS } from '../../Utils/string';
 
 export default function Verify() {
   const navigation = useNavigation<any>();
@@ -39,22 +40,22 @@ export default function Verify() {
       </View>
 
       <View style={styles.verifyview}>
-        <Text style={styles.verifytxt}>{'Enter Verification Code'}</Text>
+        <Text style={styles.verifytxt}>{STRINGS.LABEL.VERIFY}</Text>
       </View>
 
       <View style={styles.digitveri}>
         <Text style={styles.digitverifytxt}>
-          {'Kindly enter the 4 digit verification code sent to'}
+          {STRINGS.LABEL.KINDLY}
         </Text>
       </View>
 
       <View style={styles.numberview}>
         <View>
-          <Text style={styles.colortxt}>{'+17345678926'}</Text>
+          <Text style={styles.colortxt}>{STRINGS.LABEL.NUMBER}</Text>
         </View>
         <TouchableOpacity>
           <View>
-            <Text style={styles.edittxt}>{'Edit'}</Text>
+            <Text style={styles.edittxt}>{STRINGS.LABEL.EDit}</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -62,6 +63,7 @@ export default function Verify() {
       <View style={styles.otpview}>
         <TextInput
           ref={digit1}
+          keyboardType='number-pad'
           onChangeText={(text: any) => {
             setOtp(otp => otp + text);
             digit2?.current?.focus();
@@ -76,6 +78,7 @@ export default function Verify() {
 
         <TextInput
           ref={digit2}
+          keyboardType='number-pad'
           onChangeText={(text: any) => {
             setOtp(otp => otp + text);
             digit3?.current?.focus();
@@ -89,6 +92,7 @@ export default function Verify() {
         />
         <TextInput
           ref={digit3}
+          keyboardType='number-pad'
           onChangeText={(text: any) => {
             setOtp(otp => otp + text);
             digit4?.current?.focus();
@@ -102,6 +106,7 @@ export default function Verify() {
         />
         <TextInput
           ref={digit4}
+          keyboardType='number-pad'
           onChangeText={(text: any) => {
             setOtp(otp => otp + text);
             digit4?.current?.focus();
@@ -117,16 +122,16 @@ export default function Verify() {
 
       {otp.length === 4 ? (
         <TouchableOpacity style={styles.buttonparent} onPress={openmmodal}>
-          <Text style={styles.buttontxt}>{'SUBMIT'}</Text>
+          <Text style={styles.buttontxt}>{STRINGS.LABEL.SUBMITBUTTON}</Text>
         </TouchableOpacity>
       ) : (
         <TouchableOpacity disabled={true} style={styles.buttonactiveparent}>
-          <Text style={styles.buttonactive}>{'SUBMIT'}</Text>
+          <Text style={styles.buttonactive}>{STRINGS.LABEL.SUBMITBUTTON}</Text>
         </TouchableOpacity>
       )}
 
       <View style={styles.receiverparent}>
-        <Text style={styles.receivetxt}>{'Didnt Received the Code yet?'}</Text>
+        <Text style={styles.receivetxt}>{STRINGS.LABEL.Didnt}</Text>
 
         <TouchableOpacity>
           <View style={styles.resendview}>
@@ -164,7 +169,7 @@ const styles = StyleSheet.create({
   },
   verifyview: {
     marginTop: vh(14),
-    width: vw(350),
+    width: vw(375),
     height: vh(32),
   },
   verifytxt: {
@@ -172,12 +177,12 @@ const styles = StyleSheet.create({
     marginLeft: vw(24),
     marginRight: vw(59),
     fontSize: 24,
-    fontFamily: 'HelveticaNeue-BoldItalic',
+    fontFamily: 'helvetica-blackitalic',
   },
   digitveri: {
     marginLeft: vw(30),
     marginRight: vw(19),
-    marginTop: vh(10),
+    marginTop: vh(6),
   },
   digitverifytxt: {
     color: '#fff',
@@ -218,8 +223,8 @@ const styles = StyleSheet.create({
   },
   buttontxt: {
     color: COLOR.BLACK,
-    fontSize: 16,
-     fontFamily: 'HelveticaNeue-BoldItalic',
+    fontSize: 18,
+     fontFamily: 'helvetica-blackitalic',
     // fontFamily:"DancingScript-VariableFont_wght"
   },
   receiverparent: {
@@ -230,6 +235,7 @@ const styles = StyleSheet.create({
   receivetxt: {
     color: 'white',
     fontSize: 14,
+    fontFamily:'Helvetica'
   },
   resendview: {
     marginVertical: 5,
@@ -271,7 +277,7 @@ const styles = StyleSheet.create({
   buttonactive: {
     color: '#595959',
     fontSize: 16,
-    fontFamily: 'HelveticaNeue-BoldItalic',
+    fontFamily: 'helvetica-blackitalic',
   },
   buttonactiveparent: {
     backgroundColor: '#282828',

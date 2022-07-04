@@ -8,6 +8,9 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import {COLOR} from '../../Utils/color';
+import {images} from '../../Utils/images';
+import {STRINGS} from '../../Utils/string';
+import {vh, vw} from '../../Utils/dimension';
 
 const ModalScreens = (props: any) => {
   const {modal, setModalOpen, setIdentity} = props;
@@ -22,75 +25,81 @@ const ModalScreens = (props: any) => {
     setModalOpen(!modal);
   };
 
+  const modalClosed = () => {
+    setModalOpen(!modal);
+  };
+
   return (
-    <View style={{flex: 1}}>
-      <View style={styles.parent}>
-        <TouchableOpacity
-          style={{alignSelf: 'flex-end', right: 10}}
-          onPress={() => setModalOpen(!modal)}>
-          <Image
-            style={styles.crossimg}
-            source={require('../../assets/images/ic_cancel.png')}
-          />
-        </TouchableOpacity>
-        <View style={{padding: 15}}>
-          <Text style={styles.select}>{'Select your identity'}</Text>
-        </View>
-
-        <TouchableOpacity
-          style={styles.innerimg}
-          onPress={handlemodalstateAthelte}>
-          <Image
-            style={styles.athlimg}
-            source={require('../../assets/images/athl.png')}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.innerimg} onPress={handleFanmodalstate}>
-          <Image
-            style={styles.athlimg}
-            source={require('../../assets/images/fan.png')}
-          />
+    <View style={styles.container}>
+      <View style={styles.cancelview}>
+        <TouchableOpacity onPress={modalClosed} activeOpacity={0.5}>
+          <Image source={images.cancel} style={styles.cancelicon} />
         </TouchableOpacity>
       </View>
+
+      <View style={styles.selectview}>
+        <Text style={styles.select}>{STRINGS.LABEL.identity}</Text>
+      </View>
+
+      <TouchableOpacity activeOpacity={0.4} onPress={handleFanmodalstate}>
+        <View style={styles.fanview}>
+          <Image style={styles.fanimg} source={images.fan} />
+        </View>
+      </TouchableOpacity>
+
+      <TouchableOpacity activeOpacity={0.4} onPress={handlemodalstateAthelte}>
+        <View style={styles.athview}>
+          <Image source={images.athlete} style={styles.fanimg} />
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };
 
-export default ModalScreens;
 const styles = StyleSheet.create({
-  athlimg: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 100,
-    width: 345,
-  },
-  parent: {
-    flex: 0.5,
-    width: '100%',
-    // backgroundColor:'black',
-    // marginTop:600,
-    // height:400,
-    top: 400,
-    borderTopWidth: 4,
+  container: {
+    marginTop: 'auto',
+    borderTopWidth: 3,
     borderColor: COLOR.LIGHTBLUE,
+    backgroundColor: '#121212',
+
+    width: vw(377),
+    height: vh(330),
+    alignSelf: 'center',
   },
-  crossimg: {
-    height: 30,
-    width: 30,
-    top: 5,
+  cancelicon: {
+    height: vh(24),
+    width: vw(24),
+  },
+  cancelview: {
+    alignSelf: 'flex-end',
+    right: 10,
+    top: 15,
+  },
+  selectview: {
+    marginLeft: vw(26),
+    marginTop: vh(17),
   },
   select: {
     color: 'white',
-    fontSize: 30,
-    fontWeight: 'bold',
-    fontFamily: 'HelveticaNeue-BoldItalic',
+    fontSize: 26,
+
+    fontFamily: 'helvetica-blackitalic',
   },
-  innerimg: {
+  fanview: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 20,
-    borderWidth: 1,
-    borderColor: '#44C2E3',
+    marginTop: vh(18),
+  },
+  fanimg: {
+    width: vw(335),
+    height: vh(104),
+  },
+  athview: {
+    marginTop: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
+
+export default ModalScreens;

@@ -9,6 +9,7 @@
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "Rnlink":"react-native link"
+
   },
   "dependencies": {
     "@react-native-community/checkbox": "^0.5.12",

@@ -46,7 +46,10 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderColor: 'red',
     borderTopWidth:2,
-    borderColor:COLOR.LIGHTBLUE
+    borderColor:COLOR.LIGHTBLUE,
+    borderLeftWidth:0.3,
+    borderRightWidth:0.3,
+    borderBottomWidth:0.3
   },
   thumbview: {
     marginTop: vh(38),
@@ -64,7 +67,7 @@ const styles = StyleSheet.create({
   },
   congratstext: {
     color: 'white',
-    fontFamily: 'HelveticaNeue-Bold',
+    fontFamily: 'Helvetica',
     fontSize: 15,
     fontWeight:'bold'
   },
@@ -87,7 +90,7 @@ const styles = StyleSheet.create({
       },
       buttontxt:{
           color:COLOR.BLACK,
-          fontFamily:'HelveticaNeue-BoldItalic',
+          fontFamily:'helvetica-Blackitalic',
           fontSize:18,
           fontWeight:'bold'
       }

@@ -73,7 +73,18 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
-		<string>Splash-Regular.ttf</string>
+		<string>helvetica-blackitalic.ttf</string>
+		<string>Helvetica-Bold.ttf</string>
+		<string>Helvetica-BoldOblique.ttf</string>
+		<string>helvetica-light.ttf</string>
+		<string>Helvetica-Oblique.ttf</string>
+		<string>Helvetica.ttf</string>
+		<string>HelveticaBlack.ttf</string>
+		<string>helveticaNeue.ttf</string>
+		<string>helveticaNeueBoldItalic.ttf</string>
+		<string>HelveticaNeueItalic.ttf</string>
+		<string>HelveticaNeueMedium.ttf</string>
+		<string>helveticaNeueMediumItalic</string>
 	</array>
 </dict>
 </plist>
