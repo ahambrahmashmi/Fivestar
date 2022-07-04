@@ -86,7 +86,7 @@ const Edit = (props: userType) => {
         <Text style={styles.textcolor}>{STRINGS.LABEL.JOHN}</Text>
         <Text style={styles.textcolor}>{STRINGS.LABEL.TELL}</Text>
       </View>
-      <KeyboardAwareScrollView style={styles.submitbuttonmargin}>
+      <KeyboardAwareScrollView extraHeight={120} style={styles.submitbuttonmargin}>
         <View style={styles.cover}>
           <TouchableOpacity activeOpacity={0.8} onPress={imageOpencover}>
             <View style={styles.rectangle}>

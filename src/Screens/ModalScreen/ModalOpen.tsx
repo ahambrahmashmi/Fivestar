@@ -5,6 +5,7 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  ImageBackground,
 } from 'react-native';
 import React, {useState} from 'react';
 import {COLOR} from '../../Utils/color';
@@ -43,7 +44,10 @@ const ModalScreens = (props: any) => {
 
       <TouchableOpacity activeOpacity={0.4} onPress={handleFanmodalstate}>
         <View style={styles.fanview}>
-          <Image style={styles.fanimg} source={images.fan} />
+          
+          <ImageBackground style={styles.fanimg} source={images.fan} >
+            <Text style={styles.fantext}>{'FAN'}</Text>
+          </ImageBackground>
         </View>
       </TouchableOpacity>
 
@@ -94,6 +98,13 @@ const styles = StyleSheet.create({
   fanimg: {
     width: vw(335),
     height: vh(104),
+    justifyContent: 'center',
+    alignItems: 'center',
+  
+
+  },
+  fantext:{
+    fontWeight:'900',color:'white',fontSize:28,fontStyle:'italic',left:60
   },
   athview: {
     marginTop: 15,
