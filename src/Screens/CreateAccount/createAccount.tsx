@@ -41,7 +41,7 @@ export default function CreateAccount(props: userdefined) {
 
   const handleName = (val: any) => {
     if (val.length === 0) {
-      setnameError('name must be enter 3 words');
+      setnameError('name should be minimum 3 character');
     } else if (nameRegex.test(val) === false) {
       setnameError('Please enter a valid name');
     } else if (nameRegex.test(val) === true) {

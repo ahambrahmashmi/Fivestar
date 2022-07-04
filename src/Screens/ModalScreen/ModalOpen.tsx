@@ -46,7 +46,7 @@ const ModalScreens = (props: any) => {
         <View style={styles.fanview}>
           
           <ImageBackground style={styles.fanimg} source={images.fan} >
-            <Text style={styles.fantext}>{'FAN'}</Text>
+            <Text style={styles.fantext}>{STRINGS.LABEL.fan}</Text>
           </ImageBackground>
         </View>
       </TouchableOpacity>
