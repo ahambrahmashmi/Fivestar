@@ -16,4 +16,6 @@ export const images={
    fan:require('../assets/images/fan.png'),
    eyes:require('../assets/images/eyes.png'),
    eyeop:require('../assets/images/eyeop.png'),
+   tick:require('../assets/images/Vector.png'),
+   fan3x:require('../assets/images/fan3x.png'),
 }

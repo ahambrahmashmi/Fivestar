@@ -3,20 +3,20 @@ import React, {useState} from 'react';
 import {COLOR} from '../../Utils/color';
 import {images} from '../../Utils/images';
 import {STRINGS} from '../../Utils/string';
-import {vh, vw} from '../../Utils/dimension';
+import {normalize} from '../../Utils/dimension';
 
 const ModalScreens = (props: any) => {
   const {modal, setModalOpen, identity, setIdentity} = props;
 
   const handlemodalstateAthelte = () => {
-    setIdentity('Athelete');
+    setIdentity(STRINGS.LABEL.athlet);
     setTimeout(() => {
       setModalOpen(!modal);
     }, 500);
   };
 
   const handleFanmodalstate = () => {
-    setIdentity('Fan');
+    setIdentity(STRINGS.LABEL.fan);
     setTimeout(() => {
       setModalOpen(!modal);
     }, 500);
@@ -41,16 +41,20 @@ const ModalScreens = (props: any) => {
       <TouchableOpacity onPress={handleFanmodalstate}>
         <Image
           source={images.fan}
-          style={identity == 'Fan' ? styles.fanimgActive1 : styles.fanimg}
+          style={identity == 'FAN' ? styles.fanimgActive1 : styles.fanimg}
         />
         <Text style={styles.fantext}>{STRINGS.LABEL.fan}</Text>
+
+        {STRINGS.LABEL.fan===identity ? (<Image  style={styles.tick} source={images.tick}/>):null}
       </TouchableOpacity>
 
       <TouchableOpacity onPress={handlemodalstateAthelte}>
-        <Image
-          source={images.athlete}
-          style={identity == 'Athelete' ? styles.fanimgActive1 : styles.fanimg}
-        />
+        
+          <Image
+            source={images.athlete} style={identity == 'ATHLETE' ?   styles.fanimgActive1 : styles.fanimg}
+          />
+  {STRINGS.LABEL.athlet===identity ? (<Image  style={styles.tick} source={images.tick}/>):null}
+        
       </TouchableOpacity>
     </View>
   );
@@ -62,13 +66,13 @@ const styles = StyleSheet.create({
     borderTopWidth: 3,
     borderColor: COLOR.LIGHTBLUE,
     backgroundColor: COLOR.BLACK,
-    width: vw(377),
-    height: vh(330),
+    width: normalize(377),
+    height: normalize(330),
     alignSelf: 'center',
   },
   cancelicon: {
-    height: vh(24),
-    width: vw(24),
+    height: normalize(24),
+    width: normalize(24),
   },
   cancelview: {
     alignSelf: 'flex-end',
@@ -76,8 +80,8 @@ const styles = StyleSheet.create({
     top: 15,
   },
   selectview: {
-    marginLeft: vw(26),
-    marginTop: vh(17),
+    marginLeft: normalize(26),
+    marginTop: normalize(17),
   },
   select: {
     color: 'white',
@@ -88,22 +92,22 @@ const styles = StyleSheet.create({
   fanview: {
     justifyContent: 'center',
     alignSelf: 'center',
-    marginTop: vh(18),
-    width: vw(335),
-    height: vh(104),
+    marginTop: normalize(18),
+    width: normalize(335),
+    height: normalize(104),
     marginVertical: 10,
   },
   fanimg: {
-    width: vw(335),
-    height: vh(104),
+    width: normalize(335),
+    height: normalize(104),
     justifyContent: 'center',
     alignSelf: 'center',
     resizeMode: 'contain',
     marginVertical: 10,
   },
   fanimgActive1: {
-    width: vw(335),
-    height: vh(104),
+    width: normalize(335),
+    height: normalize(104),
     justifyContent: 'center',
     alignSelf: 'center',
     resizeMode: 'contain',
@@ -120,6 +124,14 @@ const styles = StyleSheet.create({
     top: 45,
     left: 220,
   },
+  tick:{
+    height:normalize(18),
+    width:normalize(22),
+    right:35,
+    position:'absolute',
+    zIndex:1,
+    top:10
+},
 });
 
 export default ModalScreens;

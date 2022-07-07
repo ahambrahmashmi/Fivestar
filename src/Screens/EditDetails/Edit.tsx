@@ -20,7 +20,7 @@ import ModalScreens from '../ModalScreen/modalOpen';
 import Modal from 'react-native-modal';
 import {styles} from './style';
 import {images} from '../../Utils/images';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {STRINGS} from '../../Utils/string';
 import {COLOR} from '../../Utils/color';
 
@@ -29,6 +29,8 @@ interface userType {
   setOpen?: boolean;
   open?: boolean;
   Edit?: any;
+  route?: any;
+  params?: any;
 }
 const Edit = (props: userType) => {
   const navigation = useNavigation<any>();
@@ -39,6 +41,13 @@ const Edit = (props: userType) => {
 
   const [date, setDate] = useState<any>(new Date());
   const [open, setOpen] = useState(false);
+
+  const {params} = useRoute();
+  
+  React.useEffect(() => {
+    setIdentity(params);
+  }, [navigation]);
+
   const openmodal = () => {
     setModalOpen(!modal);
   };

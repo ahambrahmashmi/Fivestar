@@ -1,15 +1,18 @@
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {images} from '../../Utils/images';
-import {vh, vw} from '../../Utils/dimension';
+import {normalize} from '../../Utils/dimension';
 import {COLOR} from '../../Utils/color';
-import { STRINGS } from '../../Utils/string';
+import {STRINGS} from '../../Utils/string';
+import {useNavigation} from '@react-navigation/native';
 
 export default function CongratulationModal(props: any) {
+  const navigation = useNavigation<any>();
   let {setModalOpen, modal} = props;
 
   const closedModal = () => {
     setModalOpen(!modal);
+    navigation.navigate('identity');
   };
 
   return (
@@ -23,9 +26,7 @@ export default function CongratulationModal(props: any) {
         </Text>
       </View>
       <View style={styles.accountview}>
-        <Text style={styles.accounttext}>
-          {STRINGS.LABEL.sucess}
-        </Text>
+        <Text style={styles.accounttext}>{STRINGS.LABEL.sucess}</Text>
       </View>
       <View style={styles.congratview}>
         <Text style={styles.accounttext}>{STRINGS.LABEL.REG}</Text>
@@ -40,7 +41,7 @@ export default function CongratulationModal(props: any) {
 
 const styles = StyleSheet.create({
   parent: {
-    flex: 0.29,
+    flex: 0.30,
     backgroundColor: '#121212',
 
     borderTopWidth: 2,
@@ -48,21 +49,21 @@ const styles = StyleSheet.create({
     borderLeftWidth: 0.3,
     borderRightWidth: 0.3,
     borderBottomWidth: 0.3,
-  borderRadius:5
+    borderRadius: 5,
   },
   thumbview: {
-    marginTop: vh(38),
+    marginTop: normalize(38),
     justifyContent: 'center',
     alignItems: 'center',
   },
   thumbimage: {
-    height: vh(30),
-    width: vw(30),
+    height: normalize(30),
+    width: normalize(30),
   },
   congratview: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: vh(5),
+    marginTop: normalize(5),
   },
   congratstext: {
     color: 'white',
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
   accountview: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: vh(12),
+    marginTop: normalize(12),
   },
 
   accounttext: {
@@ -82,13 +83,14 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   button: {
-    marginTop: vh(15),
+    marginTop: normalize(15),
     backgroundColor: COLOR.LIGHTBLUE,
-    width: vw(280),
-    height: vh(48),
+    width: normalize(280),
+    height: normalize(48),
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
+    borderRadius:5
   },
   buttontxt: {
     color: COLOR.BLACK,

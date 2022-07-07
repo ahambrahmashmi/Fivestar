@@ -37,5 +37,8 @@ export const STRINGS = {
     REG: 'registered',
     CONTINUE: 'CONTINUE',
     CONGRATS: 'Congratulations',
+  who:"Who are you?",
+  nxt:"NEXT",
+  athlet:'ATHLETE'
   },
 };

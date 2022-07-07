@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {COLOR} from '../../Utils/color';
-import {vh, vw} from '../../Utils/dimension';
+import {normalize} from '../../Utils/dimension';
 const styles = StyleSheet.create({
   mainparent: {
     flex: 1,
@@ -9,12 +9,12 @@ const styles = StyleSheet.create({
     
   },
   leftview: {
-    marginTop: vh(15),
-    marginLeft: vw(16),
+    marginTop: normalize(15),
+    marginLeft:normalize(16),
   },
   leftarrowimg: {
-    height: vh(30),
-    width: vw(30),
+    height: normalize(30),
+    width:normalize(30),
   },
   createtext: {
     color: COLOR.WHITE,
@@ -28,25 +28,25 @@ const styles = StyleSheet.create({
     fontFamily: 'Helvetica',
   },
   createparent: {
-    marginLeft: vw(24),
-    marginTop: vh(14),
+    marginLeft:normalize(24),
+    marginTop: normalize(14),
   },
   innercreatesign: {
-    marginTop: vh(8),
+    marginTop: normalize(8),
   },
   innermainview: {
-    marginTop: vh(5),
+    marginTop: normalize(5),
   },
   createbutton: {
-    left: vw(10),
+    left:normalize(10),
 
     backgroundColor: COLOR.LIGHTBLUE,
-    borderRadius: vw(5),
+    borderRadius:normalize(5),
     justifyContent: 'center',
     alignItems: 'center',
-    height: vh(50),
-    marginTop: vh(30),
-    width: vw(350),
+    height: normalize(50),
+    marginTop: normalize(30),
+    width:normalize(350),
   },
   buttontext: {
     fontSize: 18,
@@ -54,21 +54,21 @@ const styles = StyleSheet.create({
   },
   checkBox: {
     // marginRight: 11,
-    marginLeft: vw(22),
-    width: vw(18),
-    height: vh(18),
-    marginTop: vh(10),
+    marginLeft:normalize(22),
+    width:normalize(18),
+    height: normalize(18),
+    marginTop: normalize(10),
   },
   checkboxparent: {
     justifyContent: 'space-between',
     flexDirection: 'row',
   },
   innercheckbox: {
-    right: vw(5),
+    right:normalize(5),
   },
   agree: {
-    marginTop: vh(10),
-    marginLeft: vw(3),
+    marginTop: normalize(10),
+    marginLeft:normalize(3),
   },
   agreetext: {
     color: 'white',
@@ -76,8 +76,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   terms: {
-    marginTop: vh(10),
-    marginRight: vw(170),
+    marginTop: normalize(10),
+    marginRight:normalize(170),
   },
   termstext: {
     color: COLOR.LIGHTBLUE,
@@ -87,59 +87,61 @@ const styles = StyleSheet.create({
   orparent: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: vh(25),
+    marginTop: normalize(25),
   },
   orinner: {
     flex: 1,
-    height: vh(1),
+    height: normalize(1),
     backgroundColor: 'grey',
   },
   ortext: {
-    width: vw(50),
+    width:normalize(50),
     textAlign: 'center',
     color: 'white',
   },
   orouter: {
     flex: 1,
-    height: vh(1),
+    height: normalize(1),
     backgroundColor: 'grey',
   },
   googleimg: {
-    width: vw(355),
-    height: vh(48),
-    borderRadius: vh(5),
+    width:normalize(355),
+    height: normalize(48),
+    borderRadius: normalize(5),
   },
   parentgoogle: {
     alignSelf: 'center',
-    marginTop: vh(20),
+    marginTop: normalize(20),
   },
   alreadyuser: {
     color: COLOR.WHITE,
-    left: vw(105),
+    left:normalize(105),
     fontSize: 15,
   },
   sign: {
     color: COLOR.LIGHTBLUE,
-    right: vw(115),
+    right:normalize(115),
     fontFamily: 'helvetica-blackitalic',
     fontSize: 16,
   },
   bottomsign: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: vh(15),
+    marginTop: normalize(15),
     alignItems: 'center',
   },
 
   handlingAll: {
-    marginTop: vh(3),
+   top:normalize(5),
+    height:normalize(15),
     color: 'red',
-    paddingLeft: vw(15),
+    paddingLeft:normalize(15),
+  
   },
   eyeview: {
-    height: vh(50),
+    height: normalize(50),
     top: 20,
-    width: vw(30),
+    width:normalize(30),
     justifyContent: 'center',
     position: 'absolute',
     right: 28,

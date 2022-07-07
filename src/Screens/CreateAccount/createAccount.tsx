@@ -1,13 +1,4 @@
-import {
-  View,
-  Text,
-  SafeAreaView,
-  StatusBar,
-  Image,
-  TouchableOpacity,
-  StyleSheet,
-  ScrollView,
-} from 'react-native';
+import {View, Text, SafeAreaView, Image, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import CustomTextInput from '../../component/customTextInput';
@@ -22,8 +13,9 @@ import {
 import {styles} from './style';
 import {STRINGS} from '../../Utils/string';
 import {COLOR} from '../../Utils/color';
-import {vh, vw} from '../../Utils/dimension';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {useDispatch, useSelector} from 'react-redux';
+import getCreateaccountAction from '../../redux/createAccount/action';
 
 interface userdefined {
   val?: any;
@@ -37,11 +29,32 @@ export default function CreateAccount(props: userdefined) {
   const [emailValidError, setEmailValidError] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [passwordError, setPasswordError] = React.useState('');
-  const [mobno, setMobno] = React.useState('');
-  const [mobnoerror, setMobnoerror] = React.useState('');
+  const [phoneNo, setphoneNo] = React.useState('');
+  const [phoneNoerror, setphoneNoerror] = React.useState('');
   const [name, setName] = React.useState('');
   const [nameerror, setnameError] = useState('');
   const [hidePass, setHidePass] = React.useState(true);
+
+  const dispatch = useDispatch<any>();
+
+  const {DATA_SIGN_UP} = useSelector(
+    (store: any) => store.createaccountReducer,
+  );
+
+  const Signup_Api_Hit = () => {
+    dispatch(
+      getCreateaccountAction(
+        'signup',
+        null,
+        phoneNo,
+        null,
+        name,
+        email,
+        password,
+      ),
+    );
+    navigation.navigate('Verification', {phoneNo: phoneNo});
+  };
 
   const handleName = (val: any) => {
     if (val.length === 0) {
@@ -75,11 +88,11 @@ export default function CreateAccount(props: userdefined) {
 
   const handleValidMobno = (val: any) => {
     if (val.length === 0) {
-      setMobnoerror('Phone Number must be enter');
+      setphoneNoerror('Phone Number must be enter');
     } else if (mobilenoRegex.test(val) == false) {
-      setMobnoerror('Enter valid Phone Number');
+      setphoneNoerror('Enter valid Phone Number');
     } else if (mobilenoRegex.test(val) == true) {
-      setMobnoerror('');
+      setphoneNoerror('');
     }
   };
 
@@ -92,8 +105,8 @@ export default function CreateAccount(props: userdefined) {
     handleName(value);
   };
 
-  const mobNo = (value: any) => {
-    setMobno(value);
+  const phoneNoinput = (value: any) => {
+    setphoneNo(value);
     handleValidMobno(value);
   };
 
@@ -108,10 +121,6 @@ export default function CreateAccount(props: userdefined) {
   };
   const termsNavigate = () => {
     navigation.navigate('Terms');
-  };
-
-  const verifyNavigate = () => {
-    navigation.navigate('Verification');
   };
 
   const passwordToggle = () => {
@@ -146,13 +155,13 @@ export default function CreateAccount(props: userdefined) {
           <CustomTextInput
             label="Mobile Number"
             placeholder={STRINGS.LABEL.MobNO}
-            value={mobno}
-            onChangeText={mobNo}
+            value={phoneNo}
+            onChangeText={phoneNoinput}
             keyboardtype="number-pad"
           />
 
           <Text style={styles.handlingAll}>
-            {mobnoerror ? mobnoerror : null}
+            {phoneNoerror ? phoneNoerror : null}
           </Text>
 
           <CustomTextInput
@@ -214,7 +223,7 @@ export default function CreateAccount(props: userdefined) {
 
         <View>
           <TouchableOpacity
-            onPress={verifyNavigate}
+            onPress={Signup_Api_Hit}
             disabled={!isSelected}
             style={
               !isSelected

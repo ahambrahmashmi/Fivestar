@@ -16,8 +16,11 @@ import {COLOR} from '../../Utils/color';
 import ModalScreens from '../ModalScreen/congratulationModal';
 import {STRINGS} from '../../Utils/string';
 import {styles} from './style';
+import { useDispatch, useSelector } from 'react-redux';
+import getCreateaccountAction from '../../redux/createAccount/action';
 
-export default function Verify() {
+export default function Verify({route}: {route: any}) {
+  const {phoneNo} = route.params;
   const navigation = useNavigation<any>();
 
   const digit1 = useRef<TextInput>(null);
@@ -28,13 +31,21 @@ export default function Verify() {
   const [otp, setOtp] = useState('');
   const [modal, setModalOpen] = React.useState<boolean>(false);
 
-  React.useEffect(() => {
-    console.log('otp is ', otp);
-  }, [otp]);
+const dispatch=useDispatch<any>();
+const {DATA_SIGN_UP} = useSelector(
+  (store: any) => store.createaccountReducer,
+);
 
-  const openmmodal = () => {
-    setModalOpen(!modal);
-  };
+     
+
+  const OTP_API_HIT=()=>{
+    dispatch(getCreateaccountAction("verify-otp",otp,phoneNo,DATA_SIGN_UP.userId ,null,null,null))
+    setModalOpen(!modal)
+  }
+
+  // const openmmodal = () => {
+  //   setModalOpen(!modal);
+  // };
 
   const firstdigit = (text: any) => {
     setOtp(otp => otp + text);
@@ -94,7 +105,7 @@ export default function Verify() {
 
       <View style={styles.numberview}>
         <View>
-          <Text style={styles.colortxt}>{STRINGS.LABEL.NUMBER}</Text>
+          <Text style={styles.colortxt}>{phoneNo}</Text>
         </View>
         <TouchableOpacity>
           <View>
@@ -136,7 +147,7 @@ export default function Verify() {
       </View>
 
       {otp.length === 4 ? (
-        <TouchableOpacity style={styles.buttonparent} onPress={openmmodal}>
+        <TouchableOpacity style={styles.buttonparent} onPress={OTP_API_HIT}>
           <Text style={styles.buttontxt}>{STRINGS.LABEL.SUBMITBUTTON}</Text>
         </TouchableOpacity>
       ) : (

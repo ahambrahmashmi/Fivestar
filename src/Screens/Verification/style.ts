@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {COLOR} from '../../Utils/color';
-import {vh, vw} from '../../Utils/dimension';
+import {normalize} from '../../Utils/dimension';
 
 const styles = StyleSheet.create({
   parent: {
@@ -8,31 +8,31 @@ const styles = StyleSheet.create({
     backgroundColor: COLOR.BLACK,
   },
   mainhead: {
-    height: vh(32),
-    width: vw(32),
-    marginTop: vh(58),
-    left: vw(16),
+    height: normalize(32),
+    width: normalize(32),
+    marginTop: normalize(58),
+    left: normalize(16),
   },
   lefticon: {
-    width: vw(375),
-    height: vh(82),
+    width: normalize(375),
+    height: normalize(82),
   },
   verifyview: {
-    marginTop: vh(22),
-    width: vw(375),
-    height: vh(32),
+    marginTop: normalize(22),
+    width: normalize(375),
+    height: normalize(32),
   },
   verifytxt: {
     color: '#fff',
-    marginLeft: vw(24),
-    marginRight: vw(59),
+    marginLeft: normalize(24),
+    marginRight: normalize(59),
     fontSize: 24,
     fontFamily: 'helvetica-blackitalic',
   },
   digitveri: {
-    marginLeft: vw(30),
-    marginRight: vw(19),
-    marginTop: vh(6),
+    marginLeft: normalize(30),
+    marginRight: normalize(19),
+    marginTop: normalize(6),
   },
   digitverifytxt: {
     color: '#fff',
@@ -40,9 +40,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Helvetica',
   },
   numberview: {
-    marginLeft: vw(30),
-    marginRight: vw(19),
-    marginTop: vh(5),
+    marginLeft: normalize(30),
+    marginRight: normalize(19),
+    marginTop: normalize(5),
     flexDirection: 'row',
   },
   colortxt: {
@@ -53,19 +53,19 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   otpview: {
-    marginTop: vh(38),
-    width: vw(328),
-    height: vh(48),
-    marginLeft: vw(24),
+    marginTop: normalize(38),
+    width: normalize(328),
+    height: normalize(48),
+    marginLeft: normalize(24),
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginHorizontal: 5,
   },
   buttonparent: {
-    marginTop: vh(40),
-    marginLeft: vw(23),
-    width: vw(328),
-    height: vh(48),
+    marginTop: normalize(40),
+    marginLeft: normalize(23),
+    width: normalize(328),
+    height: normalize(48),
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: COLOR.LIGHTBLUE,
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   receiverparent: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: vh(40),
+    marginTop: normalize(40),
   },
   receivetxt: {
     color: 'white',
@@ -95,8 +95,8 @@ const styles = StyleSheet.create({
     fontFamily: 'HelveticaNeue-BoldItalic',
   },
   girlview: {
-    height: vh(385),
-    width: vw(375),
+    height: normalize(385),
+    width: normalize(375),
   },
   girlimg: {
     width: '100%',
@@ -104,8 +104,8 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   bottomimg: {
-    height: vh(71),
-    width: vw(375),
+    height: normalize(71),
+    width: normalize(375),
     zIndex: 1,
     position: 'absolute',
     bottom: 0,
@@ -113,8 +113,8 @@ const styles = StyleSheet.create({
   texinput: {
     borderWidth: 1,
     borderColor: 'white',
-    height: vh(48),
-    width: vw(70),
+    height: normalize(48),
+    width: normalize(70),
     color: COLOR.LIGHTBLUE,
     fontSize: 30,
     borderRadius: 5,
@@ -129,10 +129,10 @@ const styles = StyleSheet.create({
   },
   buttonactiveparent: {
     backgroundColor: '#282828',
-    marginTop: vh(40),
-    marginLeft: vw(23),
-    width: vw(328),
-    height: vh(48),
+    marginTop: normalize(40),
+    marginLeft: normalize(23),
+    width: normalize(328),
+    height: normalize(48),
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
