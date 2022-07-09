@@ -1,43 +1,63 @@
 import axios from 'axios';
-import {Alert} from 'react-native';
 
-const getCreateaccountAction = (
-  account: string,
-  otp: any,
-  phoneNo: any,
-  userId: any,
+export function getCreateaccountAction(
   name: any,
   email: any,
   password: any,
-) => {
+  phoneNo: any,
+  callback: Function,
+  ErrorCallback: Function,
+) {
   return (dispatch: any, getState: any) => {
     axios
-      .post(
-        `https://fivestardevapi.appskeeper.in/api/v1/user/${account}`,
-        account == 'signup'
-          ? {
-              name: name,
-              email: email,
-              password: password,
-              countryCode: '+1',
-              phoneNo: phoneNo,
-            }
-          : {
-              userId: userId,
-              otp: otp,
-              countryCode: '+1',
-              phoneNo: phoneNo,
-            },
-      )
+      .post('https://fivestardevapi.appskeeper.in/api/v1/user/signup', {
+        name: name,
+        email: email,
+        password: password,
+        countryCode: '+1',
+        phoneNo: phoneNo,
+      })
       .then(resp => {
-        console.log('ALL DATA ARE HERE====>>', name, phoneNo, email, password);
-
-        dispatch({type: account, payload: resp.data});
+        dispatch({type: 'signup', payload: resp.data});
+        callback(resp);
       })
       .catch(err => {
-        if (err.response.status == 400) Alert.alert('please valid otp code');
+        ErrorCallback(err);
+        console.log('error', err);
       });
   };
-};
+}
 
-export default getCreateaccountAction;
+export function getotpAction(
+  userId: any,
+  otp: any,
+  phoneNo: any,
+  callback: Function,
+  ErrorCallback: Function,
+) {
+  console.log("api=>>>>",otp);
+  
+  return (dispatch: any, getState: any) => {
+    axios
+      .post('https://fivestardevapi.appskeeper.in/api/v1/user/verify-otp', {
+        userId,
+        otp,
+        countryCode: '+1',
+        phoneNo,
+      })
+      .then(resp => {
+        console.log("response===>",resp);
+        
+        dispatch({type: 'verify-otp', payload: resp.data});
+        callback(resp);
+      })
+      .catch(err => {
+        ErrorCallback(err);
+        console.log('error', err)
+      }).finally(()=>{
+     console.log("finally====>");
+     
+      })
+  
+  };
+}

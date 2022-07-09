@@ -1,4 +1,11 @@
-import {View, Text, SafeAreaView, Image, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  Image,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import CustomTextInput from '../../component/customTextInput';
@@ -15,7 +22,11 @@ import {STRINGS} from '../../Utils/string';
 import {COLOR} from '../../Utils/color';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useDispatch, useSelector} from 'react-redux';
-import getCreateaccountAction from '../../redux/createAccount/action';
+import {getCreateaccountAction} from '../../redux/createAccount/action';
+import commonFunction from '../../Utils/commonFunction';
+import OrCustom from '../../component/orCustom';
+import GoogleCustom from '../../component/googleCustom';
+import LeftArrow from '../../component/leftArrow';
 
 interface userdefined {
   val?: any;
@@ -33,8 +44,9 @@ export default function CreateAccount(props: userdefined) {
   const [phoneNoerror, setphoneNoerror] = React.useState('');
   const [name, setName] = React.useState('');
   const [nameerror, setnameError] = useState('');
-  const [hidePass, setHidePass] = React.useState(true);
 
+
+  const [hidePass, setHidePass] = React.useState(true);
   const dispatch = useDispatch<any>();
 
   const {DATA_SIGN_UP} = useSelector(
@@ -44,21 +56,42 @@ export default function CreateAccount(props: userdefined) {
   const Signup_Api_Hit = () => {
     dispatch(
       getCreateaccountAction(
-        'signup',
-        null,
-        phoneNo,
-        null,
         name,
         email,
         password,
+        phoneNo,
+        (response: any) => {
+          if (response?.data?.statusCode === 200) {
+            navigation.navigate('Verification', {phoneNo: phoneNo});
+          }
+        },
+        (errorAPI: any) => {
+          // commonFunction.showSnackbar(errorAPI?.data?.message, 'black');
+
+          Alert.alert('errorAPI');
+        },
       ),
     );
-    navigation.navigate('Verification', {phoneNo: phoneNo});
+  };
+
+  const handl = () => {
+    if (
+      nameerror == '' &&
+      emailValidError=="" &&
+      phoneNoerror ==''&&
+      passwordError ==''&&
+      isSelected
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   const handleName = (val: any) => {
     if (val.length === 0) {
       setnameError('name should be minimum 3 character');
+     
     } else if (nameRegex.test(val) === false) {
       setnameError('Please enter a valid name');
     } else if (nameRegex.test(val) === true) {
@@ -97,7 +130,7 @@ export default function CreateAccount(props: userdefined) {
   };
 
   const NaviagteEdit = () => {
-    navigation.navigate('Edit');
+    navigation.navigate('SignIn');
   };
 
   const fullName = (value: any) => {
@@ -129,11 +162,7 @@ export default function CreateAccount(props: userdefined) {
 
   return (
     <SafeAreaView style={styles.mainparent}>
-      <View style={styles.leftview}>
-        <TouchableOpacity onPress={NaviagteEdit}>
-          <Image style={styles.leftarrowimg} source={images.left} />
-        </TouchableOpacity>
-      </View>
+     <LeftArrow/>
       <View style={styles.createparent}>
         <View>
           <Text style={styles.createtext}>{STRINGS.LABEL.CREATEACC}</Text>
@@ -224,34 +253,17 @@ export default function CreateAccount(props: userdefined) {
         <View>
           <TouchableOpacity
             onPress={Signup_Api_Hit}
-            disabled={!isSelected}
+            disabled={!handl()}
             style={
-              !isSelected
+              !handl()
                 ? {...styles.createbutton, backgroundColor: COLOR.BROWNBACK}
                 : styles.createbutton
             }>
             <Text style={styles.buttontext}>{STRINGS.LABEL.CREATE}</Text>
           </TouchableOpacity>
         </View>
-
-        <View style={styles.orparent}>
-          <View style={styles.orinner} />
-          <View>
-            <Text style={styles.ortext}>{STRINGS.LABEL.or}</Text>
-          </View>
-          <View style={styles.orouter} />
-        </View>
-        <TouchableOpacity>
-          <View style={styles.parentgoogle}>
-            <Image style={styles.googleimg} source={images.google} />
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <View style={styles.parentgoogle}>
-            <Image style={styles.googleimg} source={images.apple} />
-          </View>
-        </TouchableOpacity>
+        <OrCustom />
+        <GoogleCustom />
         <View style={styles.bottomsign}>
           <View>
             <Text style={styles.alreadyuser}>{STRINGS.LABEL.ALREADY}</Text>

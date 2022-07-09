@@ -104,15 +104,7 @@ const styles = StyleSheet.create({
     height: normalize(1),
     backgroundColor: 'grey',
   },
-  googleimg: {
-    width:normalize(355),
-    height: normalize(48),
-    borderRadius: normalize(5),
-  },
-  parentgoogle: {
-    alignSelf: 'center',
-    marginTop: normalize(20),
-  },
+ 
   alreadyuser: {
     color: COLOR.WHITE,
     left:normalize(105),

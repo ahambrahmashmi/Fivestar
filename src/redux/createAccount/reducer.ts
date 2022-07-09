@@ -7,6 +7,7 @@ const initialState = {
     phoneno: '',
     otp: '',
   },
+  selectedsports: [],
 };
 
 const createaccountReducer = (state = initialState, action: any) => {
@@ -14,7 +15,7 @@ const createaccountReducer = (state = initialState, action: any) => {
 
   switch (type) {
     case 'signup':
-        console.log('data is ',payload.data.userId)
+      console.log('data is ', payload.data.userId);
       return {...state, DATA_SIGN_UP: payload.data};
 
     case 'verify-otp':

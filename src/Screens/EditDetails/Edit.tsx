@@ -23,7 +23,9 @@ import {images} from '../../Utils/images';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {STRINGS} from '../../Utils/string';
 import {COLOR} from '../../Utils/color';
-
+import {useDispatch, useSelector} from 'react-redux';
+import {getSportsAction} from '../../redux/EditDetails/action';
+getSportsAction;
 interface userType {
   title?: string;
   setOpen?: boolean;
@@ -34,17 +36,18 @@ interface userType {
 }
 const Edit = (props: userType) => {
   const navigation = useNavigation<any>();
-  const [identity, setIdentity] = useState('Select your identity');
+  const [identity, setIdentity] = useState<string>('Select your identity');
   const [coverimg, setCoverimg] = useState<any>();
   const [profileimage, setProfileimage] = useState<any>();
   const [modal, setModalOpen] = useState<boolean>(false);
-
+  const [sports, setSports] = useState('Sports');
   const [date, setDate] = useState<any>(new Date());
   const [open, setOpen] = useState(false);
 
   const {params} = useRoute();
-  
+
   React.useEffect(() => {
+    //@ts-ignore
     setIdentity(params);
   }, [navigation]);
 
@@ -82,6 +85,30 @@ const Edit = (props: userType) => {
 
   const Navigatedit = () => {
     navigation.navigate('CreateAccount');
+  };
+
+  const dispatch = useDispatch<any>();
+  const {DATA_SIGN_UP} = useSelector((store: any) => store.createaccountReducer);
+  // console.log('Data---------->',DATA_SIGN_UP.data.authToken);
+  let token=DATA_SIGN_UP.data.authToken;
+  
+
+  const Navigatesports = () => {
+    console.log("hgdfhjkdljn",token);
+    
+    dispatch(
+      getSportsAction(
+       token,
+        (response: any) => {
+          if (response.data.statusCode == 200) {
+            navigation.navigate('Sports');
+          }
+        },
+        (errorApI: any) => {
+          Alert.alert('fyuif');
+        },
+      ),
+    );
   };
 
   return (
@@ -182,12 +209,20 @@ const Edit = (props: userType) => {
           placeholderTextColor={COLOR.TEXTCOLOR}
         />
 
-        <CustomTextInput
+        {/* <CustomTextInput
           label="Sport Watch"
           placeholder={STRINGS.LABEL.sports}
           multiline={true}
           placeholderTextColor={COLOR.TEXTCOLOR}
-        />
+            
+        /> */}
+
+        <TouchableOpacity
+          style={styles.identitydesign}
+          onPress={Navigatesports}
+          >
+          <Text style={styles.sportstext}>{sports}</Text>
+        </TouchableOpacity>
       </KeyboardAwareScrollView>
       <View>
         <TouchableOpacity onPress={Navigatedit} style={styles.submitbutton}>

@@ -39,6 +39,23 @@ export const STRINGS = {
     CONGRATS: 'Congratulations',
   who:"Who are you?",
   nxt:"NEXT",
-  athlet:'ATHLETE'
+  athlet:'ATHLETE',
+  signin:'Sign In Using Your',
+  mobno: 'Mobile Number / Email',
+  sign:'SIGN IN',
+  newuser:'I’m a new user',
+  up:'Sign Up',
+
+SPORTS:{
+  sportslike:'What sport do you like',
+  play:'to Play ?'
+}
+
+  
+    
   },
+
+
 };
+
+  

@@ -8,7 +8,7 @@ import {useNavigation} from '@react-navigation/native';
 
 export default function SelectIdentity() {
   const navigation = useNavigation<any>();
-  const [identity,setIdentity]=React.useState("");
+  const [identity,setIdentity]=React.useState<any>("");
 
   const Navigatedit = () => {
     navigation.navigate('Edit',identity,setIdentity);
@@ -136,7 +136,8 @@ const styles = StyleSheet.create({
       right:23,
       position:'absolute',
       zIndex:1,
-      top:10
+      top:10,
+   resizeMode:'contain'
   },
   buttonbottom:{
     flex: 1, flexDirection: 'column-reverse', marginBottom: 80

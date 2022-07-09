@@ -369,6 +369,8 @@ PODS:
   - RNScreens (3.14.0):
     - React-Core
     - React-RCTImage
+  - RNSnackbar (2.4.0):
+    - React-Core
   - RNVectorIcons (9.2.0):
     - React-Core
   - SocketRocket (0.6.0)
@@ -437,6 +439,7 @@ DEPENDENCIES:
   - "RNCCheckbox (from `../node_modules/@react-native-community/checkbox`)"
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - RNSnackbar (from `../node_modules/react-native-snackbar`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -530,6 +533,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-image-crop-picker"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSnackbar:
+    :path: "../node_modules/react-native-snackbar"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   Yoga:
@@ -584,6 +589,7 @@ SPEC CHECKSUMS:
   RNCCheckbox: ed1b4ca295475b41e7251ebae046360a703b6eb5
   RNImageCropPicker: 44e2807bc410741f35d4c45b6586aedfe3da39d2
   RNScreens: 4830eb40e0793b38849965cd27f4f3a7d7bc65c1
+  RNSnackbar: be3333a21a453ccc272f41a8add5a71f7d44dfcd
   RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   TOCropViewController: edfd4f25713d56905ad1e0b9f5be3fbe0f59c863

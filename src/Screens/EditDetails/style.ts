@@ -153,5 +153,9 @@ const styles = StyleSheet.create({
     color: COLOR.LIGHTBLUE,
     fontSize: 20,
   },
+  sportstext:{
+    color:COLOR.WHITE,
+    fontSize:16
+  }
 });
 export {styles};

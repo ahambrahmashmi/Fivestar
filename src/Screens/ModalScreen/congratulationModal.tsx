@@ -41,18 +41,19 @@ export default function CongratulationModal(props: any) {
 
 const styles = StyleSheet.create({
   parent: {
-    flex: 0.30,
     backgroundColor: '#121212',
-
     borderTopWidth: 2,
     borderColor: COLOR.LIGHTBLUE,
     borderLeftWidth: 0.3,
     borderRightWidth: 0.3,
     borderBottomWidth: 0.3,
     borderRadius: 5,
+    width: normalize(336),
+    height: normalize(244),
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   thumbview: {
-    marginTop: normalize(38),
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
-    borderRadius:5
+    borderRadius: 5,
   },
   buttontxt: {
     color: COLOR.BLACK,

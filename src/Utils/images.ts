@@ -18,4 +18,6 @@ export const images={
    eyeop:require('../assets/images/eyeop.png'),
    tick:require('../assets/images/Vector.png'),
    fan3x:require('../assets/images/fan3x.png'),
+   search:require('../assets/images/search.png'),
+   rectangle:require('../assets/images/Rectangleback.png'),
 }

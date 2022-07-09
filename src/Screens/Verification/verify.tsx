@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
   StyleSheet,
+  Alert,
 } from 'react-native';
 import React, {useRef, useState} from 'react';
 import {images} from '../../Utils/images';
@@ -16,8 +17,8 @@ import {COLOR} from '../../Utils/color';
 import ModalScreens from '../ModalScreen/congratulationModal';
 import {STRINGS} from '../../Utils/string';
 import {styles} from './style';
-import { useDispatch, useSelector } from 'react-redux';
-import getCreateaccountAction from '../../redux/createAccount/action';
+import {useDispatch, useSelector} from 'react-redux';
+import {getotpAction} from '../../redux/createAccount/action';
 
 export default function Verify({route}: {route: any}) {
   const {phoneNo} = route.params;
@@ -31,21 +32,30 @@ export default function Verify({route}: {route: any}) {
   const [otp, setOtp] = useState('');
   const [modal, setModalOpen] = React.useState<boolean>(false);
 
-const dispatch=useDispatch<any>();
-const {DATA_SIGN_UP} = useSelector(
-  (store: any) => store.createaccountReducer,
-);
+  const dispatch = useDispatch<any>();
+  const {DATA_SIGN_UP} = useSelector(
+    (store: any) => store.createaccountReducer,
+  );
 
-     
-
-  const OTP_API_HIT=()=>{
-    dispatch(getCreateaccountAction("verify-otp",otp,phoneNo,DATA_SIGN_UP.userId ,null,null,null))
-    setModalOpen(!modal)
-  }
-
-  // const openmmodal = () => {
-  //   setModalOpen(!modal);
-  // };
+  const OTP_API_HIT = () => {
+    dispatch(
+      getotpAction(
+        DATA_SIGN_UP.userId,
+        otp,
+        phoneNo,
+        (response: any) => {
+          if (response?.data?.statusCode === 200) {
+            navigation.navigate('Verification', {phoneNo: phoneNo});
+            setModalOpen(!modal);
+          }
+        },
+        (errorAPI: any) => {
+          Alert.alert('api err', errorAPI);
+        },
+      ),
+    );
+ 
+  };
 
   const firstdigit = (text: any) => {
     setOtp(otp => otp + text);
