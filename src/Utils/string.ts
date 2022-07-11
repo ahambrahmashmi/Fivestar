@@ -45,6 +45,7 @@ export const STRINGS = {
   sign:'SIGN IN',
   newuser:'I’m a new user',
   up:'Sign Up',
+  forget:'Forget Password?',
 
 SPORTS:{
   sportslike:'What sport do you like',

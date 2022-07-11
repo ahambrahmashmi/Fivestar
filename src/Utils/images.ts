@@ -20,4 +20,8 @@ export const images={
    fan3x:require('../assets/images/fan3x.png'),
    search:require('../assets/images/search.png'),
    rectangle:require('../assets/images/Rectangleback.png'),
+   man:require('../assets/images/splashManImg.png'),
+   star:require('../assets/images/starImg.png'),
+   union:require('../assets/images/Union.png'),
+   background:require('../assets/images/backgroundSplashImg.png'),
 }

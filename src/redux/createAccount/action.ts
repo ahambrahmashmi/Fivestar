@@ -35,8 +35,6 @@ export function getotpAction(
   callback: Function,
   ErrorCallback: Function,
 ) {
-  console.log("api=>>>>",otp);
-  
   return (dispatch: any, getState: any) => {
     axios
       .post('https://fivestardevapi.appskeeper.in/api/v1/user/verify-otp', {
@@ -46,18 +44,15 @@ export function getotpAction(
         phoneNo,
       })
       .then(resp => {
-        console.log("response===>",resp);
-        
         dispatch({type: 'verify-otp', payload: resp.data});
         callback(resp);
       })
       .catch(err => {
         ErrorCallback(err);
-        console.log('error', err)
-      }).finally(()=>{
-     console.log("finally====>");
-     
+        console.log('error', err);
       })
-  
+      .finally(() => {
+        console.log('finally====>');
+      });
   };
 }

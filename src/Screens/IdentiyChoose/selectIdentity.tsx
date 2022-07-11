@@ -8,25 +8,22 @@ import {useNavigation} from '@react-navigation/native';
 
 export default function SelectIdentity() {
   const navigation = useNavigation<any>();
-  const [identity,setIdentity]=React.useState<any>("");
+  const [identity, setIdentity] = React.useState<any>('');
 
   const Navigatedit = () => {
-    navigation.navigate('Edit',identity,setIdentity);
+    navigation.navigate('Edit', identity, setIdentity);
   };
   const Navigateback = () => {
     navigation.navigate('Edit');
-
   };
 
-  const handlefan=()=>{
+  const handlefan = () => {
     setIdentity(STRINGS.LABEL.athlet);
-    // navigation.navigate('Edit');
-  }
+  };
 
-  const handleath=()=>{
-      setIdentity(STRINGS.LABEL.fan)
-    //   navigation.navigate('Edit');
-  }
+  const handleath = () => {
+    setIdentity(STRINGS.LABEL.fan);
+  };
   return (
     <View style={styles.parent}>
       <View style={styles.leftview}>
@@ -38,35 +35,49 @@ export default function SelectIdentity() {
       </View>
 
       <View style={styles.imgfanview}>
-        <TouchableOpacity
-        onPress={handleath}
-        >
-          <Image style={{...styles.fanimg,borderWidth:identity=="FAN"?2:0,borderColor:COLOR.LIGHTBLUE}} source={images.fan} />
+        <TouchableOpacity onPress={handleath}>
+          <Image
+            style={{
+              ...styles.fanimg,
+              borderWidth: identity == 'FAN' ? 2 : 0,
+              borderColor: COLOR.LIGHTBLUE,
+            }}
+            source={images.fan}
+          />
           {<Text style={styles.txtfan}>{STRINGS.LABEL.fan}</Text>}
 
-          {STRINGS.LABEL.fan ===identity ? (<Image  style={styles.tick} source={images.tick}/>):null}
+          {STRINGS.LABEL.fan === identity ? (
+            <Image style={styles.tick} source={images.tick} />
+          ) : null}
         </TouchableOpacity>
       </View>
 
       <View style={styles.imgfanview}>
-        <TouchableOpacity
-        onPress={handlefan}
-        >
-          
-          <Image style={{...styles.fanimg,borderWidth:identity == "ATHLETE" ? 2:0,borderColor:COLOR.LIGHTBLUE}} source={images.athlete} />
-        
+        <TouchableOpacity onPress={handlefan}>
+          <Image
+            style={{
+              ...styles.fanimg,
+              borderWidth: identity == 'ATHLETE' ? 2 : 0,
+              borderColor: COLOR.LIGHTBLUE,
+            }}
+            source={images.athlete}
+          />
 
-          {STRINGS.LABEL.athlet ===identity ? (<Image  style={styles.tick} source={images.tick}/>):null}
+          {STRINGS.LABEL.athlet === identity ? (
+            <Image style={styles.tick} source={images.tick} />
+          ) : null}
         </TouchableOpacity>
       </View>
 
-      <View
-        style={styles.buttonbottom}>
+      <View style={styles.buttonbottom}>
         <TouchableOpacity
-        disabled={identity==""}
-        onPress={Navigatedit} style={identity==""
-            ? {...styles.submitbutton, backgroundColor: COLOR.BROWNBACK}
-            : styles.submitbutton}>
+          disabled={identity == ''}
+          onPress={Navigatedit}
+          style={
+            identity == ''
+              ? {...styles.submitbutton, backgroundColor: COLOR.BROWNBACK}
+              : styles.submitbutton
+          }>
           <Text style={styles.button}>{STRINGS.LABEL.nxt}</Text>
         </TouchableOpacity>
       </View>
@@ -130,16 +141,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: 'helvetica-blackitalic',
   },
-  tick:{
-      height:vh(25),
-      width:vw(25),
-      right:23,
-      position:'absolute',
-      zIndex:1,
-      top:10,
-   resizeMode:'contain'
+  tick: {
+    height: vh(25),
+    width: vw(25),
+    right: 23,
+    position: 'absolute',
+    zIndex: 1,
+    top: 10,
+    resizeMode: 'contain',
   },
-  buttonbottom:{
-    flex: 1, flexDirection: 'column-reverse', marginBottom: 80
-  }
+  buttonbottom: {
+    flex: 1,
+    flexDirection: 'column-reverse',
+    marginBottom: 80,
+  },
 });

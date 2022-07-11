@@ -9,11 +9,13 @@ import CreateAccount from '../screens/CreateAccount/createAccount';
 import Verify from '../screens/Verification/verify';
 import SignIn from '../screens/SignIn/signIn';
 import Sports from '../screens/SportsScreen/sports';
+import Splash from '../screens/SplashScreen/splash';
 const Stack = createNativeStackNavigator();
 const NavigateScreen = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name='Splash' component={Splash}/>
          <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="CreateAccount" component={CreateAccount} />
         <Stack.Screen name="Edit" component={Edit} />

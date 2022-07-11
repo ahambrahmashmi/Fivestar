@@ -20,38 +20,20 @@ import sportsReducer from '../../redux/EditDetails/reducer';
 import {getSportsAction} from '../../redux/EditDetails/action';
 
 export default function Sports() {
+  const [isSelected, Selected] = useState(false);
 
-  const [isSelected,Selected]=useState(false)
-  
   const dispatch = useDispatch();
   const {DATA} = useSelector((store: any) => store.sportsReducer);
 
-  console.log('teyryry', DATA.data);
- 
-
-
-
-
-
-
-
-
-
-  
   const _renderItem = ({item}: any) => {
-    console.log("fghjkd'", item);
     return (
       <View style={styles.gridview}>
-          <TouchableOpacity>
-        <View style={styles.gridimg}>
-
-          <Image
-            source={{uri: item.sportImg}}
-            style={{height: 70, width: 60, resizeMode: 'contain'}}
-          />
-          <Text style={{color: 'white'}}>{item.sportName}</Text>
-        </View>
-          </TouchableOpacity>
+        <TouchableOpacity>
+          <View style={styles.gridimgVIEW}>
+            <Image source={{uri: item.sportImg}} style={styles.gridimg} />
+            <Text style={{color: 'white'}}>{item.sportName}</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   };
@@ -117,7 +99,6 @@ const styles = StyleSheet.create({
     height: normalize(45),
     fontSize: 14,
     color: 'white',
-    //   width:normalize(300)
   },
   searchicon: {
     height: normalize(20),
@@ -126,16 +107,20 @@ const styles = StyleSheet.create({
   },
   gridview: {
     marginTop: normalize(16),
-    // marginLeft: normalize(16),
-     marginHorizontal:11
+
+    marginHorizontal: 11,
   },
-  gridimg:{
+  gridimgVIEW: {
     height: normalize(120),
     width: normalize(108),
     backgroundColor: '#121212',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: normalize(6),
-  
-  }
+  },
+  gridimg: {
+    height: 70,
+    width: 60,
+    resizeMode: 'contain',
+  },
 });

@@ -46,6 +46,29 @@ const Edit = (props: userType) => {
 
   const {params} = useRoute();
 
+  const dispatch = useDispatch<any>();
+  const {DATA_SIGN_UP} = useSelector(
+    (store: any) => store.createaccountReducer,
+  );
+
+  let token = DATA_SIGN_UP.data.authToken;
+
+  const Navigatesports = () => {
+    dispatch(
+      getSportsAction(
+        token,
+        (response: any) => {
+          if (response.data.statusCode == 200) {
+            navigation.navigate('Sports');
+          }
+        },
+        (errorApI: any) => {
+          Alert.alert('API NOT HIT');
+        },
+      ),
+    );
+  };
+
   React.useEffect(() => {
     //@ts-ignore
     setIdentity(params);
@@ -85,30 +108,6 @@ const Edit = (props: userType) => {
 
   const Navigatedit = () => {
     navigation.navigate('CreateAccount');
-  };
-
-  const dispatch = useDispatch<any>();
-  const {DATA_SIGN_UP} = useSelector((store: any) => store.createaccountReducer);
-  // console.log('Data---------->',DATA_SIGN_UP.data.authToken);
-  let token=DATA_SIGN_UP.data.authToken;
-  
-
-  const Navigatesports = () => {
-    console.log("hgdfhjkdljn",token);
-    
-    dispatch(
-      getSportsAction(
-       token,
-        (response: any) => {
-          if (response.data.statusCode == 200) {
-            navigation.navigate('Sports');
-          }
-        },
-        (errorApI: any) => {
-          Alert.alert('fyuif');
-        },
-      ),
-    );
   };
 
   return (
@@ -209,18 +208,9 @@ const Edit = (props: userType) => {
           placeholderTextColor={COLOR.TEXTCOLOR}
         />
 
-        {/* <CustomTextInput
-          label="Sport Watch"
-          placeholder={STRINGS.LABEL.sports}
-          multiline={true}
-          placeholderTextColor={COLOR.TEXTCOLOR}
-            
-        /> */}
-
         <TouchableOpacity
           style={styles.identitydesign}
-          onPress={Navigatesports}
-          >
+          onPress={Navigatesports}>
           <Text style={styles.sportstext}>{sports}</Text>
         </TouchableOpacity>
       </KeyboardAwareScrollView>

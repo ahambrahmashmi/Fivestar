@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     height: normalize(32),
     width: normalize(32),
     marginTop: normalize(58),
-    left: normalize(16),
+left:normalize(1)
   },
   lefticon: {
     width: normalize(375),

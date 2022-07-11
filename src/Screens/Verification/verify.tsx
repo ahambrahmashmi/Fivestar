@@ -19,6 +19,7 @@ import {STRINGS} from '../../Utils/string';
 import {styles} from './style';
 import {useDispatch, useSelector} from 'react-redux';
 import {getotpAction} from '../../redux/createAccount/action';
+import LeftArrow from '../../component/leftArrow';
 
 export default function Verify({route}: {route: any}) {
   const {phoneNo} = route.params;
@@ -54,7 +55,6 @@ export default function Verify({route}: {route: any}) {
         },
       ),
     );
- 
   };
 
   const firstdigit = (text: any) => {
@@ -99,12 +99,7 @@ export default function Verify({route}: {route: any}) {
 
   return (
     <View style={styles.parent}>
-      <View style={styles.lefticon}>
-        <TouchableOpacity onPress={Naviagte}>
-          <Image source={images.left} style={styles.mainhead} />
-        </TouchableOpacity>
-      </View>
-
+      <LeftArrow style={styles.mainhead} />
       <View style={styles.verifyview}>
         <Text style={styles.verifytxt}>{STRINGS.LABEL.VERIFY}</Text>
       </View>
