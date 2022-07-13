@@ -8,7 +8,7 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {COLOR} from '../../Utils/color';
 import leftArrow from '../../component/leftArrow';
 import LeftArrow from '../../component/leftArrow';
@@ -18,44 +18,83 @@ import {images} from '../../Utils/images';
 import {useDispatch, useSelector} from 'react-redux';
 import sportsReducer from '../../redux/EditDetails/reducer';
 import {getSportsAction} from '../../redux/EditDetails/action';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import SportsComponent from '../../component/sportsComponent';
+import SearchTextinput from '../../component/searchTextinput';
 
-export default function Sports() {
-  const [isSelected, Selected] = useState(false);
+interface userdefined {
+  navigation?: any;
+  isSelected?: any;
+}
 
+export default function Sports(props: userdefined) {
+  const [selecteditem, setSelecteditem] = useState<any>([]);
+  const navigation = useNavigation<any>();
   const dispatch = useDispatch();
+  
+  const {call} = useRoute<any>().params;
+
   const {DATA} = useSelector((store: any) => store.sportsReducer);
+
+
+  React.useEffect(() => {
+    call(selecteditem);
+  }, [selecteditem]);
+
+
+
+  const transfer = useCallback(
+    (item: any) => {
+      const index = selecteditem.findIndex((ele: any) => ele == item);
+
+      if (index == -1) {
+        setSelecteditem([...selecteditem, item]);
+      } else {
+        selecteditem.splice(index, 1);
+        setSelecteditem([...selecteditem]);
+      }
+    },
+    [selecteditem],
+  );
 
   const _renderItem = ({item}: any) => {
     return (
-      <View style={styles.gridview}>
-        <TouchableOpacity>
-          <View style={styles.gridimgVIEW}>
-            <Image source={{uri: item.sportImg}} style={styles.gridimg} />
-            <Text style={{color: 'white'}}>{item.sportName}</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
+      <SportsComponent
+        img={item.sportImg}
+        imgText={item.sportName}
+        callback={transfer}
+      />
     );
   };
+  
+  console.log('selected', selecteditem);
 
   return (
     <View style={styles.parent}>
-      <LeftArrow style={styles.arrowstyle} />
+      <LeftArrow
+        style={styles.arrowstyle}
+        NaviagtePress={() => props.navigation.goBack()}
+      />
 
       <View style={styles.sportsview}>
         <Text style={styles.sportstxt}>{STRINGS.LABEL.SPORTS.sportslike}</Text>
         <Text style={styles.play}>{STRINGS.LABEL.SPORTS.play}</Text>
       </View>
-      <View style={styles.txtinputview}>
-        <Image style={styles.searchicon} source={images.search} />
-        <TextInput
-          style={styles.txtinput}
-          placeholder="Search Sports"
-          placeholderTextColor="white"
-        />
-      </View>
+
+      <SearchTextinput placeholder={'Search Sports'} />
 
       <FlatList data={DATA.data} renderItem={_renderItem} numColumns={3} />
+
+      <View>
+        { selecteditem.length>0?
+          <TouchableOpacity onPress={()=>navigation.goBack()} style={[styles.button]}>
+            <Text style={styles.buttontxt}>{STRINGS.LABEL.CONTINUE}</Text>
+          </TouchableOpacity>
+          :    <TouchableOpacity style={[styles.buttonDisable]}>
+          <Text style={styles.buttontxt}>{STRINGS.LABEL.CONTINUE}</Text>
+        </TouchableOpacity>
+        }
+      </View>
     </View>
   );
 }
@@ -68,7 +107,7 @@ const styles = StyleSheet.create({
     marginTop: 60,
   },
   sportsview: {
-    marginLeft: normalize(18),
+    marginLeft: normalize(20),
     marginTop: normalize(18),
   },
   sportstxt: {
@@ -82,45 +121,39 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginTop: 12,
   },
-  txtinputview: {
-    borderWidth: 1,
-    width: normalize(340),
-    marginLeft: normalize(18),
-    borderRadius: normalize(5),
-    marginTop: normalize(18),
-    borderColor: 'white',
-    flexDirection: 'row',
-    alignItems: 'center',
-    height: normalize(45),
-    paddingRight: normalize(20),
-  },
-  txtinput: {
-    marginHorizontal: normalize(20),
-    height: normalize(45),
-    fontSize: 14,
-    color: 'white',
-  },
-  searchicon: {
-    height: normalize(20),
-    width: normalize(20),
-    marginLeft: normalize(15),
-  },
+
   gridview: {
     marginTop: normalize(16),
-
-    marginHorizontal: 11,
+    marginHorizontal: normalize(11),
   },
-  gridimgVIEW: {
-    height: normalize(120),
-    width: normalize(108),
-    backgroundColor: '#121212',
+  button: {
+    marginTop: normalize(15),
+    backgroundColor: COLOR.LIGHTBLUE,
+    width: normalize(345),
+    height: normalize(48),
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: normalize(6),
+    alignSelf: 'center',
+    borderRadius: 5,
+    bottom: normalize(25),
+    left: normalize(5),
   },
-  gridimg: {
-    height: 70,
-    width: 60,
-    resizeMode: 'contain',
+  buttontxt: {
+    color: COLOR.BLACK,
+    fontFamily: 'helvetica-Blackitalic',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  buttonDisable: {
+    marginTop: normalize(15),
+    backgroundColor: '#282828',
+    width: normalize(345),
+    height: normalize(48),
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    borderRadius: 5,
+    bottom: normalize(25),
+    left: normalize(5),
   },
 });

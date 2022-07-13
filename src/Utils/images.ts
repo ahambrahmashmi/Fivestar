@@ -24,4 +24,5 @@ export const images={
    star:require('../assets/images/starImg.png'),
    union:require('../assets/images/Union.png'),
    background:require('../assets/images/backgroundSplashImg.png'),
+   sporttick:require('../assets/images/sporttick.png'),
 }

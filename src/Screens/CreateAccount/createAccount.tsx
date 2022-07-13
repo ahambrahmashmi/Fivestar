@@ -31,6 +31,7 @@ import LeftArrow from '../../component/leftArrow';
 interface userdefined {
   val?: any;
   value?: any;
+  navigation?:any
 }
 
 export default function CreateAccount(props: userdefined) {
@@ -76,10 +77,10 @@ export default function CreateAccount(props: userdefined) {
 
   const handl = () => {
     if (
-      nameerror == '' &&
-      emailValidError=="" &&
-      phoneNoerror ==''&&
-      passwordError ==''&&
+      nameerror == '' && name.length>0 &&
+      emailValidError=="" && email.length>0 &&
+      phoneNoerror ==''&& phoneNo.length>0 && 
+      passwordError ==''&& password.length>0 &&
       isSelected
     ) {
       return true;
@@ -162,7 +163,7 @@ export default function CreateAccount(props: userdefined) {
 
   return (
     <SafeAreaView style={styles.mainparent}>
-     <LeftArrow/>
+     <LeftArrow NaviagtePress={()=>props.navigation.navigate("SignIn")}/>
       <View style={styles.createparent}>
         <View>
           <Text style={styles.createtext}>{STRINGS.LABEL.CREATEACC}</Text>

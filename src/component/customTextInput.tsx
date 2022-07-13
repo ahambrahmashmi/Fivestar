@@ -33,6 +33,7 @@ export default function CustomTextInput(props: PROPS) {
         selectionColor="#44C2E3"
         placeholderTextColor="white"
         autoCapitalize="none"
+    
         theme={{
           colors: {
             text: '#44C2E3',

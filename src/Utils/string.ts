@@ -46,6 +46,8 @@ export const STRINGS = {
   newuser:'I’m a new user',
   up:'Sign Up',
   forget:'Forget Password?',
+  zipcode:'Zipcode*',
+  zipcodeheader:'Search Zip Code',
 
 SPORTS:{
   sportslike:'What sport do you like',

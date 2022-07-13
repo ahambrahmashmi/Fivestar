@@ -25,6 +25,10 @@ import {STRINGS} from '../../Utils/string';
 import {COLOR} from '../../Utils/color';
 import {useDispatch, useSelector} from 'react-redux';
 import {getSportsAction} from '../../redux/EditDetails/action';
+import {getZipcodeaction} from '../../redux/zipCode/action';
+import store from '../../redux/store';
+import Zipcodemodal from '../ModalScreen/zipcodemodal';
+
 getSportsAction;
 interface userType {
   title?: string;
@@ -33,6 +37,7 @@ interface userType {
   Edit?: any;
   route?: any;
   params?: any;
+  item?: any;
 }
 const Edit = (props: userType) => {
   const navigation = useNavigation<any>();
@@ -40,9 +45,12 @@ const Edit = (props: userType) => {
   const [coverimg, setCoverimg] = useState<any>();
   const [profileimage, setProfileimage] = useState<any>();
   const [modal, setModalOpen] = useState<boolean>(false);
-  const [sports, setSports] = useState('Sports');
+
   const [date, setDate] = useState<any>(new Date());
   const [open, setOpen] = useState(false);
+  const [modalScreen, setmodalScreen] = useState<boolean>(false);
+  const [zipcode, setZipcode] = useState<string>('Zipcode*');
+  const [selecteditem, setSelecteditem] = useState<any>([]);
 
   const {params} = useRoute();
 
@@ -50,6 +58,8 @@ const Edit = (props: userType) => {
   const {DATA_SIGN_UP} = useSelector(
     (store: any) => store.createaccountReducer,
   );
+
+  const {Zipcode_Data} = useSelector((store: any) => store.zipcodeReducer);
 
   let token = DATA_SIGN_UP.data.authToken;
 
@@ -59,14 +69,22 @@ const Edit = (props: userType) => {
         token,
         (response: any) => {
           if (response.data.statusCode == 200) {
-            navigation.navigate('Sports');
+            navigation.navigate('Sports', {
+              call: (params: any) => {
+                setSelecteditem(params);
+              },
+            });
           }
         },
         (errorApI: any) => {
-          Alert.alert('API NOT HIT');
+          Alert.alert('API NOT HIT', errorApI);
         },
       ),
     );
+  };
+
+  const Navigatezipcode = () => {
+    setmodalScreen(!modal);
   };
 
   React.useEffect(() => {
@@ -122,6 +140,16 @@ const Edit = (props: userType) => {
             identity={identity}
             modal={modal}></ModalScreens>
         </Modal>
+
+        <Modal isVisible={modalScreen}>
+          <Zipcodemodal
+            setZipcode={setZipcode}
+            setmodalScreen={setmodalScreen}
+            zipcode={zipcode}
+            modalScreen={modalScreen}
+          />
+        </Modal>
+
         <Text style={styles.textcolor}>{STRINGS.LABEL.JOHN}</Text>
         <Text style={styles.textcolor}>{STRINGS.LABEL.TELL}</Text>
       </View>
@@ -196,6 +224,12 @@ const Edit = (props: userType) => {
           )}
         />
 
+        <TouchableOpacity
+          style={styles.identitydesign}
+          onPress={Navigatezipcode}>
+          <Text style={styles.sportstext}>{zipcode}</Text>
+        </TouchableOpacity>
+
         <CustomTextInput
           label="Bio"
           multiline={true}
@@ -211,7 +245,13 @@ const Edit = (props: userType) => {
         <TouchableOpacity
           style={styles.identitydesign}
           onPress={Navigatesports}>
-          <Text style={styles.sportstext}>{sports}</Text>
+          <Text style={{color: 'white'}}>
+            {selecteditem.length < 1 ? (
+              <Text style={{color: 'white'}}>{'Sports I Watch'}</Text>
+            ) : (
+              JSON.stringify(selecteditem)
+            )}
+          </Text>
         </TouchableOpacity>
       </KeyboardAwareScrollView>
       <View>

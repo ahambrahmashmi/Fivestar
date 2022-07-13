@@ -7,14 +7,12 @@ import { useNavigation } from '@react-navigation/native'
 
 export default function LeftArrow(props:any) {
   const navigation = useNavigation<any>();
-    const{style}=props
-    const Naviagte = () => {
-      navigation.navigate('CreateAccount');
-    };
+    const{style,NaviagtePress}=props
+  
   return (
     <View style={[styles.leftview,style]}>
     <TouchableOpacity
-    onPress={Naviagte}
+    onPress={NaviagtePress}
     >
       <Image style={styles.leftarrowimg} source={images.left} />
     </TouchableOpacity>
