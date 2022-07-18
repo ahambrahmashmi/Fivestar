@@ -148,14 +148,56 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: normalize(15),
     marginHorizontal: normalize(14),
+   
+
   },
   identitytext: {
     color: COLOR.LIGHTBLUE,
     fontSize: 20,
   },
   sportstext:{
-    color:COLOR.WHITE,
+    color:COLOR.LIGHTBLUE,
     fontSize:16
-  }
+  },
+
+  sportsView:{
+    borderWidth: 1,
+    borderColor: COLOR.WHITE,
+    borderRadius: 5,
+    minHeight: normalize(55),
+    marginTop: normalize(20),
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: normalize(15),
+    marginHorizontal: normalize(14),
+    flexWrap:'wrap'
+  },
+  viewMap:{
+    flexDirection: 'row',
+    backgroundColor: COLOR.BROWNBACK,
+    marginHorizontal: normalize(15),
+    marginVertical:normalize(8),
+    alignItems: 'center',
+    paddingHorizontal: normalize(5),
+    paddingVertical: normalize(2),
+    justifyContent: 'space-around',
+    borderRadius: normalize(5),
+  
+  },
+  elementtxt:{
+    color: 'white',
+                      fontWeight: 'bold',
+                      fontFamily: 'Helvetica',
+  },
+  crossimg:{
+    height: 20,
+    width: 20,
+    marginLeft: 10,
+    resizeMode: 'contain',
+  },
+  sportswatch:{
+    color: 'white', marginTop: 30
+  },
+  AddNew:{color: COLOR.LIGHTBLUE,fontFamily:'helvetica-blackitalic',fontSize:14,marginLeft:20}
 });
 export {styles};

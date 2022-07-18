@@ -3,13 +3,13 @@ import React from 'react'
 import { images } from '../Utils/images'
 import { normalize } from '../Utils/dimension'
 
-export default function SearchTextinput({placeholder,onChangeText}:any) {
+export default function SearchTextinput({placeholder,onChangeText,style,styletxtinput}:any) {
   
   return (
-    <View style={styles.txtinputview}>
+    <View style={[styles.txtinputview,style]}>
         <Image style={styles.searchicon} source={images.search} />
         <TextInput
-          style={styles.txtinput}
+          style={[styles.txtinput,styletxtinput]}
           placeholder={placeholder}
           placeholderTextColor="white"
           onChangeText={onChangeText}

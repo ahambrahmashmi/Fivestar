@@ -30,18 +30,16 @@ interface userdefined {
 export default function Sports(props: userdefined) {
   const [selecteditem, setSelecteditem] = useState<any>([]);
   const navigation = useNavigation<any>();
+  const [index, setIndex] = React.useState('');
   const dispatch = useDispatch();
-  
+
   const {call} = useRoute<any>().params;
 
   const {DATA} = useSelector((store: any) => store.sportsReducer);
 
-
   React.useEffect(() => {
     call(selecteditem);
   }, [selecteditem]);
-
-
 
   const transfer = useCallback(
     (item: any) => {
@@ -66,7 +64,7 @@ export default function Sports(props: userdefined) {
       />
     );
   };
-  
+
   console.log('selected', selecteditem);
 
   return (
@@ -81,19 +79,24 @@ export default function Sports(props: userdefined) {
         <Text style={styles.play}>{STRINGS.LABEL.SPORTS.play}</Text>
       </View>
 
-      <SearchTextinput placeholder={'Search Sports'} />
+      <SearchTextinput placeholder={'Search Sports'}
+         onChangeText
+      />
 
       <FlatList data={DATA.data} renderItem={_renderItem} numColumns={3} />
 
       <View>
-        { selecteditem.length>0?
-          <TouchableOpacity onPress={()=>navigation.goBack()} style={[styles.button]}>
+        {selecteditem.length > 0 ? (
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={[styles.button]}>
             <Text style={styles.buttontxt}>{STRINGS.LABEL.CONTINUE}</Text>
           </TouchableOpacity>
-          :    <TouchableOpacity style={[styles.buttonDisable]}>
-          <Text style={styles.buttontxt}>{STRINGS.LABEL.CONTINUE}</Text>
-        </TouchableOpacity>
-        }
+        ) : (
+          <TouchableOpacity style={[styles.buttonDisable]}>
+            <Text style={styles.buttontxt}>{STRINGS.LABEL.CONTINUE}</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );

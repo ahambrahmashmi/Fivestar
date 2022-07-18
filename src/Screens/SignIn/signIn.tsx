@@ -79,6 +79,7 @@ export default function SignIn() {
         <Text style={styles.signtxt}>{STRINGS.LABEL.signin}</Text>
         <Text style={styles.mobtxt}>{STRINGS.LABEL.mobno}</Text>
       </View>
+      
 
       <View style={styles.txtinputview}>
         <CustomTextInput
@@ -90,7 +91,9 @@ export default function SignIn() {
         <Text style={styles.handlingAll}>
           {emailValidError ? emailValidError : null}
         </Text>
+
       </View>
+      
       <View style={styles.txtinputview}>
         <CustomTextInput
           label="Password"

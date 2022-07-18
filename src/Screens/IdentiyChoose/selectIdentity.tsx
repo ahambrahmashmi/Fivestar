@@ -8,7 +8,7 @@ import {useNavigation} from '@react-navigation/native';
 
 export default function SelectIdentity() {
   const navigation = useNavigation<any>();
-  const [identity, setIdentity] = React.useState<any>('');
+  const [identity, setIdentity] = React.useState<any>('Select your identity');
 
   const Navigatedit = () => {
     navigation.navigate('Edit', identity, setIdentity);

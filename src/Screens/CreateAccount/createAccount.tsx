@@ -27,11 +27,16 @@ import commonFunction from '../../Utils/commonFunction';
 import OrCustom from '../../component/orCustom';
 import GoogleCustom from '../../component/googleCustom';
 import LeftArrow from '../../component/leftArrow';
+import Modal from 'react-native-modal';
+
+import Countrtycode from '../ModalScreen/countrtycode';
+import {TextInput} from 'react-native-paper';
+import {normalize} from '../../Utils/dimension';
 
 interface userdefined {
   val?: any;
   value?: any;
-  navigation?:any
+  navigation?: any;
 }
 
 export default function CreateAccount(props: userdefined) {
@@ -45,10 +50,10 @@ export default function CreateAccount(props: userdefined) {
   const [phoneNoerror, setphoneNoerror] = React.useState('');
   const [name, setName] = React.useState('');
   const [nameerror, setnameError] = useState('');
-
-
+  const [modalMob, setModalMob] = useState<boolean>(false);
   const [hidePass, setHidePass] = React.useState(true);
   const dispatch = useDispatch<any>();
+  const [countryMob, setCountry] = useState<string>('+1');
 
   const {DATA_SIGN_UP} = useSelector(
     (store: any) => store.createaccountReducer,
@@ -77,10 +82,14 @@ export default function CreateAccount(props: userdefined) {
 
   const handl = () => {
     if (
-      nameerror == '' && name.length>0 &&
-      emailValidError=="" && email.length>0 &&
-      phoneNoerror ==''&& phoneNo.length>0 && 
-      passwordError ==''&& password.length>0 &&
+      nameerror == '' &&
+      name.length > 0 &&
+      emailValidError == '' &&
+      email.length > 0 &&
+      phoneNoerror == '' &&
+      phoneNo.length > 0 &&
+      passwordError == '' &&
+      password.length > 0 &&
       isSelected
     ) {
       return true;
@@ -92,7 +101,6 @@ export default function CreateAccount(props: userdefined) {
   const handleName = (val: any) => {
     if (val.length === 0) {
       setnameError('name should be minimum 3 character');
-     
     } else if (nameRegex.test(val) === false) {
       setnameError('Please enter a valid name');
     } else if (nameRegex.test(val) === true) {
@@ -121,11 +129,12 @@ export default function CreateAccount(props: userdefined) {
   };
 
   const handleValidMobno = (val: any) => {
-    if (val.length === 0) {
+    const value = val.trim()
+    if (value.length === 0) {
       setphoneNoerror('Phone Number must be enter');
-    } else if (mobilenoRegex.test(val) == false) {
+    } else if (mobilenoRegex.test(value) == false) {
       setphoneNoerror('Enter valid Phone Number');
-    } else if (mobilenoRegex.test(val) == true) {
+    } else if (mobilenoRegex.test(value) == true) {
       setphoneNoerror('');
     }
   };
@@ -140,8 +149,8 @@ export default function CreateAccount(props: userdefined) {
   };
 
   const phoneNoinput = (value: any) => {
-    setphoneNo(value);
-    handleValidMobno(value);
+    setphoneNo(value.trim());
+    handleValidMobno(value.trim());
   };
 
   const emailInput = (value: any) => {
@@ -161,9 +170,13 @@ export default function CreateAccount(props: userdefined) {
     setHidePass(!hidePass);
   };
 
+  const closedcountry = () => {
+    setModalMob(!modalMob);
+  };
+
   return (
     <SafeAreaView style={styles.mainparent}>
-     <LeftArrow NaviagtePress={()=>props.navigation.navigate("SignIn")}/>
+      <LeftArrow NaviagtePress={() => props.navigation.navigate('SignIn')} />
       <View style={styles.createparent}>
         <View>
           <Text style={styles.createtext}>{STRINGS.LABEL.CREATEACC}</Text>
@@ -172,6 +185,16 @@ export default function CreateAccount(props: userdefined) {
           <Text style={styles.signuptext}>{STRINGS.LABEL.SIGN}</Text>
         </View>
       </View>
+
+      <Modal isVisible={modalMob}>
+        <Countrtycode
+          setCountry={setCountry}
+          setModalMob={setModalMob}
+          countrymob={countryMob}
+          modalMob={modalMob}
+        />
+      </Modal>
+
       <KeyboardAwareScrollView bounces={false}>
         <View style={styles.innermainview}>
           <CustomTextInput
@@ -182,18 +205,40 @@ export default function CreateAccount(props: userdefined) {
 
           <Text style={styles.handlingAll}>{nameerror ? nameerror : null}</Text>
 
-          <CustomTextInput
-            label="Mobile Number"
-            placeholder={STRINGS.LABEL.MobNO}
-            value={phoneNo}
-            onChangeText={phoneNoinput}
-            keyboardtype="number-pad"
-          />
+         
+          <View
+            style={styles.boxview}>
+            <CustomTextInput
+              style={styles.textinputmob}
+              label="Mobile Number"
+              placeholder={STRINGS.LABEL.MobNO}
+              value={"                "+phoneNo}
+              onChangeText={phoneNoinput}
+              keyboardtype="number-pad"
+
+              left={()=>(
+                <TouchableOpacity
+                style={styles.countryCode}
+                onPress={closedcountry}>
+                <Text style={styles.defaultcountry}>{countryMob}</Text>
+                <Image
+                  style={styles.downimg}
+                  source={images.down}
+                />
+        
+                <Image
+                  style={styles.lineimg}
+                  source={images.line}
+                />
+              </TouchableOpacity>
+              )}
+            />
+          </View>
 
           <Text style={styles.handlingAll}>
             {phoneNoerror ? phoneNoerror : null}
           </Text>
-
+ 
           <CustomTextInput
             label="Email"
             placeholder={STRINGS.LABEL.email}
@@ -278,4 +323,13 @@ export default function CreateAccount(props: userdefined) {
       </KeyboardAwareScrollView>
     </SafeAreaView>
   );
+}
+{
+  /* <CustomTextInput
+              label="Mobile Number"
+              placeholder={STRINGS.LABEL.MobNO}
+              value={phoneNo}
+              onChangeText={phoneNoinput}
+              keyboardtype="number-pad"
+            /> */
 }

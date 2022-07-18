@@ -11,7 +11,7 @@ import {
   ImageBackground,
   Alert,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ImagePicker from 'react-native-image-crop-picker';
 import CustomTextInput from '../../component/customTextInput';
 import DatePicker from 'react-native-date-picker';
@@ -25,8 +25,6 @@ import {STRINGS} from '../../Utils/string';
 import {COLOR} from '../../Utils/color';
 import {useDispatch, useSelector} from 'react-redux';
 import {getSportsAction} from '../../redux/EditDetails/action';
-import {getZipcodeaction} from '../../redux/zipCode/action';
-import store from '../../redux/store';
 import Zipcodemodal from '../ModalScreen/zipcodemodal';
 
 getSportsAction;
@@ -38,9 +36,11 @@ interface userType {
   route?: any;
   params?: any;
   item?: any;
+  placeholderTextColor?: any;
 }
 const Edit = (props: userType) => {
   const navigation = useNavigation<any>();
+
   const [identity, setIdentity] = useState<string>('Select your identity');
   const [coverimg, setCoverimg] = useState<any>();
   const [profileimage, setProfileimage] = useState<any>();
@@ -51,17 +51,28 @@ const Edit = (props: userType) => {
   const [modalScreen, setmodalScreen] = useState<boolean>(false);
   const [zipcode, setZipcode] = useState<string>('Zipcode*');
   const [selecteditem, setSelecteditem] = useState<any>([]);
-
+  const [add, setAdd] = useState<any>([]);
+  const [text,setText]=useState<any>('');
   const {params} = useRoute();
 
   const dispatch = useDispatch<any>();
   const {DATA_SIGN_UP} = useSelector(
     (store: any) => store.createaccountReducer,
   );
+  // console.log('data ---------->',DATA_SIGN_UP.data.username);
+  // console.log('splash',DATA_SIGN_UP);
 
   const {Zipcode_Data} = useSelector((store: any) => store.zipcodeReducer);
 
+  let UserName = DATA_SIGN_UP.data.username;
+
   let token = DATA_SIGN_UP.data.authToken;
+  // console.log('tojken',token);
+// useEffect(() => {
+//   console.log('idebtuuabsdfasdf---->>>',identity);
+  
+// setIdentity('Select your identity')
+// }, [identity])
 
   const Navigatesports = () => {
     dispatch(
@@ -128,6 +139,11 @@ const Edit = (props: userType) => {
     navigation.navigate('CreateAccount');
   };
 
+  const handlecross = (index: number) => {
+    selecteditem.splice(index, 1);
+    setSelecteditem([...selecteditem]);
+  };
+
   return (
     <View style={styles.mainparent}>
       <StatusBar barStyle={'light-content'} translucent={true} />
@@ -174,9 +190,16 @@ const Edit = (props: userType) => {
         </View>
         <CustomTextInput
           label={STRINGS.LABEL.USERNAME}
+          value={UserName}
           placeholder={STRINGS.LABEL.USERNAME}
+
+          // onChangeText={(text:any)=>setText(text)}
+          // onFocus={()=>setText(text)}
+
           right={() => (
-            <TouchableOpacity style={styles.pencil}>
+            <TouchableOpacity style={styles.pencil}
+            onFocus={()=>setText(UserName)}
+            >
               <Image
                 style={styles.pencilimage}
                 source={images.edit}
@@ -242,16 +265,31 @@ const Edit = (props: userType) => {
           placeholderTextColor={COLOR.TEXTCOLOR}
         />
 
-        <TouchableOpacity
-          style={styles.identitydesign}
-          onPress={Navigatesports}>
-          <Text style={{color: 'white'}}>
-            {selecteditem.length < 1 ? (
-              <Text style={{color: 'white'}}>{'Sports I Watch'}</Text>
-            ) : (
-              JSON.stringify(selecteditem)
-            )}
-          </Text>
+        <TouchableOpacity style={styles.sportsView} onPress={Navigatesports}>
+          {selecteditem.length < 1 ? (
+            <Text style={styles.sportswatch}>{'Sports I Watch'}</Text>
+          ) : (
+            // JSON.stringify(selecteditem)
+            selecteditem.map((element: any, index: number) => {
+              return (
+                <View style={styles.viewMap}>
+                  <Text style={styles.elementtxt}>{element}</Text>
+                  <TouchableOpacity
+                    onPress={() => {
+                      handlecross(index);
+                    }}>
+                    <Image style={styles.crossimg} source={images.cross} />
+                  </TouchableOpacity>
+                </View>
+              );
+            })
+          )}
+
+          {selecteditem.length > 0 ? (
+            <TouchableOpacity onPress={Navigatesports}>
+              <Image style={{height: 20, width: 100}} source={images.add} />
+            </TouchableOpacity>
+          ) : null}
         </TouchableOpacity>
       </KeyboardAwareScrollView>
       <View>

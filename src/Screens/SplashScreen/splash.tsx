@@ -10,21 +10,33 @@ import React, {useEffect, useRef} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {images} from '../../Utils/images';
 import {normalize} from '../../Utils/dimension';
+import {useSelector} from 'react-redux';
 LogBox.ignoreAllLogs();
 function Splash(): any {
   const fadeAnim = useRef(new Animated.Value(0)).current;
+  const {DATA_SIGN_UP} = useSelector(
+    (store: any) => store.createaccountReducer,
+  );
+console.log('splash',DATA_SIGN_UP);
 
+  let token = DATA_SIGN_UP.data.authToken;
   useEffect(() => {
     Animated.timing(fadeAnim, {
       toValue: 1,
       duration: 6000,
       useNativeDriver: false,
     }).start();
+    setTimeout(() => {
+      navigation.replace('SignIn');
+      // if (token) {
+      //   navigation.navigate('Edit');
+      // } else {
+      //   navigation.replace('SignIn');
+      // }
+    }, 3000);
   }, [fadeAnim]);
   const navigation = useNavigation<any>();
-  setTimeout(() => {
-    navigation.replace('SignIn');
-  }, 3000);
+
   return (
     <View style={styles.container}>
       <StatusBar hidden={true} />

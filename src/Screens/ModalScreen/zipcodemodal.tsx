@@ -22,37 +22,30 @@ interface userdefined {
   modalScreen?: any;
   zipcode?: any;
   setZipcode?: any;
+  navigation?: any;
+  onPress?: any
 }
 
 export default function Zipcode(props: userdefined) {
   const dispatch = useDispatch<any>();
   const navigation = useNavigation<any>();
   let {modalScreen, setmodalScreen, zipcode, setZipcode} = props;
-  const [data, setData] = React.useState([])
+  const [data, setData] = React.useState([]);
   const {Zipcode_Data} = useSelector((store: any) => store.zipcodeReducer);
-  const [searchText, setSearchText] = React.useState('1')
-  const [page, setPage] =  React.useState(1)
-
- React.useEffect(() => {
-  setData([...data, Zipcode_Data])
-  console.log(data)
- },[Zipcode_Data])
+  const [searchText, setSearchText] = React.useState('1');
+  const [page, setPage] = React.useState(1);
 
   const closedmodal = (item: any) => {
     setmodalScreen(!modalScreen);
     setZipcode(item.zipcode);
   };
   const zipcodeSeprater = () => {
-    return (
-      <View
-        style={styles.zipcodeitem}
-      />
-    );
+    return <View style={styles.zipcodeitem} />;
   };
 
   const _onEndReached = () => {
-    console.log("reached")
-    setPage(page+1)
+    console.log('reached');
+    setPage(page + 1);
     dispatch(
       getZipcodeaction(
         searchText,
@@ -66,8 +59,8 @@ export default function Zipcode(props: userdefined) {
           Alert.alert('not hit');
         },
       ),
-    )
-  }
+    );
+  };
 
   const _renderItem = ({item}: any) => {
     return (
@@ -85,8 +78,10 @@ export default function Zipcode(props: userdefined) {
   return (
     <SafeAreaView style={styles.parent}>
       <View>
-        <LeftArrow style={styles.arrowstyle} />
-
+        <LeftArrow
+          NaviagtePress={() => {navigation.goBack()}}
+          style={styles.arrowstyle}
+        />
         <View style={styles.sportsview}>
           <Text style={styles.sportstxt}>{STRINGS.LABEL.zipcodeheader}</Text>
         </View>
@@ -94,8 +89,8 @@ export default function Zipcode(props: userdefined) {
 
       <SearchTextinput
         placeholder={STRINGS.LABEL.zipcodeheader}
-        onChangeText={(text: any) =>{
-          setSearchText(text)
+        onChangeText={(text: any) => {
+          setSearchText(text);
           dispatch(
             getZipcodeaction(
               text,
@@ -109,18 +104,16 @@ export default function Zipcode(props: userdefined) {
                 Alert.alert('not hit');
               },
             ),
-          )
-        }
-        }
-         
+          );
+        }}
       />
 
       <FlatList
-      data={Zipcode_Data.result}
-      renderItem={_renderItem}
-      ItemSeparatorComponent={zipcodeSeprater}
-      onEndReached={_onEndReached}
-      onEndReachedThreshold={1}
+        data={Zipcode_Data}
+        renderItem={_renderItem}
+        ItemSeparatorComponent={zipcodeSeprater}
+        onEndReached={_onEndReached}
+        onEndReachedThreshold={0.5}
       />
     </SafeAreaView>
   );
@@ -153,15 +146,16 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginTop: 12,
   },
-  zipcodeitem:{
+  zipcodeitem: {
     height: 2,
     width: '100%',
     backgroundColor: '#1B1B1B',
   },
-  itemview:{
-    margin: 30
+  itemview: {
+    margin: 30,
   },
-  itemtxt:{
-    color: 'white', fontSize: 18
-  }
+  itemtxt: {
+    color: 'white',
+    fontSize: 18,
+  },
 });

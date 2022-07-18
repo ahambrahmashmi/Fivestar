@@ -14,10 +14,13 @@ interface PROPS {
   securetextentry?: boolean;
   keyboardtype?: any;
   multiline?: boolean;
+  style?:any
+  onFocus?: any
+  left?:any
 }
 
-export default function CustomTextInput(props: PROPS) {
-  let {right, securetextentry, keyboardtype = 'default'} = props;
+export default function CustomTextInput(props:PROPS) {
+  let {right, securetextentry, keyboardtype = 'default',placeholderTextColor,style, onFocus,left} = props;
 
   return (
     <View>
@@ -32,17 +35,19 @@ export default function CustomTextInput(props: PROPS) {
         outlineColor="white"
         selectionColor="#44C2E3"
         placeholderTextColor="white"
+        onFocus={onFocus}
         autoCapitalize="none"
-    
+        left={null}
         theme={{
           colors: {
-            text: '#44C2E3',
+             text: '#44C2E3',
             placeholder: 'white',
           },
         }}
-        style={styles.paper}
+        style={[styles.paper,style]}
       />
       {right !== undefined ? right() : null}
+      {left !==undefined?left():null}
     </View>
   );
 }

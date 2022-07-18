@@ -18,6 +18,8 @@ export function getCreateaccountAction(
         phoneNo: phoneNo,
       })
       .then(resp => {
+        // console.log('data..........',resp);
+        
         dispatch({type: 'signup', payload: resp.data});
         callback(resp);
       })
@@ -44,6 +46,8 @@ export function getotpAction(
         phoneNo,
       })
       .then(resp => {
+        console.log('data..........',resp);
+
         dispatch({type: 'verify-otp', payload: resp.data});
         callback(resp);
       })

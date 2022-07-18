@@ -25,4 +25,8 @@ export const images={
    union:require('../assets/images/Union.png'),
    background:require('../assets/images/backgroundSplashImg.png'),
    sporttick:require('../assets/images/sporttick.png'),
+   cross:require('../assets/images/cross.png'),
+   add:require('../assets/images/add.png'),
+   down:require('../assets/images/down.png'),
+   line:require('../assets/images/line.png'),
 }
