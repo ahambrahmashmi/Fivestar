@@ -27,7 +27,7 @@ console.log('splash',DATA_SIGN_UP);
       useNativeDriver: false,
     }).start();
     setTimeout(() => {
-      navigation.replace('SignIn');
+        navigation.replace('SignIn');
       // if (token) {
       //   navigation.navigate('Edit');
       // } else {

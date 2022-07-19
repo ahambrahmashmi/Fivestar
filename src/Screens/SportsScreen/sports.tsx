@@ -28,36 +28,36 @@ interface userdefined {
 }
 
 export default function Sports(props: userdefined) {
-  const [selecteditem, setSelecteditem] = useState<any>([]);
+  const {call, selecteditem} = useRoute<any>().params;
+  const {DATA} = useSelector((store: any) => store.sportsReducer);
+  const [selectedItem, setSelectedItem] = useState<any>(selecteditem);
+  const [selected, setSelected] = useState<any>(DATA);
   const navigation = useNavigation<any>();
   const [index, setIndex] = React.useState('');
   const dispatch = useDispatch();
 
-  const {call} = useRoute<any>().params;
-
-  const {DATA} = useSelector((store: any) => store.sportsReducer);
-
   React.useEffect(() => {
-    call(selecteditem);
-  }, [selecteditem]);
+    call(selectedItem);
+  }, [selectedItem]);
 
   const transfer = useCallback(
     (item: any) => {
-      const index = selecteditem.findIndex((ele: any) => ele == item);
+      const index = selectedItem.findIndex((ele: any) => ele == item);
 
       if (index == -1) {
-        setSelecteditem([...selecteditem, item]);
+        setSelectedItem([...selectedItem, item]);
       } else {
-        selecteditem.splice(index, 1);
-        setSelecteditem([...selecteditem]);
+        selectedItem.splice(index, 1);
+        setSelectedItem([...selectedItem]);
       }
     },
-    [selecteditem],
+    [selectedItem],
   );
 
   const _renderItem = ({item}: any) => {
     return (
       <SportsComponent
+        selecteditem={selecteditem}
         img={item.sportImg}
         imgText={item.sportName}
         callback={transfer}
@@ -65,7 +65,13 @@ export default function Sports(props: userdefined) {
     );
   };
 
-  console.log('selected', selecteditem);
+  const onchangeSearchitem = (text: any) => {
+    setSelected(
+      DATA.filter((item: any) =>
+        item?.sportName.toLowerCase().includes(text.toLowerCase()),
+      ),
+    );
+  };
 
   return (
     <View style={styles.parent}>
@@ -79,14 +85,15 @@ export default function Sports(props: userdefined) {
         <Text style={styles.play}>{STRINGS.LABEL.SPORTS.play}</Text>
       </View>
 
-      <SearchTextinput placeholder={'Search Sports'}
-         onChangeText
+      <SearchTextinput
+        placeholder={'Search Sports'}
+        onChangeText={onchangeSearchitem}
       />
 
-      <FlatList data={DATA.data} renderItem={_renderItem} numColumns={3} />
+      <FlatList data={selected} renderItem={_renderItem} numColumns={3} />
 
       <View>
-        {selecteditem.length > 0 ? (
+        {selectedItem?.length > 0 ? (
           <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={[styles.button]}>

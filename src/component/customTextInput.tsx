@@ -16,24 +16,26 @@ interface PROPS {
   multiline?: boolean;
   style?:any
   onFocus?: any
-  left?:any
+  left?:any,
+  autoFocus?:any
 }
 
 export default function CustomTextInput(props:PROPS) {
-  let {right, securetextentry, keyboardtype = 'default',placeholderTextColor,style, onFocus,left} = props;
+  let {right, securetextentry, keyboardtype = 'default',style,autoFocus, onFocus,left} = props;
 
   return (
     <View>
       <TextInput
         {...props}
         mode={'outlined'}
+        autoFocus={autoFocus}
         secureTextEntry={securetextentry}
         right={null}
         keyboardType={keyboardtype}
         numberOfLines={3}
         activeOutlineColor="white"
         outlineColor="white"
-        selectionColor="#44C2E3"
+        selectionColor="#fff"
         placeholderTextColor="white"
         onFocus={onFocus}
         autoCapitalize="none"
@@ -60,5 +62,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
 
     marginHorizontal: 14,
+    fontWeight:'900'
   },
 });

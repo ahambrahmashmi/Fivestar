@@ -43,6 +43,9 @@ export default function Zipcode(props: userdefined) {
     return <View style={styles.zipcodeitem} />;
   };
 
+
+  console.log('zipppppp',Zipcode_Data);
+  
   const _onEndReached = () => {
     console.log('reached');
     setPage(page + 1);
@@ -79,7 +82,7 @@ export default function Zipcode(props: userdefined) {
     <SafeAreaView style={styles.parent}>
       <View>
         <LeftArrow
-          NaviagtePress={() => {navigation.goBack()}}
+          NaviagtePress={() => {closedmodal}}
           style={styles.arrowstyle}
         />
         <View style={styles.sportsview}>
@@ -157,5 +160,6 @@ const styles = StyleSheet.create({
   itemtxt: {
     color: 'white',
     fontSize: 18,
+   
   },
 });

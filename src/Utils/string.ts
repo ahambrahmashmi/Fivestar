@@ -48,6 +48,8 @@ export const STRINGS = {
   forget:'Forget Password?',
   zipcode:'Zipcode*',
   zipcodeheader:'Search Zip Code',
+  alreadyexits:'Username already exits,please try another username',
+  suggest:'Suggestions:',
 
 SPORTS:{
   sportslike:'What sport do you like',

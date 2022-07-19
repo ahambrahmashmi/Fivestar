@@ -101,6 +101,10 @@ const styles = StyleSheet.create({
     height: normalize(22),
     width: normalize(22),
   },
+  handlingAll: {
+    height: normalize(15),
+    color: 'white',
+  },
   calenderimg: {
     height: normalize(20),
     width: normalize(20),
@@ -148,19 +152,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: normalize(15),
     marginHorizontal: normalize(14),
-   
-
   },
   identitytext: {
     color: COLOR.LIGHTBLUE,
     fontSize: 20,
+    fontWeight: '900',
   },
-  sportstext:{
-    color:COLOR.LIGHTBLUE,
-    fontSize:16
+  sportstext: {
+    color: COLOR.LIGHTBLUE,
+    fontSize: 16,
+    fontWeight: '900',
   },
 
-  sportsView:{
+  sportsView: {
     borderWidth: 1,
     borderColor: COLOR.WHITE,
     borderRadius: 5,
@@ -170,34 +174,69 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: normalize(15),
     marginHorizontal: normalize(14),
-    flexWrap:'wrap'
+    flexWrap: 'wrap',
   },
-  viewMap:{
+  viewMap: {
     flexDirection: 'row',
     backgroundColor: COLOR.BROWNBACK,
     marginHorizontal: normalize(15),
-    marginVertical:normalize(8),
+    marginVertical: normalize(8),
     alignItems: 'center',
     paddingHorizontal: normalize(5),
     paddingVertical: normalize(2),
     justifyContent: 'space-around',
     borderRadius: normalize(5),
-  
   },
-  elementtxt:{
+  elementtxt: {
     color: 'white',
-                      fontWeight: 'bold',
-                      fontFamily: 'Helvetica',
+    fontWeight: 'bold',
+    fontFamily: 'Helvetica',
   },
-  crossimg:{
-    height: 20,
-    width: 20,
-    marginLeft: 10,
+  crossimg: {
+    height: normalize(20),
+    width: normalize(20),
+    marginLeft: normalize(10),
     resizeMode: 'contain',
   },
-  sportswatch:{
-    color: 'white', marginTop: 30
+  sportswatch: {
+    color: 'white',
+    marginTop: normalize(30),
+    fontSize: 16,
+    fontWeight: '900',
   },
-  AddNew:{color: COLOR.LIGHTBLUE,fontFamily:'helvetica-blackitalic',fontSize:14,marginLeft:20}
+  AddNew: {
+    color: COLOR.LIGHTBLUE,
+    fontFamily: 'helvetica-blackitalic',
+    fontSize: 14,
+    marginLeft: 20,
+  },
+  paper: {
+    backgroundColor: 'black',
+    marginTop: normalize(12),
+    fontWeight: '900',
+    fontSize: 18,
+    fontFamily: 'HelveticaBlack',
+
+    marginHorizontal: normalize(14),
+  },
+  flatlistheader: {
+    width: '100%',
+    left: normalize(10),
+  },
+  fontheaderertxt: {
+    fontSize: 15,
+    color: 'red',
+  },
+  suggestTXT: {
+    color: 'white',
+  },
+  suggestview: {
+    flexDirection: 'row',
+    left: normalize(15),
+  },
+  addimg: {
+    height: normalize(20),
+    width: normalize(100),
+  },
 });
 export {styles};

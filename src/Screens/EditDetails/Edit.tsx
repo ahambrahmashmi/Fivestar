@@ -10,8 +10,9 @@ import {
   Keyboard,
   ImageBackground,
   Alert,
+  FlatList,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import ImagePicker from 'react-native-image-crop-picker';
 import CustomTextInput from '../../component/customTextInput';
 import DatePicker from 'react-native-date-picker';
@@ -24,8 +25,14 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import {STRINGS} from '../../Utils/string';
 import {COLOR} from '../../Utils/color';
 import {useDispatch, useSelector} from 'react-redux';
-import {getSportsAction} from '../../redux/EditDetails/action';
+import {
+  getChangeUsername,
+  getcompleteProfile,
+  getSportsAction,
+} from '../../redux/EditDetails/action';
 import Zipcodemodal from '../ModalScreen/zipcodemodal';
+import {totalMonths} from 'react-native-paper-dates/lib/typescript/Date/dateUtils';
+import {TextInput} from 'react-native-paper';
 
 getSportsAction;
 interface userType {
@@ -40,6 +47,10 @@ interface userType {
 }
 const Edit = (props: userType) => {
   const navigation = useNavigation<any>();
+  const {DATA_SIGN_UP} = useSelector(
+    (store: any) => store.createaccountReducer,
+  );
+  let UserName = DATA_SIGN_UP.data.username;
 
   const [identity, setIdentity] = useState<string>('Select your identity');
   const [coverimg, setCoverimg] = useState<any>();
@@ -51,28 +62,63 @@ const Edit = (props: userType) => {
   const [modalScreen, setmodalScreen] = useState<boolean>(false);
   const [zipcode, setZipcode] = useState<string>('Zipcode*');
   const [selecteditem, setSelecteditem] = useState<any>([]);
-  const [add, setAdd] = useState<any>([]);
-  const [text,setText]=useState<any>('');
+  const [username, setusername] = useState<any>(UserName);
   const {params} = useRoute();
-
+  const [error, seterror] = useState<any>([]);
+  const [selectedDate, setSelectedDate] = useState('DOB(MM/DD/YYYY)');
   const dispatch = useDispatch<any>();
-  const {DATA_SIGN_UP} = useSelector(
-    (store: any) => store.createaccountReducer,
-  );
-  // console.log('data ---------->',DATA_SIGN_UP.data.username);
-  // console.log('splash',DATA_SIGN_UP);
+
+  const inputRef = useRef<any>(null);
 
   const {Zipcode_Data} = useSelector((store: any) => store.zipcodeReducer);
-
-  let UserName = DATA_SIGN_UP.data.username;
+  const {DATA} = useSelector((store: any) => store.sportsReducer);
 
   let token = DATA_SIGN_UP.data.authToken;
-  // console.log('tojken',token);
-// useEffect(() => {
-//   console.log('idebtuuabsdfasdf---->>>',identity);
-  
-// setIdentity('Select your identity')
-// }, [identity])
+  // useEffect(() => {
+  //   console.log('idebtuuabsdfasdf---->>>',identity);
+
+  // setIdentity('Select your identity')
+  // }, [identity])
+
+  let ID = DATA_SIGN_UP.data._id;
+
+  let names = DATA_SIGN_UP.data.name;
+
+  const completeprofile_hit = () => {
+    dispatch(
+      getcompleteProfile(
+        token,
+        UserName,
+        ID,
+        zipcode,
+        names,
+        (response: any) => {
+          if (response.data.statusCode == 200) {
+          }
+        },
+        (errorApI: any) => {
+          Alert.alert('API NOT HIT', errorApI);
+        },
+      ),
+    );
+  };
+  const onBlur = () => {
+    dispatch(
+      getChangeUsername(
+        token,
+        username,
+        (response: any) => {
+          if (response.data.statusCode == 200) {
+          }
+        },
+        (errorApI: any) => {
+          let suggenstion = errorApI.response.data.data.names;
+          console.log('usernameSuggestion', errorApI.response.data.data.names);
+          seterror([...suggenstion]);
+        },
+      ),
+    );
+  };
 
   const Navigatesports = () => {
     dispatch(
@@ -84,6 +130,7 @@ const Edit = (props: userType) => {
               call: (params: any) => {
                 setSelecteditem(params);
               },
+              selecteditem: selecteditem,
             });
           }
         },
@@ -92,6 +139,9 @@ const Edit = (props: userType) => {
         },
       ),
     );
+  };
+  const ONFOCUS = () => {
+    inputRef?.current?.focus();
   };
 
   const Navigatezipcode = () => {
@@ -108,6 +158,20 @@ const Edit = (props: userType) => {
   };
   const opencalendar = () => {
     setOpen(true);
+  };
+
+  const onConfirmDate = (date: any) => {
+    setOpen(false);
+    setDate(date);
+    setSelectedDate(
+      [date.getMonth() + 1, '-', date.getDate(), '-', date.getFullYear()].join(
+        '',
+      ),
+    );
+  };
+
+  const closedCalender = () => {
+    setOpen(false);
   };
 
   const imageOpencover = async () => {
@@ -135,15 +199,28 @@ const Edit = (props: userType) => {
     }
   };
 
-  const Navigatedit = () => {
-    navigation.navigate('CreateAccount');
-  };
-
   const handlecross = (index: number) => {
     selecteditem.splice(index, 1);
     setSelecteditem([...selecteditem]);
   };
 
+  const FlatList_Header = () => {
+    return (
+      <View style={styles.flatlistheader}>
+        <Text style={styles.fontheaderertxt}>
+          {' '}
+          {STRINGS.LABEL.alreadyexits}{' '}
+        </Text>
+      </View>
+    );
+  };
+  const _renderItem = ({item}: any) => {
+    return (
+      <View>
+        <Text style={styles.handlingAll}>{item},</Text>
+      </View>
+    );
+  };
   return (
     <View style={styles.mainparent}>
       <StatusBar barStyle={'light-content'} translucent={true} />
@@ -188,26 +265,50 @@ const Edit = (props: userType) => {
             </View>
           </TouchableOpacity>
         </View>
-        <CustomTextInput
-          label={STRINGS.LABEL.USERNAME}
-          value={UserName}
-          placeholder={STRINGS.LABEL.USERNAME}
 
-          // onChangeText={(text:any)=>setText(text)}
-          // onFocus={()=>setText(text)}
+        <View>
+          <TextInput
+            mode={'outlined'}
+            autoCapitalize="none"
+            ref={inputRef}
+            label={STRINGS.LABEL.USERNAME}
+            value={username}
+            onBlur={onBlur}
+            placeholder={STRINGS.LABEL.USERNAME}
+            onChangeText={(text: any) => setusername(text)}
+            activeOutlineColor="white"
+            outlineColor="white"
+            selectionColor="#44C2E3"
+            placeholderTextColor="white"
+            theme={{
+              colors: {
+                text: '#44C2E3',
+                placeholder: 'white',
+              },
+            }}
+            style={styles.paper}
+          />
 
-          right={() => (
-            <TouchableOpacity style={styles.pencil}
-            onFocus={()=>setText(UserName)}
-            >
-              <Image
-                style={styles.pencilimage}
-                source={images.edit}
-                resizeMode="contain"
-              />
-            </TouchableOpacity>
-          )}
-        />
+          <View>
+            {error.length > 0 && <FlatList_Header />}
+
+            {error.length > 0 && (
+              <View style={styles.suggestview}>
+                <Text style={styles.suggestTXT}>{STRINGS.LABEL.suggest}</Text>
+
+                <FlatList data={error} renderItem={_renderItem} horizontal />
+              </View>
+            )}
+          </View>
+
+          <TouchableOpacity onPress={ONFOCUS} style={styles.pencil}>
+            <Image
+              style={styles.pencilimage}
+              source={images.edit}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
+        </View>
 
         <TouchableOpacity style={styles.identitydesign} onPress={openmodal}>
           <Text style={styles.identitytext}>{identity}</Text>
@@ -216,15 +317,7 @@ const Edit = (props: userType) => {
 
         <CustomTextInput
           label="Date of Birth"
-          value={[
-            date.getMonth() + 1,
-            '-',
-            date.getDate(),
-            '-',
-            date.getFullYear(),
-          ].join('')}
-          placeholder={STRINGS.LABEL.DOB}
-          placeholderTextColor={COLOR.TEXTCOLOR}
+          value={selectedDate}
           right={() => (
             <TouchableOpacity
               style={styles.toucablecalendar}
@@ -232,16 +325,11 @@ const Edit = (props: userType) => {
               <Image style={styles.calenderimg} source={images.calendar} />
               <DatePicker
                 modal
+                mode="date"
                 open={open}
                 date={date}
-                mode="date"
-                onConfirm={date => {
-                  setDate(date);
-                  setOpen(false);
-                }}
-                onCancel={() => {
-                  setOpen(false);
-                }}
+                onConfirm={onConfirmDate}
+                onCancel={closedCalender}
               />
             </TouchableOpacity>
           )}
@@ -287,13 +375,15 @@ const Edit = (props: userType) => {
 
           {selecteditem.length > 0 ? (
             <TouchableOpacity onPress={Navigatesports}>
-              <Image style={{height: 20, width: 100}} source={images.add} />
+              <Image style={styles.addimg} source={images.add} />
             </TouchableOpacity>
           ) : null}
         </TouchableOpacity>
       </KeyboardAwareScrollView>
       <View>
-        <TouchableOpacity onPress={Navigatedit} style={styles.submitbutton}>
+        <TouchableOpacity
+          onPress={completeprofile_hit}
+          style={styles.submitbutton}>
           <Text style={styles.button}>{STRINGS.LABEL.SUBMITBUTTON}</Text>
         </TouchableOpacity>
       </View>

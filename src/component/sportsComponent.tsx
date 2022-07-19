@@ -12,13 +12,13 @@ interface userdefined {
   callback: Function;
 }
 
-export default function SportsComponent({callback, imgText, img}: any) {
+export default function SportsComponent({callback, imgText, img, selecteditem}: any) {
   const [isSelected, Selected] = useState(false);
 
   const choose = () => {
     callback(imgText);
     Selected(!isSelected);
-  };
+  };selecteditem
 
   return (
     <TouchableOpacity

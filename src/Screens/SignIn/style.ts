@@ -72,10 +72,12 @@ const styles = StyleSheet.create({
       marginTop: 100,
     },
     handlingAll: {
-      top: normalize(5),
+  
       height: normalize(15),
       color: 'red',
       paddingLeft: normalize(15),
+      position:'absolute',
+bottom:-20
     },
     ORparent: {
       marginTop: 18,
@@ -109,6 +111,36 @@ const styles = StyleSheet.create({
     eyeimg: {
       height: 20,
       width: 20,
+    },
+    countryCode: {
+      // backgroundColor: 'black',
+      borderRightWidth: 1,
+      flexDirection: 'row',
+      // position: 'absolute',
+      // top: normalize(40),
+      // zIndex: 99,
+      // left: 20,
+      paddingHorizontal: 10,
+      alignSelf: 'flex-end',
+      justifyContent: 'space-between',
+    },
+    defaultcountry: {
+      color: 'white',
+      fontSize: 16,
+      bottom:5,
+    },
+    downimg: {
+      height: normalize(10),
+      width: normalize(15),
+    },
+    lineimg: {
+      height: normalize(20),
+      width: normalize(2),
+      marginLeft: 5,
+    },
+    boxview: {
+      width: 390,
+      left: 0,
     },
   });
   

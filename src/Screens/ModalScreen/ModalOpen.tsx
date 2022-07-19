@@ -123,6 +123,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 45,
     left: 220,
+
   },
   tick:{
     height:normalize(18),

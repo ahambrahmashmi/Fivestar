@@ -267,6 +267,8 @@ export default function CreateAccount(props: userdefined) {
             onChangeText={passINput}
           />
 
+          
+
           <Text style={styles.handlingAll}>
             {passwordError ? passwordError : null}
           </Text>
