@@ -27,12 +27,12 @@ console.log('splash',DATA_SIGN_UP);
       useNativeDriver: false,
     }).start();
     setTimeout(() => {
+        //navigation.replace('SignIn');
+      if (token) {
+        navigation.navigate('Edit');
+      } else {
         navigation.replace('SignIn');
-      // if (token) {
-      //   navigation.navigate('Edit');
-      // } else {
-      //   navigation.replace('SignIn');
-      // }
+      }
     }, 3000);
   }, [fadeAnim]);
   const navigation = useNavigation<any>();

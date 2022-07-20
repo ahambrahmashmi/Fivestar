@@ -15,14 +15,14 @@ const styles = StyleSheet.create({
       color: 'white',
       fontFamily: 'helvetica-blackitalic',
       fontSize: 26,
-      marginVertical: 10,
+      marginVertical:  normalize(10),
     },
     headerview: {
       marginTop: normalize(50),
       marginLeft: normalize(18),
     },
     txtinputview: {
-      marginVertical: 3,
+      marginVertical:  normalize(3),
     },
     forgetview: {
       alignSelf: 'flex-end',
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
       color: COLOR.LIGHTBLUE,
       fontFamily: 'Helvetica',
       fontSize: 16,
-      marginHorizontal: 5,
+      marginHorizontal:  normalize(5),
     },
     signinbutton: {
       position: 'absolute',
@@ -55,13 +55,13 @@ const styles = StyleSheet.create({
       color: COLOR.WHITE,
       fontFamily: 'HelveticaNeue',
       fontSize: 16,
-      marginHorizontal: 8,
+      marginHorizontal:  normalize(8),
     },
     signuptxt: {
       color: COLOR.LIGHTBLUE,
       fontFamily: 'helvetica-blackitalic',
       fontSize: 16,
-      marginTop: 5,
+      marginTop:  normalize(5),
     },
     bottomhead: {
       flexDirection: 'row',
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
       marginTop: normalize(30),
     },
     buttonview: {
-      marginTop: 100,
+      marginTop:  normalize(100),
     },
     handlingAll: {
   
@@ -77,19 +77,19 @@ const styles = StyleSheet.create({
       color: 'red',
       paddingLeft: normalize(15),
       position:'absolute',
-bottom:-20
+bottom: normalize(-20)
     },
     ORparent: {
-      marginTop: 18,
+      marginTop:  normalize(18),
       flexDirection: 'row',
       alignItems: 'center',
-      marginHorizontal: 10,
+      marginHorizontal:  normalize(10),
     },
     orinner: {
       borderBottomWidth: 1,
       borderBottomColor: 'grey',
       flex: 1,
-      marginHorizontal: 5,
+      marginHorizontal:  normalize(5),
     },
     ortxt: {
       color: 'grey',
@@ -98,19 +98,19 @@ bottom:-20
       borderBottomWidth: 1,
       borderBottomColor: 'grey',
       flex: 1,
-      marginHorizontal: 5,
+      marginHorizontal: normalize(5),
     },
     eyeview: {
       height: normalize(50),
-      top: 20,
+      top:  normalize(20),
       width:normalize(30),
       justifyContent: 'center',
       position: 'absolute',
-      right: 28,
+      right:  normalize(28),
     },
     eyeimg: {
-      height: 20,
-      width: 20,
+      height:  normalize(20),
+      width:  normalize(20),
     },
     countryCode: {
       // backgroundColor: 'black',
@@ -120,7 +120,7 @@ bottom:-20
       // top: normalize(40),
       // zIndex: 99,
       // left: 20,
-      paddingHorizontal: 10,
+      paddingHorizontal:  normalize(10),
       alignSelf: 'flex-end',
       justifyContent: 'space-between',
     },
@@ -139,7 +139,7 @@ bottom:-20
       marginLeft: 5,
     },
     boxview: {
-      width: 390,
+      width: normalize(390),
       left: 0,
     },
   });

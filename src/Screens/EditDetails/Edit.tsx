@@ -51,7 +51,6 @@ const Edit = (props: userType) => {
     (store: any) => store.createaccountReducer,
   );
   let UserName = DATA_SIGN_UP.data.username;
-
   const [identity, setIdentity] = useState<string>('Select your identity');
   const [coverimg, setCoverimg] = useState<any>();
   const [profileimage, setProfileimage] = useState<any>();
@@ -68,7 +67,7 @@ const Edit = (props: userType) => {
   const [selectedDate, setSelectedDate] = useState('DOB(MM/DD/YYYY)');
   const dispatch = useDispatch<any>();
 
-  const inputRef = useRef<any>(null);
+  const inputRef = useRef<any>(null); //DECLARE REF FOR EDITING ON PENCIL
 
   const {Zipcode_Data} = useSelector((store: any) => store.zipcodeReducer);
   const {DATA} = useSelector((store: any) => store.sportsReducer);
@@ -84,6 +83,7 @@ const Edit = (props: userType) => {
 
   let names = DATA_SIGN_UP.data.name;
 
+  // =============>>>COMPLETE DISPATCH ACTION ON SUBMIT BUTTON<<<<<<<<<<================
   const completeprofile_hit = () => {
     dispatch(
       getcompleteProfile(
@@ -103,6 +103,7 @@ const Edit = (props: userType) => {
     );
   };
   const onBlur = () => {
+    //EDIT USERNAME ON BLUR ON PENCIL ICON
     dispatch(
       getChangeUsername(
         token,
@@ -120,6 +121,7 @@ const Edit = (props: userType) => {
     );
   };
 
+  // <<<<<<<<<<<<===========DISPATCH SPORTS ON SPOTS TEXTINPUT<<<<<===============
   const Navigatesports = () => {
     dispatch(
       getSportsAction(
@@ -140,11 +142,14 @@ const Edit = (props: userType) => {
       ),
     );
   };
+
   const ONFOCUS = () => {
+    //SEND CURRENT ONFOCUS ON PENCIL ICON
     inputRef?.current?.focus();
   };
 
   const Navigatezipcode = () => {
+    //CLOSED ZIPCODE
     setmodalScreen(!modal);
   };
 
@@ -154,13 +159,16 @@ const Edit = (props: userType) => {
   }, [navigation]);
 
   const openmodal = () => {
+    //OPEN MODAL IDENTITY
     setModalOpen(!modal);
   };
   const opencalendar = () => {
+    //FOR CLOSED CALENDAR
     setOpen(true);
   };
 
   const onConfirmDate = (date: any) => {
+    // CALL FOR DATE
     setOpen(false);
     setDate(date);
     setSelectedDate(
@@ -171,10 +179,12 @@ const Edit = (props: userType) => {
   };
 
   const closedCalender = () => {
+    //FUNCTION ON CLOSED DATE ON ICON
     setOpen(false);
   };
 
   const imageOpencover = async () => {
+    //FUNCTION FOR COVER PICKER
     return ImagePicker.openPicker({
       cropping: true,
       height: 198,
@@ -189,6 +199,7 @@ const Edit = (props: userType) => {
   };
 
   const imgageOpenprofile = async () => {
+    // FUNCTION FOR PROFILE PICKER
     try {
       const image = await ImagePicker.openPicker({
         cropping: true,
@@ -200,11 +211,17 @@ const Edit = (props: userType) => {
   };
 
   const handlecross = (index: number) => {
+    // DELETE SELECTED ITEM
     selecteditem.splice(index, 1);
     setSelecteditem([...selecteditem]);
   };
+  const SuggestName = (item: any) => {
+    //SET SUGGESTED NAME ON TEXTINPUT
+    setusername(item);
+  };
 
   const FlatList_Header = () => {
+    //FOR FLATLIST HEADER
     return (
       <View style={styles.flatlistheader}>
         <Text style={styles.fontheaderertxt}>
@@ -215,17 +232,26 @@ const Edit = (props: userType) => {
     );
   };
   const _renderItem = ({item}: any) => {
+    // RENDERITEM FOR SUGGESTION LIST
     return (
-      <View>
+      <TouchableOpacity
+        onPress={() => {
+          SuggestName(item);
+        }}>
         <Text style={styles.handlingAll}>{item},</Text>
-      </View>
+      </TouchableOpacity>
     );
   };
+
+  //===========>MAIN VIEW RETURN<===========//
+
   return (
     <View style={styles.mainparent}>
       <StatusBar barStyle={'light-content'} translucent={true} />
 
       <View style={styles.parent}>
+        {/* ====>MPDAL FOR IDENTITY AND ZIPCODE  */}
+
         <Modal isVisible={modal}>
           <ModalScreens
             setIdentity={setIdentity}
@@ -250,6 +276,8 @@ const Edit = (props: userType) => {
         bounces={false}
         extraHeight={120}
         style={styles.submitbuttonmargin}>
+        {/* ===>IMAGE PICKER FOR BACKGROUND AND PROFILE */}
+
         <View style={styles.cover}>
           <TouchableOpacity activeOpacity={0.8} onPress={imageOpencover}>
             <View style={styles.rectangle}>
@@ -265,12 +293,12 @@ const Edit = (props: userType) => {
             </View>
           </TouchableOpacity>
         </View>
-
+        {/* ======>>>>CUSTOM TEXT INPUT<<<<===== */}
         <View>
           <TextInput
             mode={'outlined'}
             autoCapitalize="none"
-            ref={inputRef}
+            ref={inputRef} //FOR EDITING ON PENCIL IMAGE
             label={STRINGS.LABEL.USERNAME}
             value={username}
             onBlur={onBlur}
@@ -288,7 +316,7 @@ const Edit = (props: userType) => {
             }}
             style={styles.paper}
           />
-
+          {/* ===>>>FLATLIST FOR SUGGESTION USERNAME  */}
           <View>
             {error.length > 0 && <FlatList_Header />}
 
@@ -309,12 +337,12 @@ const Edit = (props: userType) => {
             />
           </TouchableOpacity>
         </View>
-
+        {/* ==>>>>OPEN MODAL FOR IDENTITY */}
         <TouchableOpacity style={styles.identitydesign} onPress={openmodal}>
           <Text style={styles.identitytext}>{identity}</Text>
           <Image style={styles.nextimg} source={images.nexticon} />
         </TouchableOpacity>
-
+        {/* ===>>DATE PICKER <<<<<<<<<<<<==== */}
         <CustomTextInput
           label="Date of Birth"
           value={selectedDate}
@@ -334,7 +362,7 @@ const Edit = (props: userType) => {
             </TouchableOpacity>
           )}
         />
-
+        {/* ===========>>>>ZIPCODE<<<<<<====== */}
         <TouchableOpacity
           style={styles.identitydesign}
           onPress={Navigatezipcode}>
@@ -353,18 +381,21 @@ const Edit = (props: userType) => {
           placeholderTextColor={COLOR.TEXTCOLOR}
         />
 
+        {/* =============>>>>>.SPORTS TEXTINPUT<<<<<<<<<<<<<<====== */}
+
         <TouchableOpacity style={styles.sportsView} onPress={Navigatesports}>
           {selecteditem.length < 1 ? (
             <Text style={styles.sportswatch}>{'Sports I Watch'}</Text>
           ) : (
             // JSON.stringify(selecteditem)
             selecteditem.map((element: any, index: number) => {
+              //APPLY MAP
               return (
                 <View style={styles.viewMap}>
                   <Text style={styles.elementtxt}>{element}</Text>
                   <TouchableOpacity
                     onPress={() => {
-                      handlecross(index);
+                      handlecross(index); //DELETE SELECTED ITEM
                     }}>
                     <Image style={styles.crossimg} source={images.cross} />
                   </TouchableOpacity>
@@ -373,7 +404,7 @@ const Edit = (props: userType) => {
             })
           )}
 
-          {selecteditem.length > 0 ? (
+          {selecteditem.length > 0 ? ( // ADD BUTTON
             <TouchableOpacity onPress={Navigatesports}>
               <Image style={styles.addimg} source={images.add} />
             </TouchableOpacity>
@@ -382,7 +413,7 @@ const Edit = (props: userType) => {
       </KeyboardAwareScrollView>
       <View>
         <TouchableOpacity
-          onPress={completeprofile_hit}
+          onPress={completeprofile_hit} // COMPLETE PROFITE ACTION HIT
           style={styles.submitbutton}>
           <Text style={styles.button}>{STRINGS.LABEL.SUBMITBUTTON}</Text>
         </TouchableOpacity>

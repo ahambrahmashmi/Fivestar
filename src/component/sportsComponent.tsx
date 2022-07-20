@@ -1,5 +1,5 @@
 import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useState} from 'react';
 import {COLOR} from '../Utils/color';
 import {normalize} from '../Utils/dimension';
@@ -12,13 +12,25 @@ interface userdefined {
   callback: Function;
 }
 
-export default function SportsComponent({callback, imgText, img, selecteditem}: any) {
+export default function SportsComponent({
+  callback,
+  imgText,
+  img,
+  selectedItem,
+}: any) {
   const [isSelected, Selected] = useState(false);
+
+  useEffect(() => {
+    const l = selectedItem?.findIndex((item: any) => item == imgText);
+    if (l != -1) {
+      Selected(true);
+    }
+  }, []);
 
   const choose = () => {
     callback(imgText);
     Selected(!isSelected);
-  };selecteditem
+  };
 
   return (
     <TouchableOpacity

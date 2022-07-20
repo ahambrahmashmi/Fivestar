@@ -40,9 +40,11 @@ export default function Sports(props: userdefined) {
     call(selectedItem);
   }, [selectedItem]);
 
+
+  // ==========>>>> FINCTION FOR CALLBACK<<<<<<<<<=========
   const transfer = useCallback(
     (item: any) => {
-      const index = selectedItem.findIndex((ele: any) => ele == item);
+      const index = selectedItem.findIndex((ele: any) => ele == item); //FIND INDEX
 
       if (index == -1) {
         setSelectedItem([...selectedItem, item]);
@@ -54,18 +56,20 @@ export default function Sports(props: userdefined) {
     [selectedItem],
   );
 
+
+  // >>>>>>>>>======RENDERITEM FOR SPORTS DATA
   const _renderItem = ({item}: any) => {
     return (
-      <SportsComponent
-        selecteditem={selecteditem}
+      <SportsComponent  // CUSTOM FOR SPORTS COMPONENT
         img={item.sportImg}
         imgText={item.sportName}
         callback={transfer}
+        selectedItem={selectedItem}
       />
     );
   };
 
-  const onchangeSearchitem = (text: any) => {
+  const onchangeSearchitem = (text: any) => {  // SEARCH IN SPORTS DATA
     setSelected(
       DATA.filter((item: any) =>
         item?.sportName.toLowerCase().includes(text.toLowerCase()),
@@ -73,9 +77,11 @@ export default function Sports(props: userdefined) {
     );
   };
 
+//==========>>>>>MAIN RETURN VIEW<<<<<<========
+
   return (
     <View style={styles.parent}>
-      <LeftArrow
+      <LeftArrow      //BACK BUTTON COMPONENT
         style={styles.arrowstyle}
         NaviagtePress={() => props.navigation.goBack()}
       />
@@ -85,15 +91,17 @@ export default function Sports(props: userdefined) {
         <Text style={styles.play}>{STRINGS.LABEL.SPORTS.play}</Text>
       </View>
 
-      <SearchTextinput
+      <SearchTextinput   // SEARCH TEXTINPUT
         placeholder={'Search Sports'}
         onChangeText={onchangeSearchitem}
       />
 
       <FlatList data={selected} renderItem={_renderItem} numColumns={3} />
 
+  {/* =====>>>CONTINUE BUTTON ENABLE DISABLE<<<<<======= */}
+
       <View>
-        {selectedItem?.length > 0 ? (
+        {selectedItem.length > 0 ? (
           <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={[styles.button]}>
