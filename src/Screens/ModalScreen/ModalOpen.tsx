@@ -23,6 +23,7 @@ const ModalScreens = (props: any) => {
   };
 
   const modalClosed = () => {
+ 
     setModalOpen(!modal);
   };
 

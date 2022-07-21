@@ -24,6 +24,8 @@ export default function SelectIdentity() {
   const handleath = () => {
     setIdentity(STRINGS.LABEL.fan);
   };
+
+  // ==============>>>>>MAIN VIEW RETURN<<<<<<<<<<=======
   return (
     <View style={styles.parent}>
       <View style={styles.leftview}>
@@ -34,6 +36,7 @@ export default function SelectIdentity() {
         <Text style={styles.whotxt}>{STRINGS.LABEL.who}</Text>
       </View>
 
+{/* =========HANDLE FAAN ICON<<<<<<<<======== */}
       <View style={styles.imgfanview}>
         <TouchableOpacity onPress={handleath}>
           <Image
@@ -52,6 +55,7 @@ export default function SelectIdentity() {
         </TouchableOpacity>
       </View>
 
+{/* ===========>>>>>HANDLE ATHLTETE<<<<<<<<<<======== */}
       <View style={styles.imgfanview}>
         <TouchableOpacity onPress={handlefan}>
           <Image

@@ -59,6 +59,7 @@ export default function CreateAccount(props: userdefined) {
     (store: any) => store.createaccountReducer,
   );
 
+  // =================>>>>CREATE ACCOUNT BUTTON DISPATCH ACTION<<<<<<<<<<<============
   const Signup_Api_Hit = () => {
     dispatch(
       getCreateaccountAction(
@@ -80,6 +81,7 @@ export default function CreateAccount(props: userdefined) {
     );
   };
 
+// ==================>>>>>HANDLE BUTTON LOGIC<<<<<<<<<<<================
   const handl = () => {
     if (
       nameerror == '' &&
@@ -173,7 +175,7 @@ export default function CreateAccount(props: userdefined) {
   const closedcountry = () => {
     setModalMob(!modalMob);
   };
-
+// ==============>>>>>MAIN RETURN VIEW<<<<<<<<<<<<===============
   return (
     <SafeAreaView style={styles.mainparent}>
       <LeftArrow NaviagtePress={() => props.navigation.navigate('SignIn')} />
@@ -185,7 +187,7 @@ export default function CreateAccount(props: userdefined) {
           <Text style={styles.signuptext}>{STRINGS.LABEL.SIGN}</Text>
         </View>
       </View>
-
+{/* ================>>>>>>MODAL OPEN FOR COUNTRY CODE<<<<<<<<<<<========== */}
       <Modal isVisible={modalMob}>
         <Countrtycode
           setCountry={setCountry}
@@ -297,7 +299,7 @@ export default function CreateAccount(props: userdefined) {
             </View>
           </TouchableOpacity>
         </View>
-
+{/* ===========>>>>>>HANDLE CREATE ACCOUNT BUTTON<<<<<<<<<<============ */}
         <View>
           <TouchableOpacity
             onPress={Signup_Api_Hit}
@@ -310,7 +312,7 @@ export default function CreateAccount(props: userdefined) {
             <Text style={styles.buttontext}>{STRINGS.LABEL.CREATE}</Text>
           </TouchableOpacity>
         </View>
-        <OrCustom />
+        <OrCustom/>
         <GoogleCustom />
         <View style={styles.bottomsign}>
           <View>
@@ -327,11 +329,5 @@ export default function CreateAccount(props: userdefined) {
   );
 }
 {
-  /* <CustomTextInput
-              label="Mobile Number"
-              placeholder={STRINGS.LABEL.MobNO}
-              value={phoneNo}
-              onChangeText={phoneNoinput}
-              keyboardtype="number-pad"
-            /> */
+
 }

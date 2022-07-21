@@ -24,7 +24,7 @@ import LeftArrow from '../../component/leftArrow';
 export default function Verify({route}: {route: any}) {
   const {phoneNo} = route.params;
   const navigation = useNavigation<any>();
-
+// =========>>>>>>>>>MAKING REF FOR OTP ENTER<<<<<<<<<<<<<<================
   const digit1 = useRef<TextInput>(null);
   const digit2 = useRef<TextInput>(null);
   const digit3 = useRef<TextInput>(null);
@@ -37,7 +37,8 @@ export default function Verify({route}: {route: any}) {
   const {DATA_SIGN_UP} = useSelector(
     (store: any) => store.createaccountReducer,
   );
-
+console.log("gdttdtet",DATA_SIGN_UP);
+// ==============>>>>>>>>>OTP ACTION DIPATCH ON SUMBIT BUTTON<<<<<<<<<<<<<===============
   const OTP_API_HIT = () => {
     dispatch(
       getotpAction(
@@ -56,7 +57,7 @@ export default function Verify({route}: {route: any}) {
       ),
     );
   };
-
+// ===========>>>>HANDLE ALL DIGITS IN THE BOX<<<<<<<<<<,================
   const firstdigit = (text: any) => {
     setOtp(otp => otp + text);
     digit2?.current?.focus();
@@ -96,7 +97,7 @@ export default function Verify({route}: {route: any}) {
   const Naviagte = () => {
     navigation.navigate('CreateAccount');
   };
-
+// =============>>>>>>>>>MAIN VIEW<<<<<<<<,============
   return (
     <View style={styles.parent}>
       <LeftArrow style={styles.mainhead} />
@@ -150,7 +151,7 @@ export default function Verify({route}: {route: any}) {
           style={styles.texinput}
         />
       </View>
-
+{/* ==============>>>>>HANDLE OTP BOX <<<<<<<<<<<=========== */}
       {otp.length === 4 ? (
         <TouchableOpacity style={styles.buttonparent} onPress={OTP_API_HIT}>
           <Text style={styles.buttontxt}>{STRINGS.LABEL.SUBMITBUTTON}</Text>

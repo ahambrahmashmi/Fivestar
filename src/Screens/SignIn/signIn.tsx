@@ -23,7 +23,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getSignInAction} from '../../redux/SignIn/action';
 import Modal from 'react-native-modal';
 import Countrtycode from '../ModalScreen/countrtycode';
-import { TextInput } from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 
 export default function SignIn() {
   const [email, setEmail] = React.useState('');
@@ -39,11 +39,11 @@ export default function SignIn() {
   const navigation = useNavigation<any>();
   const dispatch = useDispatch<any>();
 
+  const {SignIn_Data} = useSelector((store: any) => store.signinReducer);
 
-  const {SignIn_Data}=useSelector((store:any)=>store.signinReducer);
+  //  console.log('signinn=======>>>>',SignIn_Data.username);
 
-//  console.log('signinn=======>>>>',SignIn_Data.username);
- 
+  // ===========>>>>>>SIGN IN BUTTON<<<<<<<<<<<=======
   const naviagteSignin = () => {
     dispatch(
       getSignInAction(
@@ -55,7 +55,7 @@ export default function SignIn() {
           }
         },
         (errorAPI: any) => {
-          Alert.alert('invalid id');
+          Alert.alert('Invalid credential');
         },
       ),
     );
@@ -90,6 +90,8 @@ export default function SignIn() {
     }
   };
 
+  // ========>>>>>>>EMAIL/PASSWORD INPUT BOX<<<<<<<<<<<===============
+
   const handleEmailinput = (value: any) => {
     if (isFinite(value)) {
       handleValidMobno(value);
@@ -107,6 +109,7 @@ export default function SignIn() {
     buttonDisabled(value);
   };
 
+  //=============>>>>>>>>HANDLE BUTTON ENABLE DISABLE<<<<<<<<===============
   const handleButton = () => {
     if (emailValidError == '' && passwordError == '' && buttonEnabled) {
       return true;
@@ -114,15 +117,15 @@ export default function SignIn() {
       return false;
     }
   };
-  const naviagteSignup=()=>{
-    navigation.navigate('CreateAccount');
-  }
 
+  //=============>>>SIGNUP BUTTON HANDLE<<<<<<<<<<<=============
+  const naviagteSignup = () => {
+    navigation.navigate('CreateAccount');
+  };
+
+  //=========>>EYE TOGGELE<<<<<<<<<<<<=============
   const passwordToggle = () => {
     setHidepassword(!hidepassword);
-  };
-  const closedcountry = () => {
-    setModalMob(!modalMob);
   };
 
   return (
@@ -183,7 +186,7 @@ export default function SignIn() {
           <Text style={styles.forgettxt}>{STRINGS.LABEL.forget}</Text>
         </TouchableOpacity>
       </View>
-
+      {/* =====>>>>>>>>>>>COLOR CHANGE OF ENABLE & DISABLE BUTTON */}
       <View style={styles.buttonview}>
         <TouchableOpacity
           onPress={naviagteSignin}
