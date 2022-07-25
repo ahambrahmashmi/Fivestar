@@ -29,4 +29,17 @@ export const images={
    add:require('../assets/images/add.png'),
    down:require('../assets/images/down.png'),
    line:require('../assets/images/line.png'),
+   home:require('../assets/images/home.png'),
+   searchicon:require('../assets/images/searchs.png'),
+   upload:require('../assets/images/upload.png'),
+   activity:require('../assets/images/activity.png'),
+   account:require('../assets/images/account.png'),
+   logo:require('../assets/images/logo.png'),
+   rotate:require('../assets/images/rotate.png'),
+   square:require('../assets/images/squareGroup.png'),
+   forward:require('../assets/images/forward.png'),
+   save:require('../assets/images/save.png'),
+   fiveStar:require('../assets/images/fiveStar.png'),
+
+
 }
