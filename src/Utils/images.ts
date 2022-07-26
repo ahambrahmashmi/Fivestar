@@ -40,6 +40,8 @@ export const images={
    forward:require('../assets/images/forward.png'),
    save:require('../assets/images/save.png'),
    fiveStar:require('../assets/images/fiveStar.png'),
+   user:require('../assets/images/user.png'),
+   useractive:require('../assets/images/userActive.png'),
 
 
 }

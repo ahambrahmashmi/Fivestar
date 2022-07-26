@@ -104,15 +104,9 @@ export default function BottomTabNav() {
             tabBarActiveTintColor:COLOR.LIGHTBLUE,
           tabBarIcon: ({focused}) => {
             return (
-              <Image
-              style={
-                focused
-                  ? [styles.iconsize, {tintColor: COLOR.LIGHTBLUE}]
-                  : styles.iconsize
-              }
-                source={images.account}
-              />
-            );
+              <Image style={styles.iconsize}
+                  source={!focused ? require('../assets/images/user.png') : require('../assets/images/userActive.png')} />
+          )
           },
         }}
       />
