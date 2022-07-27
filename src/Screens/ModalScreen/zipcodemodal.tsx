@@ -47,7 +47,6 @@ export default function Zipcode(props: userdefined) {
   console.log('zipppppp',Zipcode_Data);
   
   const _onEndReached = () => {
-    console.log('reached');
     setPage(page + 1);
     dispatch(
       getZipcodeaction(

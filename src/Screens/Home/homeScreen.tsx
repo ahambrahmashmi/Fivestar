@@ -23,7 +23,7 @@ const {width, height} = Dimensions.get('screen');
 
 export default function HomeScreen() {
   const [currIndex, setCurrindex] = useState<any>(0);
-  const videoref = useRef<null>();
+  const videoref = useRef<any>();
   const dispatch = useDispatch<any>();
   const {DATA_SIGN_UP} = useSelector(
     (store: any) => store.createaccountReducer,
@@ -54,6 +54,8 @@ export default function HomeScreen() {
   }, [currIndex]);
 
   const _renderItem = ({item, index}: any) => {
+  
+    
     return (
       <View style={{flexWrap:'wrap'}}>
         <TouchableOpacity style={styles.rotateview}>

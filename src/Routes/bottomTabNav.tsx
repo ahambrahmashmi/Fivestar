@@ -2,12 +2,12 @@ import {View, Text, Image, StyleSheet} from 'react-native';
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/Home/homeScreen';
-import SearchScreen from '../screens/Home/searchScreen';
 import {images} from '../Utils/images';
 import UploadScreen from '../screens/Home/uploadScreen';
 import ActivityScreen from '../screens/Home/activityScreen';
 import AccountScreen from '../screens/Home/accountScreen';
 import {COLOR} from '../Utils/color';
+import SearchScreen from '../screens/Home/searchFeed';
 const Tab = createBottomTabNavigator();
 export default function BottomTabNav() {
   return (

@@ -1,10 +1,10 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-export default function SearchScreen() {
+export default function HashtagsTab() {
   return (
     <View>
-      <Text>S</Text>
+      <Text>HashtagsTab</Text>
     </View>
   )
 }

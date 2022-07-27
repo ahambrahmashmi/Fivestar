@@ -11,6 +11,7 @@ import SignIn from '../screens/SignIn/signIn';
 import Sports from '../screens/SportsScreen/sports';
 import Splash from '../screens/SplashScreen/splash';
 import bottomTabNav from './bottomTabNav';
+import TopTabNav from './topTabNav';
 const Stack = createNativeStackNavigator();
 const NavigateScreen = () => {
   return (
@@ -26,6 +27,7 @@ const NavigateScreen = () => {
         <Stack.Screen name="Terms" component={Terms} /> */}
         
         <Stack.Screen name='bottomTabNav' component={bottomTabNav}/>
+        <Stack.Screen name="topTabNav" component={TopTabNav}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
