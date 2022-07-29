@@ -7,7 +7,8 @@ import AccountsTab from '../screens/Home/searchFeed/accountsTab';
 import HashtagsTab from '../screens/Home/searchFeed/hashtagsTab';
 import VideoTab from '../screens/Home/searchFeed/videoTab';
 import {COLOR} from '../Utils/color';
-export default function TopTabNav() {
+export default function TopTabNav(props : any) {
+  console.log('propssssssss',props)
   return (
     <TopTab.Navigator
       sceneContainerStyle={{backgroundColor: 'transparent'}}
@@ -28,13 +29,15 @@ export default function TopTabNav() {
         tabBarIndicatorStyle: {backgroundColor: COLOR.LIGHTBLUE},
         tabBarLabelStyle: {color: '#fff'},
       })}>
-      <TopTab.Screen name="Top" component={TopFeedsTab} />
-      <TopTab.Screen name="Account " component={AccountsTab} />
-      <TopTab.Screen name="Hashtag" component={HashtagsTab} />
-      <TopTab.Screen name="Videos" component={VideoTab} />
+
+        {/* ====>>>CALLBACK RECEIVED FROM INDEX.TSX SCREEN SEND SEARCHTEXT BY ONCHANGETEXT<<<<<<=========  */}
+
+      <TopTab.Screen name="Top" children={()=><TopFeedsTab search={props.search}/>} />
+      <TopTab.Screen name="Account " children={()=><AccountsTab search={props.search}/>}/>
+      <TopTab.Screen name="Hashtag" children={()=><HashtagsTab search={props.search}/>}  />
+      <TopTab.Screen name="Videos" children={()=><VideoTab search={props.search}/>}/>
     </TopTab.Navigator>
   );
 }
 
 
-// http://fivestardevapi.appskeeper.in/api/v1/user/search?search=games&type=1&page=1

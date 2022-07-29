@@ -1,7 +1,7 @@
 import { View, Text,StyleSheet,TextInput ,Image} from 'react-native'
 import React from 'react'
 import { images } from '../Utils/images'
-import { normalize } from '../Utils/dimension'
+import { normalize, vw } from '../Utils/dimension'
 
 export default function SearchTextinput({placeholder,onChangeText,styleview,styletxtinput}:any) {
   
@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
         height: normalize(45),
         fontSize: 14,
         color: 'white',
+        width:vw(270)
       },
       searchicon: {
         height: normalize(20),

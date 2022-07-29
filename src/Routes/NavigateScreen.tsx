@@ -27,7 +27,7 @@ const NavigateScreen = () => {
         <Stack.Screen name="Terms" component={Terms} /> */}
         
         <Stack.Screen name='bottomTabNav' component={bottomTabNav}/>
-        <Stack.Screen name="topTabNav" component={TopTabNav}/>
+        {/* <Stack.Screen name="topTabNav" component={TopTabNav}/> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
