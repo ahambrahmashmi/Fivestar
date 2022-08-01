@@ -18,8 +18,7 @@ export default function TopFeedsTab(props: any) {
   const [isLoading, setisLoading] = useState(false);
   const dispatch = useDispatch<any>();
   const {search_feed} = useSelector((store: any) => store.searchFeedReducer);
-  console.log(search_feed);
-  console.log(code);
+
   useEffect(() => {
     setisLoading(true);
     dispatch(
@@ -46,8 +45,8 @@ export default function TopFeedsTab(props: any) {
   const _renderItem = ({item}: any) => {
     return (
       <View style={{padding: 15}}>
-        <Text style={{color: 'white'}}>{item.name}</Text>
-        <Text style={{color: 'white'}}>{item.username}</Text>
+        <Text style={styles.textdesign}>{item.name}</Text>
+        <Text style={styles.textdesign}>{item.username}</Text>
       </View>
     );
   };
@@ -105,8 +104,8 @@ export default function TopFeedsTab(props: any) {
       {isLoading && (
         <ActivityIndicator
           size={'large'}
-          color={'blue'}
-          style={{position: 'absolute', right: 180, top: 250}}
+          color={COLOR.LIGHTBLUE}
+          style={styles.indicator}
         />
       )}
     </View>
@@ -149,4 +148,10 @@ const styles = StyleSheet.create({
     fontFamily: 'helveticaNeue',
     top: normalize(10),
   },
+  indicator:{
+    position: 'absolute', right: 180, top: 250
+  },
+  textdesign:{
+    color: 'white',marginLeft:10,fontSize:16,fontFamily:'Helvetica-Bold'
+  }
 });

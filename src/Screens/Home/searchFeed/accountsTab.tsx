@@ -1,4 +1,4 @@
-import {View, Text, FlatList,Image,StyleSheet} from 'react-native';
+import {View, Text, FlatList,Image,StyleSheet,ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {getAccountFeedAction} from '../../../redux/searchFeeds/action';
@@ -9,11 +9,13 @@ import { COLOR } from '../../../Utils/color';
 export default function AccountsTab(props: any) {
   const [page, setPage] = useState<number>(1);
   const [code, setCode] = useState<any>(null);
+  const [isLoading, setisLoading] = useState(false);
   const dispatch = useDispatch<any>();
   const {Account} = useSelector((store: any) => store.searchFeedReducer);
-  console.log("acccc==>>",Account);
+
   
   useEffect(() => {
+    setisLoading(true);
     dispatch(
       getAccountFeedAction(
         props.search,
@@ -23,11 +25,13 @@ export default function AccountsTab(props: any) {
       
           setCode(response?.data?.statusCode);
           if (response?.data?.statusCode === 200) {
+            setisLoading(false);
           }
         },
         (errorAPI: any) => {
           console.log('errrorr', errorAPI);
           setCode(errorAPI.response?.data?.statusCode);
+          setisLoading(false);
         },
       ),
     );
@@ -35,7 +39,6 @@ export default function AccountsTab(props: any) {
   const _ItemSeparatorComponent=()=>{
     return(
       <View  style={styles.zipcodeitem}>
-  
       </View>
     )
   }
@@ -76,8 +79,8 @@ export default function AccountsTab(props: any) {
        
     return(
       <View style={{padding:normalize(15)}}>
-        <Text style={{color: 'white'}}>{item.name}</Text>
-        <Text style={{color: 'white'}}>{item.username}</Text>
+        <Text style={styles.textdesign}>{item.name}</Text>
+        <Text style={styles.textdesign}>{item.username}</Text>
       </View>
     )
   }
@@ -94,8 +97,15 @@ export default function AccountsTab(props: any) {
        ListEmptyComponent={
         code == 200 && Account.length <= 0 ? _renderEnmptyList : null
       }
-
       />
+       {isLoading && (
+        <ActivityIndicator
+        size={'large'}
+        color={COLOR.LIGHTBLUE}
+        style={styles.indicator}
+        />
+      )}
+
     </View>
     ) 
 }
@@ -136,4 +146,10 @@ const styles = StyleSheet.create({
     fontFamily: 'helveticaNeue',
     top: normalize(10),
   },
+  indicator:{
+    position: 'absolute', right: 180, top: 250
+  },
+  textdesign:{
+    color: 'white',marginLeft:10,fontSize:16,fontFamily:'Helvetica-Bold'
+  }
 })

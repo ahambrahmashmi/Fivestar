@@ -183,6 +183,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: COLOR.BROWNBACK,
+    resizeMode:'contain'
   },
   circleviewsave: {
     height: normalize(40),
@@ -198,6 +199,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: COLOR.BROWNBACK,
+    resizeMode:'contain'
   },
   circleviewfive: {
     height: normalize(40),
@@ -213,6 +215,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: COLOR.BROWNBACK,
+    resizeMode:'contain'
   },
   headcolor: {
     color: 'white',

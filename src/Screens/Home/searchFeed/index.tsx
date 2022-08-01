@@ -1,25 +1,45 @@
-import {View, Text, StyleSheet, Alert, FlatList, Image} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Alert,
+  FlatList,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {COLOR} from '../../../Utils/color';
 import SearchTextinput from '../../../component/searchTextinput';
 import {normalize} from '../../../Utils/dimension';
 import TopTabNav from '../../../routes/topTabNav';
+import {images} from '../../../Utils/images';
 
 export default function SearchScreen() {
   const [searchtxt, setSearchtxt] = useState('');
 
   return (
     <View style={styles.parent}>
-      <SearchTextinput
-        placeholder={'Search'}
-        styletxtinput={styles.input}
-        styleview={styles.searchview}
-        onChangeText={(text: any) => {
-          setSearchtxt(text);
-        }}
-      />
+      <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row'}}>
+          <SearchTextinput
+          searchtxt={searchtxt}
+            setSearchtxt={setSearchtxt}
+            placeholder={'Search'}
+            styletxtinput={styles.input}
+            styleview={styles.searchview}
+            onChangeText={(text: any) => {
+              setSearchtxt(text);
+            }}
+            
+          />
+        </View>
+
+        <TouchableOpacity style={styles.searchView}>
+          <Image style={styles.searchimg} source={images.searchs} />
+        </TouchableOpacity>
+      </View>
       {/*======>>>>>SEARCH CALLBACK SEND TO ALL COMPONENTS TO TOP TAB NAV<<<<<======*/}
-      <TopTabNav search={searchtxt} /> 
+      <TopTabNav search={searchtxt} />
     </View>
   );
 }
@@ -30,7 +50,9 @@ const styles = StyleSheet.create({
   },
   searchview: {
     marginTop: normalize(50),
-    width: normalize(345),
+    width: normalize(305),
+    height: normalize(45),
+    left: normalize(-10),
   },
   input: {
     height: normalize(40),
@@ -38,8 +60,23 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   zipcodeitem: {
-    height: 3,
+    height: normalize(3),
     width: '100%',
     backgroundColor: '#1B1B1B',
+  },
+  searchView: {
+    height: normalize(45),
+    width: normalize(45),
+    borderRadius: normalize(5),
+    borderWidth: 1,
+    borderColor: COLOR.LIGHTBLUE,
+    justifyContent: 'center',
+    alignItems: 'center',
+    top: normalize(48),
+  },
+  searchimg: {
+    height: normalize(30),
+    width: normalize(30),
+    resizeMode: 'contain',
   },
 });

@@ -1,102 +1,105 @@
-import { View, Text,Alert, FlatList, Image,StyleSheet } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getHashfeedFeedAction } from '../../../redux/searchFeeds/action'
-import { images } from '../../../Utils/images'
-import { COLOR } from '../../../Utils/color'
-import { normalize } from '../../../Utils/dimension'
-
+import {View, Text, Alert, FlatList, Image, StyleSheet,ActivityIndicator} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {getHashfeedFeedAction} from '../../../redux/searchFeeds/action';
+import {images} from '../../../Utils/images';
+import {COLOR} from '../../../Utils/color';
+import {normalize} from '../../../Utils/dimension';
 
 export default function HashtagsTab(props: any) {
   const [code, setCode] = useState<any>(null);
-const [page,setPage] = useState<number>(1)
-const dispatch=useDispatch<any>()
-const {hashtag}=useSelector((store:any)=>store.searchFeedReducer)
-useEffect(()=>{
-  console.log('props',props.search)
-  dispatch(
-    getHashfeedFeedAction(
-      props.search,
-      page,
-      '3',
-      (response: any) => {
+  const [page, setPage] = useState<number>(1);
+  const [isLoading, setisLoading] = useState(false);
+  const dispatch = useDispatch<any>();
+  const {hashtag} = useSelector((store: any) => store.searchFeedReducer);
+  useEffect(() => {
+    setisLoading(true);
+    dispatch(
+      getHashfeedFeedAction(
+        props.search,
+        page,
+        '3',
+        (response: any) => {
+          setCode(response?.data?.statusCode);
 
-        setCode(response?.data?.statusCode);
-  
-        if (response?.data?.statusCode === 200) {
-        }
-      },
-      (errorAPI: any) => {
-        console.log("errrorr",errorAPI);
-        setCode(errorAPI.response?.data?.statusCode);
-        
-      },
-    ),
-  );
-},[props.search])
+          if (response?.data?.statusCode === 200) {
+            setisLoading(false);
+          }
+        },
+        (errorAPI: any) => {
+          console.log('errrorr', errorAPI);
+          setCode(errorAPI.response?.data?.statusCode);
+          setisLoading(false);
+        },
+      ),
+    );
+  }, [props.search]);
 
-const _renderItem = ({item}: any) => {
+  const _renderItem = ({item}: any) => {
+    return (
+      <View style={{padding: 15,flexDirection:'row',alignItems:'center'}}>
+      <Image style={{height:40,width:40}} source={images.hastag}/>
+        <Text style={styles.textdesign}>#{item.hashtag}</Text>
+      </View>
+    );
+  };
+  const _ItemSeparatorComponent = () => {
+    return <View style={styles.zipcodeitem}></View>;
+  };
+  const _onEndReached = () => {
+    setPage(page + 1);
+    dispatch(
+      getHashfeedFeedAction(
+        props.search,
+        page,
+        '3',
+        (response: any) => {
+          if (response?.data?.statusCode === 200) {
+          }
+        },
+        (errorAPI: any) => {
+          console.log('errrorr', errorAPI);
+        },
+      ),
+    );
+  };
+  const _renderEnmptyList = () => {
+    return (
+      <View style={styles.Parent}>
+        <View style={styles.searchView}>
+          <Image style={styles.searchicon} source={images.searchnot} />
+        </View>
+        <View style={styles.textview}>
+          <Text style={styles.resulttxt}>{'No Result Found'}</Text>
+          <Text style={styles.sorrytxt}>
+            {'Sorry, no search results found!'}
+          </Text>
+        </View>
+      </View>
+    );
+  };
   return (
-    <View style={{padding:15}}>
-      <Text style={{color: 'white'}}>{item.hashtag}</Text>
-      {/* <Text style={{color: 'white'}}>{item}</Text> */}
+    <View>
+      <FlatList
+        data={hashtag}
+        renderItem={_renderItem}
+        onEndReached={_onEndReached}
+        onEndReachedThreshold={0.5}
+        contentContainerStyle={{height: 600}}
+        ItemSeparatorComponent={_ItemSeparatorComponent}
+        ListEmptyComponent={
+          code == 200 && hashtag.length <= 0 ? _renderEnmptyList : null
+        }
+      />
+       {isLoading && (
+        <ActivityIndicator
+        size={'large'}
+        color={COLOR.LIGHTBLUE}
+        style={styles.indicator}
+        />
+      )}
     </View>
   );
-};
-const _ItemSeparatorComponent=()=>{
-  return(
-    <View  style={styles.zipcodeitem}>
-
-    </View>
-  )
-}
-const  _onEndReached=()=>{
-  setPage(page+1);
-  dispatch(
-    getHashfeedFeedAction(
-      props.search,
-      page,
-      '3',
-      (response: any) => {
-        if (response?.data?.statusCode === 200) {
-        } 
-      },
-      (errorAPI: any) => {
-        console.log("errrorr",errorAPI);
-      },
-    ),
-  );
-}
-const _renderEnmptyList=()=>{
-  return(
-    <View style={styles.Parent}>
-    <View style={styles.searchView}>
-      <Image style={styles.searchicon} source={images.searchnot} />
-    </View>
-    <View style={styles.textview}>
-      <Text style={styles.resulttxt}>{'No Result Found'}</Text>
-      <Text style={styles.sorrytxt}>
-        {'Sorry, no search results found!'}
-      </Text>
-    </View>
-  </View>
-  )
-}
-return (
-  <View>
-    <FlatList
-     data={hashtag} 
-     renderItem={_renderItem}
-      onEndReached={_onEndReached}
-      onEndReachedThreshold={0.5}
-      contentContainerStyle={{height:600}}
-      ItemSeparatorComponent={_ItemSeparatorComponent}
-      ListEmptyComponent={
-        code == 200 && hashtag.length <= 0 ? _renderEnmptyList : null
-      }
-    />
-  </View>
-)
 }
 const styles = StyleSheet.create({
   zipcodeitem: {
@@ -135,4 +138,10 @@ const styles = StyleSheet.create({
     fontFamily: 'helveticaNeue',
     top: normalize(10),
   },
-})
+  indicator:{
+    position: 'absolute', right: 180, top: 250
+  },
+  textdesign:{
+    color: 'white',marginLeft:10,fontSize:16,fontFamily:'Helvetica-Bold'
+  }
+});

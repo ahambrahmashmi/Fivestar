@@ -42,6 +42,9 @@ export const images={
    fiveStar:require('../assets/images/fiveStar.png'),
    user:require('../assets/images/user.png'),
    useractive:require('../assets/images/userActive.png'),
-
    searchnot:require('../assets/images/searchnot.png'),
+   hastag:require('../assets/images/hastag.png'),
+   searchs:require('../assets/images/searchicon.png'),
+   cancelinput:require('../assets/images/cancel.png'),
+
 }
