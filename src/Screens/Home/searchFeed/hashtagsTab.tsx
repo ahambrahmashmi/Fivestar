@@ -37,8 +37,8 @@ export default function HashtagsTab(props: any) {
 
   const _renderItem = ({item}: any) => {
     return (
-      <View style={{padding: 15,flexDirection:'row',alignItems:'center'}}>
-      <Image style={{height:40,width:40}} source={images.hastag}/>
+      <View style={styles.renderView}>
+      <Image style={styles.hasimg} source={images.hastag}/>
         <Text style={styles.textdesign}>#{item.hashtag}</Text>
       </View>
     );
@@ -103,7 +103,7 @@ export default function HashtagsTab(props: any) {
 }
 const styles = StyleSheet.create({
   zipcodeitem: {
-    height: 3,
+    height: normalize(3),
     width: '100%',
     backgroundColor: '#1B1B1B',
   },
@@ -139,9 +139,16 @@ const styles = StyleSheet.create({
     top: normalize(10),
   },
   indicator:{
-    position: 'absolute', right: 180, top: 250
+    position: 'absolute', right: normalize(180), top: normalize(250)
   },
   textdesign:{
-    color: 'white',marginLeft:10,fontSize:16,fontFamily:'Helvetica-Bold'
+    color: 'white',marginLeft:normalize(10),fontSize:16,fontFamily:'Helvetica-Bold'
+  },
+  renderView:{
+    padding: normalize(15),alignItems:'center',flexDirection:'row'
+  },
+  hasimg:{
+    height:normalize(40),
+    width:normalize(40)
   }
 });

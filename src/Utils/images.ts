@@ -45,6 +45,11 @@ export const images={
    searchnot:require('../assets/images/searchnot.png'),
    hastag:require('../assets/images/hastag.png'),
    searchs:require('../assets/images/searchicon.png'),
-   cancelinput:require('../assets/images/cancel.png'),
+   cancelinput:require('../assets/images/cancel.png'), 
+   profileimg:require('../assets/images/placeholder.png'), 
+   accountback:require('../assets/images/accountbackground.png'), 
+   coverimg:require('../assets/images/Cover_Image.png'), 
+editbutton:require('../assets/images/Edit.png'), 
 
+imgactivity:require('../assets/images/activityImg.png'), 
 }

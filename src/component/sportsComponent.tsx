@@ -13,22 +13,23 @@ interface userdefined {
 }
 
 export default function SportsComponent({
+  _id,
   callback,
-  imgText,
-  img,
+  sportName,
+  sportImg,
   selectedItem,
 }: any) {
   const [isSelected, Selected] = useState(false);
 
   useEffect(() => {
-    const l = selectedItem?.findIndex((item: any) => item == imgText);
+    const l = selectedItem?.findIndex((item: any) => item == sportName);
     if (l != -1) {
       Selected(true);
     }
   }, []);
 
   const choose = () => {
-    callback(imgText);
+    callback({_id, sportImg, sportName});
     Selected(!isSelected);
   };
 
@@ -40,13 +41,13 @@ export default function SportsComponent({
         {backgroundColor: isSelected ? COLOR.LIGHTBLUE : '#121212'},
       ]}>
       {isSelected && <Image style={styles.tickimg} source={images.sporttick} />}
-      <Image source={{uri: img}} style={styles.gridimg} />
+      <Image source={{uri: sportImg}} style={styles.gridimg} />
       <Text
         style={[
           styles.txtbottom,
           {color: isSelected ? COLOR.BLACK : '#595959'},
         ]}>
-        {imgText}
+        {sportName}
       </Text>
     </TouchableOpacity>
   );

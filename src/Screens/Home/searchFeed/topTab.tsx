@@ -19,11 +19,12 @@ export default function TopFeedsTab(props: any) {
   const dispatch = useDispatch<any>();
   const {search_feed} = useSelector((store: any) => store.searchFeedReducer);
 
+  // ====>>>DIPATCH TOPTAB FEED DATA<<<<<=======
   useEffect(() => {
     setisLoading(true);
     dispatch(
       getSearchFeedAction(
-        props.search,
+        props.search,       //TEXT ON CHANGE TEXT
         page,
         '1',
         (response: any) => {
@@ -42,17 +43,12 @@ export default function TopFeedsTab(props: any) {
     );
   }, [props.search]);
 
-  const _renderItem = ({item}: any) => {
-    return (
-      <View style={{padding: 15}}>
-        <Text style={styles.textdesign}>{item.name}</Text>
-        <Text style={styles.textdesign}>{item.username}</Text>
-      </View>
-    );
-  };
-  const _ItemSeparatorComponent = () => {
-    return <View style={styles.zipcodeitem} />;
-  };
+    // =====>>ITEMSEPARTOR<<<<<<=====
+    const _ItemSeparatorComponent = () => {
+      return <View style={styles.zipcodeitem} />;
+    };
+
+    // ========>>>IMPLEMENT PAGINATATION<<<<<<<<<<==========
   const _onEndReached = () => {
     setPage(page + 1);
     dispatch(
@@ -70,6 +66,8 @@ export default function TopFeedsTab(props: any) {
       ),
     );
   };
+
+  //========== >>>>>>>>>>>RENDEREMPTY<<<<<<<<<<<<<<<<<<<<============
   const _renderEnmptyList = () => {
     console.log('_renderEnmptyList call');
 
@@ -87,6 +85,21 @@ export default function TopFeedsTab(props: any) {
       </View>
     );
   };
+  // ====>>>>>>RENDERITEM<<<<<======
+  const _renderItem = ({item}: any) => {
+    return (
+      <View style={styles.renderView}>
+        <Image style={styles.profile} source={images.profileimg}/>
+        <View>
+
+        <Text style={styles.textdesign}>{item.name}</Text>
+        <Text style={styles.usertxt}>{item.username}</Text>
+        </View>
+      </View>
+    );
+  };
+
+
 
   return (
     <View>
@@ -101,6 +114,7 @@ export default function TopFeedsTab(props: any) {
           code == 200 && search_feed.length <= 0 ? _renderEnmptyList : null
         }
       />
+      {/* =====>>>>ACTIVITY INDIACTOR<<<<<<====== */}
       {isLoading && (
         <ActivityIndicator
           size={'large'}
@@ -113,7 +127,7 @@ export default function TopFeedsTab(props: any) {
 }
 const styles = StyleSheet.create({
   zipcodeitem: {
-    height: 3,
+    height: normalize(3),
     width: '100%',
     backgroundColor: '#1B1B1B',
   },
@@ -149,9 +163,19 @@ const styles = StyleSheet.create({
     top: normalize(10),
   },
   indicator:{
-    position: 'absolute', right: 180, top: 250
+    position: 'absolute', right: normalize(180), top: normalize(250)
   },
   textdesign:{
-    color: 'white',marginLeft:10,fontSize:16,fontFamily:'Helvetica-Bold'
+    color: 'white',marginLeft:normalize(10),fontSize:16,fontFamily:'helveticaNeue',fontWeight:'400'
+  },
+  profile:{
+    height:normalize(50),
+    width:normalize(50)
+  },
+  renderView:{
+    padding: normalize(15),alignItems:'center',flexDirection:'row'
+  },
+  usertxt:{
+    color:'grey',marginLeft:normalize(10),fontSize:14
   }
 });

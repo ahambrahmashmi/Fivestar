@@ -50,6 +50,8 @@ export const STRINGS = {
   zipcodeheader:'Search Zip Code',
   alreadyexits:'Username already exits,please try another username',
   suggest:'Suggestions:',
+  YOUR_ACTIVITY_LIST_EMPTY:'Your activity list is empty',
+    TAG_LINE_TEXT:'You can view all your the recent requests and other activities here !',
 
 SPORTS:{
   sportslike:'What sport do you like',

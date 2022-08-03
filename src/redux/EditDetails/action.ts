@@ -33,6 +33,8 @@ export function getcompleteProfile(
   id: any,
   zipcode: any,
   name: any,
+  likedSport: any,
+  bio: any,
   callback: Function,
   ErrorCallback: Function,
 ) {
@@ -47,7 +49,16 @@ export function getcompleteProfile(
           zipcode,
           name,
           userType: 1,
-          personalDetails: {},
+          personalDetails: {
+            height: {
+              feet: 1,
+              inch: 2,
+            },
+            dob: '2021-12-23T08:52:43.725+00:00',
+            weight: 23,
+            bio: bio,
+          },
+          likedSport,
         },
       )
       .then(resp => {

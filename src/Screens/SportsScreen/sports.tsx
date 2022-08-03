@@ -43,7 +43,7 @@ export default function Sports(props: userdefined) {
 
   // ==========>>>> FINCTION FOR CALLBACK<<<<<<<<<=========
   const transfer = useCallback(
-    (item: any) => {
+    (item: any, item2) => {
       const index = selectedItem.findIndex((ele: any) => ele == item); //FIND INDEX
 
       if (index == -1) {
@@ -57,17 +57,21 @@ export default function Sports(props: userdefined) {
   );
 
 
+
   // >>>>>>>>>======RENDERITEM FOR SPORTS DATA
   const _renderItem = ({item}: any) => {
     return (
       <SportsComponent  // CUSTOM FOR SPORTS COMPONENT
-        img={item.sportImg}
-        imgText={item.sportName}
+      _id={item._id}  
+      sportImg={item.sportImg}
+      sportName={item.sportName}
         callback={transfer}
         selectedItem={selectedItem}
       />
     );
   };
+
+  
 
   const onchangeSearchitem = (text: any) => {  // SEARCH IN SPORTS DATA
     setSelected(

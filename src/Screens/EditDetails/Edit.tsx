@@ -55,7 +55,7 @@ const Edit = (props: userType) => {
   const [coverimg, setCoverimg] = useState<any>();
   const [profileimage, setProfileimage] = useState<any>();
   const [modal, setModalOpen] = useState<boolean>(false);
-
+  const [bio,setBio]=useState<any>('');
   const [date, setDate] = useState<any>(new Date());
   const [open, setOpen] = useState(false);
   const [modalScreen, setmodalScreen] = useState<boolean>(false);
@@ -83,8 +83,10 @@ const Edit = (props: userType) => {
 
   let names = DATA_SIGN_UP.data.name;
 
+
   // =============>>>COMPLETE DISPATCH ACTION ON SUBMIT BUTTON<<<<<<<<<<================
   const completeprofile_hit = () => {
+   navigation.navigate('Account')
     dispatch(
       getcompleteProfile(
         token,
@@ -92,6 +94,8 @@ const Edit = (props: userType) => {
         ID,
         zipcode,
         names,
+        selecteditem,
+         bio,
         (response: any) => {
           if (response.data.statusCode == 200) {
           }
@@ -176,6 +180,7 @@ const Edit = (props: userType) => {
         '',
       ),
     );
+    // console.log( Date(new Date().getDate() - Date('23-05-1998')))
   };
 
   const closedCalender = () => {
@@ -373,7 +378,11 @@ const Edit = (props: userType) => {
           label="Bio"
           multiline={true}
           placeholder="Bio"
+          value={bio}
           placeholderTextColor={COLOR.TEXTCOLOR}
+          onChangeText={((text:any)=>{
+           setBio(text)
+          })}
         />
         <CustomTextInput
           label="Referral"
@@ -385,14 +394,14 @@ const Edit = (props: userType) => {
 
         <TouchableOpacity style={styles.sportsView} onPress={Navigatesports}>
           {selecteditem.length < 1 ? (
-            <Text style={styles.sportswatch}>{'Sports I Watch'}</Text>
+            <Text style={styles.sportswatch}>{'Sports | Watch'}</Text>
           ) : (
             // JSON.stringify(selecteditem)
             selecteditem.map((element: any, index: number) => {
               //APPLY MAP
               return (
                 <View style={styles.viewMap}>
-                  <Text style={styles.elementtxt}>{element}</Text>
+                  <Text style={styles.elementtxt}>{element?.sportName}</Text>
                   <TouchableOpacity
                     onPress={() => {
                       handlecross(index); //DELETE SELECTED ITEM

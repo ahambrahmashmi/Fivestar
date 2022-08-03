@@ -13,24 +13,26 @@ import SearchTextinput from '../../../component/searchTextinput';
 import {normalize} from '../../../Utils/dimension';
 import TopTabNav from '../../../routes/topTabNav';
 import {images} from '../../../Utils/images';
-
+import { debounce } from 'lodash';
 export default function SearchScreen() {
   const [searchtxt, setSearchtxt] = useState('');
 
+  // =====>>>>IMPLEMENT DEBOUNCING<<<<<=======
+   const Debounce=debounce((text: any) => {
+    setSearchtxt(text);
+  },1000)
   return (
     <View style={styles.parent}>
       <View style={{flexDirection: 'row'}}>
         <View style={{flexDirection: 'row'}}>
           <SearchTextinput
-          searchtxt={searchtxt}
-            setSearchtxt={setSearchtxt}
+          searchtxt={searchtxt}       //PROPS PASS TO PARENT SEARCHTEXTINPUT
+            setSearchtxt={setSearchtxt}  //PROPS PASS TO PARENT SEARCHTEXTINPUT
             placeholder={'Search'}
             styletxtinput={styles.input}
             styleview={styles.searchview}
-            onChangeText={(text: any) => {
-              setSearchtxt(text);
-            }}
-            
+            onChangeText={Debounce}
+      
           />
         </View>
 

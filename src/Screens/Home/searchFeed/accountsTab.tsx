@@ -18,11 +18,10 @@ export default function AccountsTab(props: any) {
     setisLoading(true);
     dispatch(
       getAccountFeedAction(
-        props.search,
+        props.search,  //TEXT ON CHANGE TEXT
         page,
         '2',
         (response: any) => {
-      
           setCode(response?.data?.statusCode);
           if (response?.data?.statusCode === 200) {
             setisLoading(false);
@@ -78,9 +77,13 @@ export default function AccountsTab(props: any) {
 
        
     return(
-      <View style={{padding:normalize(15)}}>
+      <View style={styles.renderView}>
+        <Image style={styles.profile} source={images.profileimg}/>
+        <View>
+
         <Text style={styles.textdesign}>{item.name}</Text>
-        <Text style={styles.textdesign}>{item.username}</Text>
+        <Text style={styles.usertxt}>{item.username}</Text>
+        </View>
       </View>
     )
   }
@@ -147,9 +150,18 @@ const styles = StyleSheet.create({
     top: normalize(10),
   },
   indicator:{
-    position: 'absolute', right: 180, top: 250
+    position: 'absolute', right: normalize(180), top: normalize(250)
   },
   textdesign:{
-    color: 'white',marginLeft:10,fontSize:16,fontFamily:'Helvetica-Bold'
+    color: 'white',marginLeft:normalize(10),fontSize:16,fontFamily:'Helvetica-Bold'
+  },profile:{
+    height:normalize(50),
+    width:normalize(50)
+  },
+  renderView:{
+    padding: normalize(15),alignItems:'center',flexDirection:'row'
+  },
+  usertxt:{
+    color:'grey',marginLeft:normalize(10),fontSize:14
   }
 })

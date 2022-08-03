@@ -19,7 +19,7 @@ export default function SearchTextinput({
   searchtxt,
 }: any) {
   const refprops = useRef<TextInput>(null);
-
+// =====>>>FUNCTION FOR CLEAR TEXTINPUT ON CUT BUTTON<<<<<<==========
   const clearButtonHandler = () => {
     setSearchtxt('');
     refprops?.current?.clear();
@@ -34,7 +34,8 @@ export default function SearchTextinput({
         onChangeText={onChangeText}
         ref={refprops}
       />
-      {searchtxt.length > 0 && (
+{/* =====>>>CHECK CONDITION<<<======= */}
+      {searchtxt?.length > 0 && (
         <TouchableOpacity
           onPress={clearButtonHandler}
           style={styles.cancelview}>
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
     width: normalize(20),
     marginLeft: normalize(15),
   },
-  cancelview:{
+  cancelview: {
     height: normalize(30),
     width: normalize(30),
     padding: normalize(20),
@@ -81,7 +82,8 @@ const styles = StyleSheet.create({
     right: normalize(16),
     bottom: normalize(22),
   },
-  cancelimg:{
-    height: normalize(40), width: normalize(40)
-  }
+  cancelimg: {
+    height: normalize(40),
+    width: normalize(40),
+  },
 });
