@@ -55,7 +55,6 @@ const Edit = (props: userType) => {
   const [coverimg, setCoverimg] = useState<any>();
   const [profileimage, setProfileimage] = useState<any>();
   const [modal, setModalOpen] = useState<boolean>(false);
-  const [bio,setBio]=useState<any>('');
   const [date, setDate] = useState<any>(new Date());
   const [open, setOpen] = useState(false);
   const [modalScreen, setmodalScreen] = useState<boolean>(false);
@@ -72,6 +71,8 @@ const Edit = (props: userType) => {
   const {Zipcode_Data} = useSelector((store: any) => store.zipcodeReducer);
   const {DATA} = useSelector((store: any) => store.sportsReducer);
 
+  let biodetail = DATA?.data?.personalDetails?.bio;
+  const [bio, setBio] = useState<any>(biodetail);
   let token = DATA_SIGN_UP.data.authToken;
   // useEffect(() => {
   //   console.log('idebtuuabsdfasdf---->>>',identity);
@@ -83,10 +84,10 @@ const Edit = (props: userType) => {
 
   let names = DATA_SIGN_UP.data.name;
 
-
+ 
   // =============>>>COMPLETE DISPATCH ACTION ON SUBMIT BUTTON<<<<<<<<<<================
   const completeprofile_hit = () => {
-   navigation.navigate('Account')
+    navigation.navigate('Account');
     dispatch(
       getcompleteProfile(
         token,
@@ -95,7 +96,7 @@ const Edit = (props: userType) => {
         zipcode,
         names,
         selecteditem,
-         bio,
+        bio,
         (response: any) => {
           if (response.data.statusCode == 200) {
           }
@@ -274,7 +275,7 @@ const Edit = (props: userType) => {
           />
         </Modal>
 
-        <Text style={styles.textcolor}>{STRINGS.LABEL.JOHN}</Text>
+        <Text style={styles.textcolor}>Hi {names}</Text>
         <Text style={styles.textcolor}>{STRINGS.LABEL.TELL}</Text>
       </View>
       <KeyboardAwareScrollView
@@ -344,7 +345,7 @@ const Edit = (props: userType) => {
         </View>
         {/* ==>>>>OPEN MODAL FOR IDENTITY */}
         <TouchableOpacity style={styles.identitydesign} onPress={openmodal}>
-          <Text style={styles.identitytext}>{identity}</Text>
+          <Text style={styles.identitytext}>{identity || 'Select your identity'}</Text>
           <Image style={styles.nextimg} source={images.nexticon} />
         </TouchableOpacity>
         {/* ===>>DATE PICKER <<<<<<<<<<<<==== */}
@@ -380,9 +381,9 @@ const Edit = (props: userType) => {
           placeholder="Bio"
           value={bio}
           placeholderTextColor={COLOR.TEXTCOLOR}
-          onChangeText={((text:any)=>{
-           setBio(text)
-          })}
+          onChangeText={(text: any) => {
+            setBio(text);
+          }}
         />
         <CustomTextInput
           label="Referral"
