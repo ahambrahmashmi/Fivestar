@@ -9,7 +9,7 @@ const homeReducer=(state=initialState,action:any)=>{
             return {...state,Home_Data:payload};
 
             default:
-                return {...state}
+                return state
         
     }
 }

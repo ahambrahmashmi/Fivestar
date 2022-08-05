@@ -17,7 +17,7 @@ const searchFeedReducer=(state=initialState,action:any)=>{
                 case 'video_feed':
                     return {...state,VIDEOS:payload}
               default:
-                  return{...state}
+                  return state
       }
 }
 

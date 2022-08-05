@@ -18,7 +18,6 @@ import {images} from '../../Utils/images';
 import {normalize} from '../../Utils/dimension';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
-import {stubString} from 'lodash';
 
 const {width, height} = Dimensions.get('screen');
 export default function AccountScreen() {
@@ -27,15 +26,18 @@ export default function AccountScreen() {
   const [profileimage, setProfileimage] = useState<any>();
   const [textShown, setTextShown] = useState(false);
   const [lengthMore, setLengthMore] = useState(false);
+
   const dispatch = useDispatch<any>();
-  const {DATA} = useSelector((store: any) => store.sportsReducer);
-
-  console.log('mmmmmm', DATA.data);
-
-  let editaName = DATA?.data?.name;
-  let editEmail = DATA?.data?.username;
-  let BIO = DATA?.data?.personalDetails?.bio;
-  console.log('yyyyyyyyy', DATA?.data?.likedSport);
+  const {complete_profile_Data} = useSelector(
+    (store: any) => store.sportsReducer,
+  );
+  const {DATA_SIGN_UP} = useSelector(
+    (store: any) => store.createaccountReducer,
+  );
+  console.log('COMPLETE DATAA', complete_profile_Data);
+  let editaName = DATA_SIGN_UP.data.name;
+  let editEmail = DATA_SIGN_UP.data.username;
+  let BIO = complete_profile_Data?.data?.data?.personalDetails?.bio;
 
   const toggleNumberOfLines = () => {
     //To toggle the show text or hide it
@@ -69,14 +71,10 @@ export default function AccountScreen() {
   const NavigateEdit = () => {
     navigation.navigate('Edit');
   };
+  let ComleteProfData = complete_profile_Data?.data?.data?.likedSport;
 
-  const _renderItem = ({item}: any) => {
-    return (
-      <TouchableOpacity style={styles.sportview}>
-        <Text style={styles.txtsports}>{item.sportName}</Text>
-        <Image style={styles.crossimg} source={images.cross} />
-      </TouchableOpacity>
-    );
+  const Expandmore = () => {
+    setLengthMore(!lengthMore);
   };
   return (
     <SafeAreaView style={styles.parent}>
@@ -122,19 +120,45 @@ export default function AccountScreen() {
               </Text>
             ) : null}
           </Text>
-
         </View>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={styles.biotxt}>{'Sports | Watch'}</Text>
-            <TouchableOpacity style={styles.addView}>
-              <Image style={styles.addimg} source={images.add} />
+        {lengthMore ? (
+          <TouchableOpacity onPress={Expandmore} style={{left: normalize(20)}}>
+            <Image
+              style={{width: normalize(335), height: normalize(31)}}
+              source={images.more}
+            />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity onPress={Expandmore} style={{left: normalize(20)}}>
+            <Image
+              style={{width: normalize(335), height: normalize(31)}}
+              source={images.less}
+            />
+          </TouchableOpacity>
+        )}
+        {lengthMore && (
+          <>
+            <View style={{flexDirection: 'row', left: normalize(20)}}>
+              <Text style={styles.biotxt}>{'Sports | Watch'}</Text>
+              <TouchableOpacity style={styles.addView}>
+                <Image style={styles.addimg} source={images.add} />
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity style={styles.sportsView}>
+              {ComleteProfData?.length > 0 &&
+                ComleteProfData.map((ele: any) => {
+                  return (
+                    <View style={styles.viewMap}>
+                      <Text style={styles.txtsports}>{ele?.sportName}</Text>
+                      <TouchableOpacity>
+                        <Image style={styles.crossimg} source={images.cross} />
+                      </TouchableOpacity>
+                    </View>
+                  );
+                })}
             </TouchableOpacity>
-          </View>
-          <FlatList
-            data={DATA?.data?.likedSport}
-            renderItem={_renderItem}
-            numColumns={2}
-          />
+          </>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
@@ -231,18 +255,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     color: COLOR.LIGHTBLUE,
   },
-  sportview: {
-    flexDirection: 'row',
-    backgroundColor: COLOR.BROWNBACK,
-    marginHorizontal: normalize(10),
-    marginVertical: normalize(8),
-    alignItems: 'center',
-    paddingHorizontal: normalize(7),
-    paddingVertical: normalize(2),
-    justifyContent: 'space-around',
-    borderRadius: normalize(5),
-    right: normalize(8),
-  },
+
   crossimg: {
     height: normalize(20),
     width: normalize(20),
@@ -261,5 +274,28 @@ const styles = StyleSheet.create({
   addView: {
     top: 18,
     marginHorizontal: 80,
+  },
+  viewMap: {
+    flexDirection: 'row',
+    backgroundColor: COLOR.BROWNBACK,
+    marginHorizontal: normalize(10),
+    marginVertical: normalize(8),
+    alignItems: 'center',
+    paddingHorizontal: normalize(5),
+    paddingVertical: normalize(2),
+    // justifyContent: 'space-around',
+    borderRadius: normalize(5),
+  },
+  sportsView: {
+    // borderWidth: 1,
+    // borderColor: COLOR.WHITE,
+    // borderRadius: 5,
+    minHeight: normalize(55),
+    marginTop: normalize(20),
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: normalize(2),
+    marginHorizontal: normalize(10),
+    flexWrap: 'wrap',
   },
 });

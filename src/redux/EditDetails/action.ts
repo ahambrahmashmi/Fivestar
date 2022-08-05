@@ -33,8 +33,8 @@ export function getcompleteProfile(
   id: any,
   zipcode: any,
   name: any,
-  likedSport: any,
   bio: any,
+  likedSport: any,
   callback: Function,
   ErrorCallback: Function,
 ) {
@@ -62,7 +62,8 @@ export function getcompleteProfile(
         },
       )
       .then(resp => {
-        dispatch({type: 'complete_profile', payload: resp.data});
+        console.log('respons at complete profile succes',resp.data);
+        dispatch({type: 'complete_profile', payload: resp});
         callback(resp);
       })
       .catch(err => {

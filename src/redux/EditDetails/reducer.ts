@@ -1,6 +1,7 @@
 const initialState = {
   DATA: [],
-  selectedSport : []
+  selectedSport : [],
+  complete_profile_Data:[]
 };
 
 const sportsReducer = (state = initialState, action: any) => {
@@ -11,13 +12,13 @@ const sportsReducer = (state = initialState, action: any) => {
       return {...state, DATA: payload};
 
     case 'complete_profile':
-      return {...state, DATA: payload};
+      return {...state, complete_profile_Data: payload};
 
     case 'setSport':
       return {...state, selectedSport : payload}
 
     default:
-      return {...state};
+      return state;
   }
 };
 

@@ -50,6 +50,8 @@ const Edit = (props: userType) => {
   const {DATA_SIGN_UP} = useSelector(
     (store: any) => store.createaccountReducer,
   );
+  console.log('kdjfsbhcjkhbfa', DATA_SIGN_UP);
+
   let UserName = DATA_SIGN_UP.data.username;
   const [identity, setIdentity] = useState<string>('Select your identity');
   const [coverimg, setCoverimg] = useState<any>();
@@ -58,8 +60,6 @@ const Edit = (props: userType) => {
   const [date, setDate] = useState<any>(new Date());
   const [open, setOpen] = useState(false);
   const [modalScreen, setmodalScreen] = useState<boolean>(false);
-  const [zipcode, setZipcode] = useState<string>('Zipcode*');
-  const [selecteditem, setSelecteditem] = useState<any>([]);
   const [username, setusername] = useState<any>(UserName);
   const {params} = useRoute();
   const [error, seterror] = useState<any>([]);
@@ -68,23 +68,20 @@ const Edit = (props: userType) => {
 
   const inputRef = useRef<any>(null); //DECLARE REF FOR EDITING ON PENCIL
 
-  const {Zipcode_Data} = useSelector((store: any) => store.zipcodeReducer);
-  const {DATA} = useSelector((store: any) => store.sportsReducer);
-
-  let biodetail = DATA?.data?.personalDetails?.bio;
+  const {complete_profile_Data} = useSelector(
+    (store: any) => store.sportsReducer,
+  );
+  let biodetail = complete_profile_Data?.data?.data?.personalDetails?.bio;
+  let likedsports = complete_profile_Data.data?.data?.likedSport;
+  let ZipCode = complete_profile_Data.data?.data?.zipcode;
+  const [zipcode, setZipcode] = useState<string>(ZipCode); //FOR SET ZIPCODE
+  const [selecteditem, setSelecteditem] = useState<any>(likedsports);
   const [bio, setBio] = useState<any>(biodetail);
   let token = DATA_SIGN_UP.data.authToken;
-  // useEffect(() => {
-  //   console.log('idebtuuabsdfasdf---->>>',identity);
-
-  // setIdentity('Select your identity')
-  // }, [identity])
-
   let ID = DATA_SIGN_UP.data._id;
-
   let names = DATA_SIGN_UP.data.name;
 
- 
+
   // =============>>>COMPLETE DISPATCH ACTION ON SUBMIT BUTTON<<<<<<<<<<================
   const completeprofile_hit = () => {
     navigation.navigate('Account');
@@ -95,8 +92,8 @@ const Edit = (props: userType) => {
         ID,
         zipcode,
         names,
-        selecteditem,
         bio,
+        selecteditem,
         (response: any) => {
           if (response.data.statusCode == 200) {
           }
@@ -218,7 +215,7 @@ const Edit = (props: userType) => {
 
   const handlecross = (index: number) => {
     // DELETE SELECTED ITEM
-    selecteditem.splice(index, 1);
+    selecteditem?.splice(index, 1);
     setSelecteditem([...selecteditem]);
   };
   const SuggestName = (item: any) => {
@@ -345,7 +342,9 @@ const Edit = (props: userType) => {
         </View>
         {/* ==>>>>OPEN MODAL FOR IDENTITY */}
         <TouchableOpacity style={styles.identitydesign} onPress={openmodal}>
-          <Text style={styles.identitytext}>{identity || 'Select your identity'}</Text>
+          <Text style={styles.identitytext}>
+            {identity || 'Select your identity'}
+          </Text>
           <Image style={styles.nextimg} source={images.nexticon} />
         </TouchableOpacity>
         {/* ===>>DATE PICKER <<<<<<<<<<<<==== */}
@@ -394,11 +393,10 @@ const Edit = (props: userType) => {
         {/* =============>>>>>.SPORTS TEXTINPUT<<<<<<<<<<<<<<====== */}
 
         <TouchableOpacity style={styles.sportsView} onPress={Navigatesports}>
-          {selecteditem.length < 1 ? (
+          {selecteditem?.length < 1 ? (
             <Text style={styles.sportswatch}>{'Sports | Watch'}</Text>
           ) : (
-            // JSON.stringify(selecteditem)
-            selecteditem.map((element: any, index: number) => {
+            selecteditem?.map((element: any, index: number) => {
               //APPLY MAP
               return (
                 <View style={styles.viewMap}>
@@ -414,7 +412,7 @@ const Edit = (props: userType) => {
             })
           )}
 
-          {selecteditem.length > 0 ? ( // ADD BUTTON
+          {selecteditem?.length > 0 ? ( // ADD BUTTON
             <TouchableOpacity onPress={Navigatesports}>
               <Image style={styles.addimg} source={images.add} />
             </TouchableOpacity>

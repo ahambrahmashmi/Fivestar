@@ -105,7 +105,7 @@ export default function Sports(props: userdefined) {
   {/* =====>>>CONTINUE BUTTON ENABLE DISABLE<<<<<======= */}
 
       <View>
-        {selectedItem.length > 0 ? (
+        {selectedItem?.length > 0 ? (
           <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={[styles.button]}>

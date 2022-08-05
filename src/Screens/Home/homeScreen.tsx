@@ -25,6 +25,9 @@ export default function HomeScreen() {
   const [currIndex, setCurrindex] = useState<any>(0);
   const videoref = useRef<any>();
   const dispatch = useDispatch<any>();
+
+
+  
   const {DATA_SIGN_UP} = useSelector(
     (store: any) => store.createaccountReducer,
   );

@@ -9,7 +9,7 @@ const signinReducer=(state=initialState,action:any)=>{
             return {...state,SignIn_Data:payload};
 
             default:
-                return {...state}
+                return state
         
     }
 }

@@ -10,7 +10,7 @@ const zipcodeReducer=(state=initialState,action:any)=>{
            return {...state,Zipcode_Data:payload}
 
         default:
-            return {...state}
+            return state
    }
 
 }
