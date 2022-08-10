@@ -25,6 +25,7 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import {STRINGS} from '../../Utils/string';
 import {COLOR} from '../../Utils/color';
 import {useDispatch, useSelector} from 'react-redux';
+import moment from 'moment';
 import {
   getChangeUsername,
   getcompleteProfile,
@@ -50,7 +51,6 @@ const Edit = (props: userType) => {
   const {DATA_SIGN_UP} = useSelector(
     (store: any) => store.createaccountReducer,
   );
-  console.log('kdjfsbhcjkhbfa', DATA_SIGN_UP);
 
   let UserName = DATA_SIGN_UP.data.username;
   const [identity, setIdentity] = useState<string>('Select your identity');
@@ -63,7 +63,7 @@ const Edit = (props: userType) => {
   const [username, setusername] = useState<any>(UserName);
   const {params} = useRoute();
   const [error, seterror] = useState<any>([]);
-  const [selectedDate, setSelectedDate] = useState('DOB(MM/DD/YYYY)');
+
   const dispatch = useDispatch<any>();
 
   const inputRef = useRef<any>(null); //DECLARE REF FOR EDITING ON PENCIL
@@ -80,8 +80,23 @@ const Edit = (props: userType) => {
   let token = DATA_SIGN_UP.data.authToken;
   let ID = DATA_SIGN_UP.data._id;
   let names = DATA_SIGN_UP.data.name;
+  let dob=complete_profile_Data?.data?.data?.personalDetails?.dob
+  const [selectedDate, setSelectedDate] = useState<any>(dob);
+ 
+  
 
+  // const a=moment([2022,6,29]);
+  // const b=moment([2000,4,28]);
+  // const diffffdate=a.diff(b,'days')
+  // const yr= diffffdate/365;
+  // const mm=diffffdate%365;
+  //  const mmm=mm/12;
+  //  const dd=mm%12;
 
+  
+
+  
+ 
   // =============>>>COMPLETE DISPATCH ACTION ON SUBMIT BUTTON<<<<<<<<<<================
   const completeprofile_hit = () => {
     navigation.navigate('Account');
@@ -93,6 +108,7 @@ const Edit = (props: userType) => {
         zipcode,
         names,
         bio,
+        selectedDate,
         selecteditem,
         (response: any) => {
           if (response.data.statusCode == 200) {

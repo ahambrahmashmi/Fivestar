@@ -18,7 +18,8 @@ import {images} from '../../Utils/images';
 import {normalize} from '../../Utils/dimension';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
-
+import moment from 'moment';
+import {stubTrue} from 'lodash';
 const {width, height} = Dimensions.get('screen');
 export default function AccountScreen() {
   const navigation = useNavigation<any>();
@@ -38,6 +39,12 @@ export default function AccountScreen() {
   let editaName = DATA_SIGN_UP.data.name;
   let editEmail = DATA_SIGN_UP.data.username;
   let BIO = complete_profile_Data?.data?.data?.personalDetails?.bio;
+  let zip = complete_profile_Data?.data?.data?.zipcode;
+  let dob = complete_profile_Data?.data?.data?.personalDetails?.dob;
+
+  let yrs = moment().diff(dob, 'year');
+  const BirthDate = moment(dob).add(yrs, 'Y').format('YYYY-MM-DD');
+  let days = moment().diff(BirthDate, 'days');
 
   const toggleNumberOfLines = () => {
     //To toggle the show text or hide it
@@ -121,21 +128,6 @@ export default function AccountScreen() {
             ) : null}
           </Text>
         </View>
-        {lengthMore ? (
-          <TouchableOpacity onPress={Expandmore} style={{left: normalize(20)}}>
-            <Image
-              style={{width: normalize(335), height: normalize(31)}}
-              source={images.more}
-            />
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity onPress={Expandmore} style={{left: normalize(20)}}>
-            <Image
-              style={{width: normalize(335), height: normalize(31)}}
-              source={images.less}
-            />
-          </TouchableOpacity>
-        )}
         {lengthMore && (
           <>
             <View style={{flexDirection: 'row', left: normalize(20)}}>
@@ -144,21 +136,52 @@ export default function AccountScreen() {
                 <Image style={styles.addimg} source={images.add} />
               </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.sportsView}>
+
+            <View style={styles.sportsView}>
               {ComleteProfData?.length > 0 &&
                 ComleteProfData.map((ele: any) => {
                   return (
-                    <View style={styles.viewMap}>
+                    <TouchableOpacity style={styles.viewMap}>
                       <Text style={styles.txtsports}>{ele?.sportName}</Text>
                       <TouchableOpacity>
                         <Image style={styles.crossimg} source={images.cross} />
                       </TouchableOpacity>
-                    </View>
+                    </TouchableOpacity>
                   );
                 })}
-            </TouchableOpacity>
+            </View>
+            <View style={styles.basicview}>
+              <Text style={styles.basictxt}>{'Basic Details'}</Text>
+            </View>
+            <Text style={styles.agetxt}>{'Age'}</Text>
+            <Text style={styles.yrtxt}>
+              {' '}
+              {yrs} yrs {days} {days > 1 ? 'days' : 'day'}
+            </Text>
+            <View style={styles.lineview}></View>
+            <View style={styles.cityview}>
+              <Text style={styles.biotxt}>{'City/State'}</Text>
+              <Text style={styles.ziptxt}>{zip}</Text>
+            </View>
+            <View style={styles.lineview}></View>
           </>
         )}
+        {lengthMore ? (
+          <TouchableOpacity onPress={Expandmore} style={{left: normalize(20)}}>
+            <Image
+              style={{width: normalize(335), height: normalize(31)}}
+              source={images.less}
+            />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity onPress={Expandmore} style={{left: normalize(20)}}>
+            <Image
+              style={{width: normalize(335), height: normalize(31)}}
+              source={images.more}
+            />
+          </TouchableOpacity>
+        )}
+        
       </ScrollView>
     </SafeAreaView>
   );
@@ -234,12 +257,15 @@ const styles = StyleSheet.create({
     width: normalize(88),
   },
   followerview: {
-    marginTop: normalize(0),
-    marginLeft: normalize(20),
+// justifyContent:'center',
+// alignItems:'center',
+alignSelf:'center',
+
+left:10
   },
   followerimg: {
     height: normalize(80),
-    width: normalize(345),
+    width: normalize(350),
   },
   biotxt: {
     color: 'grey',
@@ -290,12 +316,51 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderColor: COLOR.WHITE,
     // borderRadius: 5,
-    minHeight: normalize(55),
-    marginTop: normalize(20),
+    // minHeight: normalize(55),
+    marginTop: normalize(15),
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: normalize(2),
     marginHorizontal: normalize(10),
     flexWrap: 'wrap',
   },
+  basicview: {
+    left: normalize(14),
+    padding: 10,
+  },
+  basictxt: {
+    color: 'grey',
+    fontSize: 18,
+    fontFamily: 'helvetica-blackitalic',
+    fontWeight: '400',
+  },
+  agetxt: {
+    color: 'grey',
+    fontSize: 18,
+    fontFamily: 'helvetica-blackitalic',
+    fontWeight: '400',
+    left: normalize(25),
+    marginTop:normalize(15)
+  },
+  yrtxt: {
+    color: 'white',
+    marginTop: 8,
+    fontSize: 16,
+    fontFamily: 'helvetica-blackitalic',
+    fontWeight: '400',
+    left: normalize(20),
+  },
+  cityview: {
+    left: normalize(20),
+  },
+  ziptxt: {
+    color: 'white',
+    marginTop: 8,
+    fontSize: 16,
+    fontFamily: 'helvetica-blackitalic',
+    fontWeight: '400',
+  },
+  lineview:{
+    borderWidth:0.5,borderColor:'grey',marginTop:15,width:350,alignSelf:'center'
+  }
 });

@@ -38,6 +38,7 @@ export default function Zipcode(props: userdefined) {
   const closedmodal = (item: any) => {
     setmodalScreen(!modalScreen);
     setZipcode(item.zipcode);
+    // setZipcode(item.city)
   };
   const zipcodeSeprater = () => {
     return <View style={styles.zipcodeitem} />;
@@ -54,7 +55,6 @@ export default function Zipcode(props: userdefined) {
         page,
         (response: any) => {
           if (response.data.statusCode == 200) {
-            navigation.navigate('Zipcode');
           }
         },
         (errorAPI: any) => {
